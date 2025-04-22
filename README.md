@@ -63,7 +63,7 @@
 
 <!-- About the Project -->
 ## :star2: About the Project
-
+To be added: C4 diagrams and detailed design (database schema and details, frontend & backend description).
 
 <!-- Screenshots -->
 ### :camera: Screenshots
@@ -95,7 +95,7 @@
 <details>
 <summary>Database</summary>
   <ul>
-    <li><a href="https://sqlite.org/">SQLite</a></li>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
   </ul>
 </details>
 
