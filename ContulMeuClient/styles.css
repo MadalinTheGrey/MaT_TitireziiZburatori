@@ -42,8 +42,8 @@ nav {
 }
 
 .logo img {
-  max-width: 6%;
-  height: auto;
+  max-height: 2rem;
+  width: auto;
   border-radius: 2px;
 }
 
