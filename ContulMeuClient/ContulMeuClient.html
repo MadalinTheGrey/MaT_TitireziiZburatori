@@ -9,6 +9,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header class="navbar">
@@ -27,66 +31,105 @@
     </header>
 
     <main>
-      <section>
-        <div class="content">
-          <div class="text-content">
-            <div class="blue-line"></div>
-            <h1>PROGRAMĂRI</h1>
-            <p>
-              Pentru a completa formularul de programare la service, vă rugăm să
-              selectați data și ora dorită din calendarul disponibil.
-              Asigurați-vă că alegeți un interval de timp convenabil pentru
-              dumneavoastră. Informațiile introduse vor fi utilizate exclusiv
-              pentru a programa vizita la service. În cazul în care nu găsiți o
-              dată potrivită, vă încurajăm să ne contactați pentru a explora
-              opțiuni alternative. Vă mulțumim pentru alegerea serviciilor
-              noastre!
-            </p>
-          </div>
-          <div class="image-content">
-            <img
-              src="https://images.unsplash.com/photo-1525104325683-eb7d21279760?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="photo.jpg"
-            />
-          </div>
+      <section class="desc-programari">
+        <div class="text-content">
+          <div class="blue-line"></div>
+          <h1>PROGRAMĂRI</h1>
+          <p>
+            Pentru a completa formularul de programare la service, vă rugăm să
+            selectați data și ora dorită din calendarul disponibil. Asigurați-vă
+            că alegeți un interval de timp convenabil pentru dumneavoastră.
+            Informațiile introduse vor fi utilizate exclusiv pentru a programa
+            vizita la service. În cazul în care nu găsiți o dată potrivită, vă
+            încurajăm să ne contactați pentru a explora opțiuni alternative. Vă
+            mulțumim pentru alegerea serviciilor noastre!
+          </p>
+        </div>
+        <div class="image-content">
+          <img
+            src="https://images.unsplash.com/photo-1525104325683-eb7d21279760?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="photo.jpg"
+          />
         </div>
       </section>
-      <section>
-        <div class="appointment form">
-          <h2>Formular programare</h2>
-          <form id="Formular inscriere" method="post" action="">
-            <fieldset>
-              <div>
-                <label id="produs">Nume produs</label>
-                <input
-                  type="text"
-                  id="nume-produs"
-                  name="Nume produs"
-                  required=""
-                  placeholder="Motocicleta Kawasaki Ninja H2 R, 1:12"
-                />
-                <label id="detalii-problema">Detalii problema</label>
-                <textarea
-                  id="detalii-problema"
-                  name="detalii"
-                  cols="40"
-                  rows="10"
-                  maxlength="500"
-                ></textarea>
-                <label id="date&time"></label>
-                <input
-                  type="datetime"
-                  id="datetime"
-                  required=""
-                  placeholder="12.12.2035 10:00"
-                />
-                <div></div>
-                <input id="raporteaza" type="submit" value="Trimiteți" />
-              </div>
-            </fieldset>
-          </form>
+      <section class="appointment-form">
+        <h2>Formular programare</h2>
+        <form id="formular-inscriere" method="post" action="">
+          <fieldset>
+            <label id="produs-label">Nume produs</label>
+            <input
+              type="text"
+              id="produs-input"
+              name="Nume produs"
+              required
+              placeholder="Motocicleta Kawasaki Ninja H2 R, 1:12"
+            />
+            <label id="detalii-problema-label">Detalii problema</label>
+            <textarea
+              id="detalii-problema-input"
+              name="detalii"
+              cols="40"
+              rows="10"
+              maxlength="500"
+              placeholder="Descrie cât mai bine problema apărută"
+            ></textarea>
+            <label id="datetime-label">Data și ora programării</label>
+            <input type="datetime-local" id="datetime-input" required />
+            <label id="add-file-label">Fotografii/clipuri cu problema</label>
+            <input id="add-file" type="file" multiple />
+            <input id="send-form" type="submit" value="Trimiteți" />
+          </fieldset>
+        </form>
+        <div id="form-message"></div>
+      </section>
+      <section class="requests-section">
+        <h2>CERERILE MELE</h2>
+        <div class="requests-container">
+          <div class="request-card">
+            <h3>Cerere1</h3>
+            <p>Tare, se rezolva.</p>
+            <span class="status acceptata">Acceptată</span>
+          </div>
+          <div class="request-card">
+            <h3>Cerere2</h3>
+            <p>Nu-mi place, alta data.</p>
+            <span class="status refuzata">Refuzată</span>
+          </div>
+          <div class="request-card">
+            <h3>Cerere3</h3>
+            <p>Ok, boss, stai fara griji.</p>
+            <span class="status acceptata">Acceptată</span>
+          </div>
+          <div class="request-card">
+            <h3>Cerere4</h3>
+            <p>Nu inteleg ce vrei</p>
+            <span class="status refuzata">Refuzată</span>
+          </div>
+          <div class="request-card">
+            <h3>Cerere4</h3>
+            <p>Nu inteleg ce vrei</p>
+            <span class="status refuzata">Refuzată</span>
+          </div>
+          <div class="request-card">
+            <h3>Cerere4</h3>
+            <p>Nu inteleg ce vrei</p>
+            <span class="status refuzata">Refuzată</span>
+          </div>
+          <!-- Only an example, these will be added based on what's saved in the database -->
         </div>
       </section>
     </main>
+
+    <footer class="footer">
+      <div class="footer-item">0000 712 345</div>
+      <div class="footer-item">contact@mat-service.ro</div>
+      <div class="footer-socials">
+        <a href="#"><i class="uil uil-instagram"></i></a>
+        <a href="#"><i class="uil uil-youtube"></i></a>
+        <a href="#"><i class="uil uil-facebook-f"></i></a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
