@@ -231,6 +231,11 @@ main {
   font-size: 1rem;
 }
 
+.footer-item a {
+  color: white;
+  text-decoration: none;
+}
+
 .footer-socials a {
   margin: 0 0.5rem;
   font-size: 1.3rem;
