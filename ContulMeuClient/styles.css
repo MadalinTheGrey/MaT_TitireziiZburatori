@@ -27,6 +27,8 @@ nav {
   align-items: center;
   padding: 1rem 2rem;
   gap: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .menu,
@@ -283,15 +285,19 @@ main {
 }
 
 @media (max-width: 400px) {
-  .desc-programari {
-    padding-top: 4rem;
-  }
-
   .text-content h1 {
     font-size: 2rem;
   }
 
   .request-card {
     min-width: 200px;
+  }
+
+  .logo img {
+    max-height: 1.5rem;
+  }
+
+  .menu li a {
+    font-size: 0.8rem;
   }
 }
