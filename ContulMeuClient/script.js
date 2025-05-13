@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           messageElement.style.display = "none";
           alert("Event scheduled successfully!");
-          // Optional: send another request to actually save the event
         }
       })
       .catch((error) => {
