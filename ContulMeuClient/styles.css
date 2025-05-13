@@ -1,0 +1,303 @@
+html {
+  min-width: 320px;
+  overflow-x: auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #121568;
+  z-index: 1000;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.menu,
+.logo {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li a,
+.logo li a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem, 1rem;
+  white-space: nowrap;
+}
+
+.logo img {
+  max-height: 2rem;
+  width: auto;
+  border-radius: 2px;
+}
+
+.menu li a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 5% 10% 0 10%;
+}
+
+.blue-line {
+  width: 5rem;
+  height: 0.5rem;
+  background-color: #121568;
+  margin-bottom: 1rem;
+}
+
+.desc-programari,
+.appointment-form,
+.requests-section {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  gap: 2rem;
+}
+
+.desc-programari {
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.image-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.text-content p {
+  font-size: small;
+  margin: 5% 25% 5% 0;
+}
+
+.text-content h1 {
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+.appointment-form {
+  padding: 0 2rem 2rem;
+  flex-direction: column;
+}
+
+.appointment-form h2,
+.appointment-form label {
+  color: #121568;
+}
+
+#formular-inscriere {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+#formular-inscriere fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  border-width: 0;
+  gap: 1rem;
+}
+
+#produs-input,
+#detalii-problema-input,
+#datetime-input {
+  width: 95%;
+  max-width: 100%;
+  border: none;
+  border-bottom: 2px solid #000;
+  font-family: "Poppins", sans-serif;
+}
+
+#send-form {
+  width: 9rem;
+  height: 2rem;
+  background-color: #121568;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  border: 2px solid #121568;
+  border-radius: 5px;
+}
+
+#send-form:hover {
+  background-color: orangered;
+  border: 2px solid orangered;
+}
+
+#form-message {
+  display: none;
+  color: red;
+}
+
+.requests-section {
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.requests-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #121568;
+}
+
+.requests-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  max-width: 100%;
+}
+
+.request-card {
+  min-width: 300px;
+  max-width: 300px;
+  flex-shrink: 0;
+  height: auto;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 1.5rem;
+  scroll-snap-align: start;
+  text-align: left;
+}
+
+.request-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #121568;
+}
+
+.request-card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.acceptata {
+  background-color: #28a745;
+}
+
+.refuzata {
+  background-color: #dc3545;
+}
+
+.footer {
+  background-color: #121568;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  font-family: "Poppins", sans-serif;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-item {
+  font-size: 1rem;
+}
+
+.footer-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-socials a {
+  margin: 0 0.5rem;
+  font-size: 1.3rem;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .desc-programari {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 3rem;
+  }
+
+  .blue-line {
+    visibility: hidden;
+  }
+
+  .text-content,
+  .image-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .text-content p {
+    margin: 5% 0;
+    max-width: 90%;
+  }
+
+  .image-content img {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .request-card {
+    min-width: 250px;
+  }
+}
+
+@media (max-width: 400px) {
+  .text-content h1 {
+    font-size: 2rem;
+  }
+
+  .request-card {
+    min-width: 200px;
+  }
+
+  .logo img {
+    max-height: 1.5rem;
+  }
+
+  .menu li a {
+    font-size: 0.8rem;
+  }
+}

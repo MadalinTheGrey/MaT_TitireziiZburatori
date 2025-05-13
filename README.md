@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
+  <img src="assets/Logo.png" alt="logo" width="200" height="auto" />
   <h1>Maintenance Web Tool</h1>
   
   <p>
@@ -38,20 +38,21 @@
 <br />
 
 <!-- Table of Contents -->
+
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
-  * [Screenshots](#camera-screenshots)
-  * [Tech Stack](#space_invader-tech-stack)
-  * [Features](#dart-features)
-  * [Color Reference](#art-color-reference)
-  * [Environment Variables](#key-environment-variables)
+  - [Screenshots](#camera-screenshots)
+  - [Tech Stack](#space_invader-tech-stack)
+  - [Features](#dart-features)
+  - [Color Reference](#art-color-reference)
+  - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
-  * [Prerequisites](#bangbang-prerequisites)
-  * [Installation](#gear-installation)
-  * [Running Tests](#test_tube-running-tests)
-  * [Run Locally](#running-run-locally)
-  * [Deployment](#triangular_flag_on_post-deployment)
+  - [Prerequisites](#bangbang-prerequisites)
+  - [Installation](#gear-installation)
+  - [Running Tests](#test_tube-running-tests)
+  - [Run Locally](#running-run-locally)
+  - [Deployment](#triangular_flag_on_post-deployment)
 - [Usage](#eyes-usage)
 - [Roadmap](#compass-roadmap)
 - [FAQ](#grey_question-faq)
@@ -59,21 +60,22 @@
 - [Contact](#handshake-contact)
 - [Acknowledgements](#gem-acknowledgements)
 
-  
-
 <!-- About the Project -->
+
 ## :star2: About the Project
+
 To be added: C4 diagrams and detailed design (database schema and details, frontend & backend description).
 
 <!-- Screenshots -->
+
 ### :camera: Screenshots
 
 <div align="center"> 
   <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
 </div>
 
-
 <!-- TechStack -->
+
 ### :space_invader: Tech Stack
 
 <details>
@@ -100,6 +102,7 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 </details>
 
 <!-- Features -->
+
 ### :dart: Features
 
 - Every client will be able to view the current schedule for the service.
@@ -107,66 +110,78 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 - The administrator can accept or reject an appointment. On reject he will provide an explanation for the rejection and on approval the administrator will provide necessary details.
 - The app keeps track of available supplies as well as orders towards providers.
 
-
 <!-- Env Variables -->
+
 ### :key: Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
 <!-- Getting Started -->
-## 	:toolbox: Getting Started
+
+## :toolbox: Getting Started
 
 <!-- Prerequisites -->
+
 ### :bangbang: Prerequisites
 
 <!-- Installation -->
+
 ### :gear: Installation
 
 <!-- Running Tests -->
+
 ### :test_tube: Running Tests
 
 <!-- Run Locally -->
+
 ### :running: Run Locally
 
-
 <!-- Deployment -->
+
 ### :triangular_flag_on_post: Deployment
 
-
 <!-- Usage -->
+
 ## :eyes: Usage
 
 Online system for managing appointments for a bicycles, motorcycles & scooters service.
 
 <!-- Roadmap -->
+
 ## :compass: Roadmap
 
-* [x] Write a comprehensive readme detailing the project
-* [ ] Define project architecture (C4 diagrams)
-* [ ] Decide on a design for the website
-* [ ] Implement design using HTML & CSS
-* [ ] To be continued
+- [ ] Write a comprehensive readme detailing the project (in progress)
+- [ ] Define project architecture (C4 diagrams) (in progress)
+- [x] Decide on a design for the website
+- [ ] Implement design using HTML & CSS (in progress)
+- [ ] Complete database schema
+- [ ] Implement database
+- [ ] Implement other backend functions
 
 <!-- FAQ -->
+
 ## :grey_question: FAQ
 
 <!-- License -->
+
 ## :warning: License
 
 Open Source.
 
-
 <!-- Contact -->
+
 ## :handshake: Contact
 
 Project Link: [https://github.com/MadalinTheGrey/MaT_TitireziiZburatori](https://github.com/MadalinTheGrey/MaT_TitireziiZburatori)
 
-
 <!-- Acknowledgments -->
+
 ## :gem: Acknowledgements
 
- - [Shields.io](https://shields.io/)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#travel--places)
- - [Readme Template](https://github.com/othneildrew/Best-README-Template)
- - [Awesome README Template](https://github.com/Louis3797/awesome-readme-template)
+- [Shields.io](https://shields.io/)
+- [Awesome README](https://github.com/matiassingers/awesome-readme)
+- [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#travel--places)
+- [Readme Template](https://github.com/othneildrew/Best-README-Template)
+- [Awesome README Template](https://github.com/Louis3797/awesome-readme-template)
+- [Unicons](https://iconscout.com/unicons)
+- [Unsplash](https://unsplash.com/)
