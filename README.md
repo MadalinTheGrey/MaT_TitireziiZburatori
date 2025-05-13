@@ -150,11 +150,13 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 
 ## :compass: Roadmap
 
-- [x] Write a comprehensive readme detailing the project
-- [ ] Define project architecture (C4 diagrams)
-- [ ] Decide on a design for the website
-- [ ] Implement design using HTML & CSS
-- [ ] To be continued
+- [ ] Write a comprehensive readme detailing the project (in progress)
+- [ ] Define project architecture (C4 diagrams) (in progress)
+- [x] Decide on a design for the website
+- [ ] Implement design using HTML & CSS (in progress)
+- [ ] Complete database schema
+- [ ] Implement database
+- [ ] Implement other backend functions
 
 <!-- FAQ -->
 
