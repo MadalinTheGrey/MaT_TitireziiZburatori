@@ -168,9 +168,9 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [ ] Define project architecture (C4 diagrams) (in progress)
 - [x] Decide on a design for the website
 - [ ] Implement design using HTML & CSS (in progress)
-- [ ] Complete database schema
-- [ ] Implement database
-- [ ] Setup backend
+- [x] Complete database schema
+- [x] Implement database
+- [x] Setup backend
 - [ ] Other backend stuff
 
 <!-- FAQ -->
