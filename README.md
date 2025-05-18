@@ -181,7 +181,7 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 
 ## :warning: License
 
-[Link](https://github.com/MadalinTheGrey/MaT_TitireziiZburatori/blob/main/LICENSE)
+License Link: https://github.com/MadalinTheGrey/MaT_TitireziiZburatori/blob/main/LICENSE
 
 <!-- Contact -->
 
