@@ -115,12 +115,13 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 ### :key: Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file:
-DB_USER=yourname
-DB_HOST=localhost
-DB_NAME=db_name
-DB_PASSWORD=yourpassword
-DB_PORT=5432
-PORT=8021
+
+- DB_USER=yourname
+- DB_HOST=localhost
+- DB_NAME=db_name
+- DB_PASSWORD=yourpassword
+- DB_PORT=5432
+- PORT=8021
 
 <!-- Getting Started -->
 
