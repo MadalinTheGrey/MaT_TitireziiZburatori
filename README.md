@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/Logo.png" alt="logo" width="200" height="auto" />
+  <img src="/public/assets/Logo.png" alt="logo" width="200" height="auto" />
   <h1>Maintenance Web Tool</h1>
   
   <p>
@@ -114,7 +114,14 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 
 ### :key: Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add the following environment variables to your .env file:
+
+- DB_USER=yourname
+- DB_HOST=localhost
+- DB_NAME=db_name
+- DB_PASSWORD=yourpassword
+- DB_PORT=5432
+- PORT=8021
 
 <!-- Getting Started -->
 
@@ -124,9 +131,17 @@ To run this project, you will need to add the following environment variables to
 
 ### :bangbang: Prerequisites
 
+- Node.js
+- PostgreSQL
+
 <!-- Installation -->
 
 ### :gear: Installation
+
+- Clone the repo
+- Open terminal in the cloned repo folder
+- Run npm install
+- Setup your .env file
 
 <!-- Running Tests -->
 
@@ -154,9 +169,10 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [ ] Define project architecture (C4 diagrams) (in progress)
 - [x] Decide on a design for the website
 - [ ] Implement design using HTML & CSS (in progress)
-- [ ] Complete database schema
-- [ ] Implement database
-- [ ] Implement other backend functions
+- [x] Complete database schema
+- [x] Implement database
+- [x] Setup backend
+- [ ] Other backend stuff
 
 <!-- FAQ -->
 
@@ -166,7 +182,7 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 
 ## :warning: License
 
-Open Source.
+License Link: https://github.com/MadalinTheGrey/MaT_TitireziiZburatori/blob/main/LICENSE
 
 <!-- Contact -->
 

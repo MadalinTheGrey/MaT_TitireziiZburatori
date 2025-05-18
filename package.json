@@ -1,0 +1,20 @@
+{
+  "name": "mat-titirezii-zburatori",
+  "version": "1.0.0",
+  "description": "Web Technologies Project",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadalinTheGrey/MaT_TitireziiZburatori.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MadalinTheGrey/MaT_TitireziiZburatori/issues"
+  },
+  "homepage": "https://github.com/MadalinTheGrey/MaT_TitireziiZburatori#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3"
+  }
+}
