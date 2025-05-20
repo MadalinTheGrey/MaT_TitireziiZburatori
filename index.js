@@ -1,8 +1,11 @@
-const db = require("./db");
 const http = require("http");
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
+
+const db = require("./db");
+const matchRoute = require("./utils/matchRoute");
+const routes = require("./routes/apiRoutes");
 
 const PORT = process.env.PORT || 8021;
 
@@ -16,12 +19,42 @@ async function startApp() {
 
   const server = http.createServer((req, res) => {
     if (req.url.startsWith("/api")) {
-      // TODO: Add API routing logic here
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "API endpoint not implemented yet" }));
-      return;
-    }
+      let body = "";
+      req.on("data", (chunk) => (body += chunk));
+      req.on("end", async () => {
+        let matched = null;
 
+        for (const route of routes) {
+          const params = matchRoute(route, req.method, req.url);
+          if (params !== null) {
+            matched = { route, params };
+            break;
+          }
+        }
+
+        if (!matched) {
+          res.writeHead(404, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Not Found" }));
+          return;
+        }
+
+        let parsedBody = null;
+
+        if (["POST", "PUT", "PATCH"].includes(req.method)) {
+          try {
+            parsedBody = body ? JSON.parse(body) : null;
+          } catch (err) {
+            res.writeHead(400);
+            res.end("Invalid JSON");
+            return;
+          }
+        }
+        req.params = matched.params;
+        req.body = parsedBody;
+
+        matched.route.handler(req, res);
+      });
+    }
     const safePath = path.normalize(path.join(__dirname, "public", req.url));
     if (!safePath.startsWith(path.join(__dirname, "public"))) {
       res.writeHead(403);
