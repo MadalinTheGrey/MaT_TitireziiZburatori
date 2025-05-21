@@ -1,6 +1,4 @@
 //const userRoutes = require("./userRoutes");
-//const appointmentRoutes = require("./appointmentRoutes");
+const { appointmentRoutes } = require("./appointmentRoutes");
 
-const routes = [];
-
-module.exports = routes;
+exports.routes = [...appointmentRoutes];
