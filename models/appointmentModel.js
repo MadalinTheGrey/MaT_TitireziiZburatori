@@ -9,8 +9,10 @@ exports.checkAppointmentOverlap = async (date) => {
             ) as "exists";
             `;
 
+  const values = [date];
+
   try {
-    const result = await pool.query(query, date);
+    const result = await pool.query(query, values);
     return result.rows[0].exists;
   } catch (error) {
     console.error("Error checking appointment overlap: ", error);
