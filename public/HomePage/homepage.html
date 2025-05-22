@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
     <link rel="stylesheet" href="/HomePage/homepage.css" />
+    <!-- CSS global stylesheets (especially for navbar & footer) -->
+    <link rel="stylesheet" href="../stylesheets/navbar.css" />
+    <link rel="stylesheet" href="../stylesheets/footer.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
@@ -15,20 +18,9 @@
     />
   </head>
   <body>
+
     <!-- NAVBAR SECTION -->
-    <header class="navbar">
-      <nav>
-        <ul class="logo">
-          <li>
-            <a href="#"><img src="/assets/Logo.png" alt="Logo" /></a>
-          </li>
-        </ul>
-        <ul class="menu">
-          <li><a href="#">Despre Noi</a></li>
-          <li><a href="#">Contul Meu</a></li>
-        </ul>
-      </nav>
-    </header>
+    <header data-include="../html-components/navbar.html"></header>
 
     <!-- HERO SECTION -->
     <section class="hero">
@@ -47,6 +39,7 @@
       </div>
     </section>
 
+    <!-- START MAIN SECTION ////////////////////////////////////////////////////////-->
     <main>
       <!-- FEATURES SECTION -->
       <section class="benefits">
@@ -79,23 +72,11 @@
       </section>
     </main>
 
-    <!-- FOOTER SECTION -->
-    <footer class="footer">
-      <div class="footer-item">0000 712 345</div>
-      <div class="footer-item">contact@mat-service.ro</div>
-      <div class="footer-socials">
-        <a href="#"><i class="uil uil-instagram"></i></a>
-        <a href="#"><i class="uil uil-youtube"></i></a>
-        <a href="#"><i class="uil uil-facebook-f"></i></a>
-      </div>
-      <div class="footer-item">
-        <a
-          href="https://github.com/MadalinTheGrey/MaT_TitireziiZburatori/blob/Contul-Meu-Client-FRONTEND/README.md"
-          >Website documentation</a
-        >
-      </div>
-    </footer>
+    <!--  END OF THE MAIN SECTION -->
 
-    <script src="/ContulMeuClient/script.js"></script>
+    <!-- FOOTER SECTION -->
+    <footer data-include="../html-components/footer.html"></footer>
+
+    <script src="../assets/includes.js"></script> <!--for including the navbar and the footer-->
   </body>
 </html>
