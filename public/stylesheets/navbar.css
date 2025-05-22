@@ -39,6 +39,7 @@ nav {
   border-radius: 2px;
 }
 
+/*for the pages you access from the navbar*/
 .menu li a:hover {
   text-decoration: underline;
 }
