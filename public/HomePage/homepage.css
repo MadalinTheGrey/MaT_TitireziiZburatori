@@ -1,0 +1,220 @@
+html {
+  min-width: 320px;
+  overflow-x: auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  color: #000;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #121568;
+  z-index: 1000;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.menu,
+.logo {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li a,
+.logo li a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem, 1rem;
+  white-space: nowrap;
+}
+
+.logo img {
+  max-height: 2rem;
+  width: auto;
+  border-radius: 2px;
+}
+
+/*pt paginile pe care le poti accesa din navbar*/
+.menu li a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 5% 10% 0 10%;
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.4);
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  padding: 40px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero p {
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+.btn {
+  background: #0c0b45;
+  color: #fff;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+
+.btn:hover {
+  background: #1b1a70;
+}
+
+/* FEATURES SECTION */
+.benefits {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: center;
+  position: relative;
+  margin: 60px auto;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.benefit {
+  flex: 1;
+  padding: 0 20px;
+  position: relative;
+}
+
+.icon-line {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.icon {
+  background-color: #0b0c57;
+  color: white;
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+}
+
+/* Linia de legătură */
+.benefits::before {
+  content: "";
+  position: absolute;
+  top: 24px; /* mijlocul iconului (48px/2) */
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: #0b0c57;
+  z-index: 1;
+}
+
+.benefit h3 {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0b0c57;
+}
+
+.benefit p {
+  font-size: 14px;
+  color: #1c1c3c;
+}
+
+
+
+
+.footer {
+  background-color: #121568;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  font-family: "Poppins", sans-serif;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-item {
+  font-size: 1rem;
+}
+
+.footer-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-socials a {
+  margin: 0 0.5rem;
+  font-size: 1.3rem;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  color: #ccc;
+}
+
