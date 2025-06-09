@@ -1,9 +1,9 @@
 const { pool } = require("../db");
 
-exports.checkEmailDuplicate = async (email) => {
+exports.existsEmail = async (email) => {
   const query = `
               SELECT EXISTS (
-              SELECT 1 FROM users where email = $1
+              SELECT 1 FROM users WHERE email = $1
               ) as "exists";
               `;
 

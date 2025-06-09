@@ -1,42 +1,31 @@
 const registerModel = require("../models/registerModel");
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
+const { z } = require("zod");
 
-function isValidEmail(email) {
-  if (typeof email !== "string") return false;
-
-  const parts = email.split("@");
-  if (parts.length !== 2) return false;
-
-  const [local, domain] = parts;
-  if (!local || !domain) return false;
-  if (!domain.includes(".")) return false;
-
-  const domainParts = domain.split(".");
-  if (domainParts.some((part) => part.length === 0)) return false;
-
-  return true;
-}
+const registerSchema = z.object({
+  email: z.string().email(),
+  username: z.string().min(1),
+  password: z.string().min(1),
+});
 
 exports.createUser = async (req, res) => {
-  const user = req.body;
+  const schemaResult = registerSchema.safeParse(req.body);
 
-  if (
-    !user ||
-    user.username === undefined ||
-    user.password === undefined ||
-    user.email === undefined ||
-    typeof user.username !== "string" ||
-    typeof user.password !== "string" ||
-    !isValidEmail(user.email)
-  ) {
+  if (!schemaResult.success) {
     res.writeHead(400, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "Missing or malformed data for user" }));
+    res.end(
+      JSON.stringify({
+        error: "Missing or malformed data for user",
+        details: schemaResult.error.errors,
+      })
+    );
     return;
   }
+  const user = schemaResult.data;
 
   try {
-    const existsEmail = await registerModel.checkEmailDuplicate(user.email);
+    const existsEmail = await registerModel.existsEmail(user.email);
     if (existsEmail) {
       res.writeHead(409, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Provided email is already in use" }));
