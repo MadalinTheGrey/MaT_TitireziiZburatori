@@ -22,8 +22,8 @@ exports.createUser = async (req, res) => {
     );
     return;
   }
-  const user = schemaResult.data;
-
+  let user = schemaResult.data;
+  user.email = user.email.toLowerCase();
   try {
     const existsEmail = await registerModel.existsEmail(user.email);
     if (existsEmail) {

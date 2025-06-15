@@ -1,5 +1,7 @@
 require("dotenv").config();
 const pg = require("pg");
+const bcrypt = require("bcrypt");
+const SALT_ROUNDS = 10;
 
 const pool = new pg.Pool({
   user: process.env.DB_USER,
@@ -69,6 +71,7 @@ const alterTables = async () => {
     `ALTER TABLE user_roles ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);`,
     `ALTER TABLE user_roles ADD CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES roles(id);`,
     `ALTER TABLE appointments ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);`,
+    `ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);`,
   ];
 
   for (const c of constraints) {
@@ -77,7 +80,7 @@ const alterTables = async () => {
           BEGIN
             BEGIN
               ${c}
-            EXCEPTION WHEN duplicate_object THEN
+            EXCEPTION WHEN duplicate_object OR duplicate_table THEN
               RAISE NOTICE 'Constraint already exists: skipping.';
             END;
           END
@@ -101,11 +104,36 @@ const insertRoles = async () => {
   }
 };
 
+const createOriginalAdmin = async () => {
+  let query = `
+              INSERT INTO users(username, password, email)
+              VALUES ($1, $2, $3)
+              ON CONFLICT(email) DO NOTHING
+              RETURNING id;
+              `;
+  const hashedAdminPass = await bcrypt.hash(
+    process.env.ADMIN_PASS,
+    SALT_ROUNDS
+  );
+  let values = ["TheOriginalAdmin", hashedAdminPass, "dummy@gmail.com"];
+  const result = await pool.query(query, values);
+  if (result.rows.length > 0 && result.rows[0].id) {
+    const adminId = result.rows[0].id;
+
+    query = `
+          INSERT INTO user_roles(user_id, role_id) values($1, 2);
+          `;
+    values = [adminId];
+    await pool.query(query, values);
+  }
+};
+
 const setupDatabase = async () => {
   try {
     await createTables();
     await alterTables();
     await insertRoles();
+    await createOriginalAdmin();
     console.log("database setup complete.");
   } catch (error) {
     console.error("error setting up the database:", error);

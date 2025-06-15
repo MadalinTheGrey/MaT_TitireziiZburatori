@@ -18,7 +18,6 @@ const appointmentSchema = z.object({
 });
 
 exports.addAppointment = async (req, res) => {
-  //TODO check that user is logged in
   const schemaResult = appointmentSchema.safeParse(req.body);
   if (!schemaResult.success) {
     res.writeHead(400, { "Content-Type": "application/json" });

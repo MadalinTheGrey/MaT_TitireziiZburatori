@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
   const user = schemaResult.data;
 
   try {
-    const dbUser = await loginModel.getUserByEmail(user.email);
+    const dbUser = await loginModel.getUserByEmail(user.email.toLowerCase());
     if (!dbUser) {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "User not found" }));
