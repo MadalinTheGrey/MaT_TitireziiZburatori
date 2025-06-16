@@ -1,5 +1,8 @@
 const appointmentModel = require("../models/appointmentModel");
 const { z } = require("zod");
+const fs = require("fs");
+const path = require("path");
+const Busboy = require("busboy");
 
 function isTimestamp(value) {
   const iso8601 = value.replace(" ", "T");
@@ -49,9 +52,6 @@ exports.addAppointment = async (req, res) => {
     }
 
     const appointmentId = await appointmentModel.addAppointment(appointment);
-
-    // TODO: handle uploaded files and call addAppointmentFiles once implemented - might do this in a different file
-
     res.writeHead(201, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ id: appointmentId }));
   } catch (error) {
@@ -59,4 +59,63 @@ exports.addAppointment = async (req, res) => {
     res.writeHead(500, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Internal server error" }));
   }
+};
+
+exports.uploadAppointmentFiles = async (req, res) => {
+  const appointmentId = req.params.id;
+  //TODO: validate id and check that it belongs to the logged user
+  const busboy = new Busboy({ headers: req.headers });
+  const uploadedFiles = [];
+  const filePromises = [];
+
+  busboy.on("file", (fieldname, file, filename) => {
+    if (!filename) return;
+
+    const dir = path.join(
+      __dirname,
+      "..",
+      "uploads",
+      "appointments",
+      appointmentId
+    );
+
+    const filePromise = async () => {
+      await fs.promises.mkdir(dir, { recursive: true });
+
+      const savePath = path.join(dir, Date.now() + "-" + filename);
+      const writeStream = fs.createWriteStream(savePath);
+
+      file.pipe(writeStream);
+
+      await new Promise((resolve, reject) => {
+        writeStream.on("finish", resolve);
+        writeStream.on("error", reject);
+      });
+
+      const relativePath = path.relative(path.join(__dirname, ".."), savePath);
+      await appointmentModel.addAppointmentFiles(appointmentId, relativePath);
+      uploadedFiles.push(relativePath);
+    };
+
+    filePromises.push(filePromise());
+  });
+
+  busboy.on("finish", async () => {
+    try {
+      await Promise.all(filePromises);
+      res.writeHead(201, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          message: "Files uploaded successfully",
+          files: uploadedFiles,
+        })
+      );
+    } catch (error) {
+      console.error("Error saving files: ", error);
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Internal server error" }));
+    }
+  });
+
+  req.pipe(busboy);
 };
