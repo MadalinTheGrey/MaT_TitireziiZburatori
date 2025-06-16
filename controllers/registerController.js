@@ -1,4 +1,5 @@
 const registerModel = require("../models/registerModel");
+const roleModel = require("../models/roleModel");
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 const { z } = require("zod");
@@ -47,6 +48,8 @@ exports.createUser = async (req, res) => {
 
   try {
     const userId = await registerModel.createUser(newUser);
+    //new users get the client role by default
+    await roleModel.addClientRole(userId);
     res.writeHead(201, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ id: userId }));
   } catch (error) {

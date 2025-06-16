@@ -9,7 +9,6 @@ function isTimestamp(value) {
 }
 
 const appointmentSchema = z.object({
-  user_id: z.number().int(),
   title: z.string().min(1),
   appointment_date: z.string().refine(isTimestamp, {
     message: "Invalid appointment date",
@@ -30,9 +29,11 @@ exports.addAppointment = async (req, res) => {
     return;
   }
 
-  const appointment = schemaResult.data;
+  const appointment = {
+    ...schemaResult.data,
+    user_id: req.user.id,
+  };
 
-  // TODO: check that user with given id exists - will use info from jwt after defining
   try {
     const overlap = await appointmentModel.checkAppointmentOverlap(
       appointment.appointment_date
