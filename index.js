@@ -52,9 +52,22 @@ async function startApp() {
         req.params = matched.params;
         req.body = parsedBody;
 
-        matched.route.handler(req, res);
+        const middlewares = matched.route.middleware || [];
+        let i = 0;
+
+        const next = async () => {
+          if (i < middlewares.length) {
+            const mw = middlewares[i++];
+            await mw(req, res, next);
+          } else {
+            await matched.route.handler(req, res);
+          }
+        };
+
+        await next();
       });
     } else {
+      //ensure the path stays in the public folder
       const safePath = path.normalize(path.join(__dirname, "public", req.url));
       if (!safePath.startsWith(path.join(__dirname, "public"))) {
         res.writeHead(403);
