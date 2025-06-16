@@ -138,10 +138,11 @@ To run this project, you will need to add the following environment variables to
 
 ### :gear: Installation
 
+- Install all prerequisites
 - Clone the repo
 - Open terminal in the cloned repo folder
 - Run npm install
-- Setup your .env file
+- Setup your .env file (make sure all variables are added and modified to fit your own postgres settings, minimally: yourname, db_name and yourpassword)
 
 <!-- Running Tests -->
 

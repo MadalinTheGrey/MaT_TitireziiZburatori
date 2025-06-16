@@ -1,0 +1,31 @@
+.footer {
+  background-color: #121568;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  font-family: "Poppins", sans-serif;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-item {
+  font-size: 1rem;
+}
+
+.footer-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-socials a {
+  margin: 0 0.5rem;
+  font-size: 1.3rem;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  color: #ccc;
+}
