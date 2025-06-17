@@ -58,3 +58,20 @@ exports.addAppointmentFiles = async (appointment_id, appointmentFiles) => {
     throw error;
   }
 };
+
+exports.checkAppointmentIdValidity = async (appointmentId, userId) => {
+  const query = `
+              SELECT EXISTS (
+              SELECT 1 FROM appointments WHERE id = $1 AND user_id = $2
+              ) AS "exists";
+              `;
+  const values = [appointmentId, userId];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows[0].exists;
+  } catch (error) {
+    console.error("Error checking appointment id validity: ", error);
+    throw error;
+  }
+};
