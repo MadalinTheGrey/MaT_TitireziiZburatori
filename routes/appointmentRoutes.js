@@ -12,7 +12,7 @@ exports.appointmentRoutes = [
   },
   {
     method: "POST",
-    path: "/api/appointments/{id}/files",
+    path: "/api/appointments/:id/files",
     middleware: [verifyToken([clientRole])],
     handler: appointmentController.uploadAppointmentFiles,
   },

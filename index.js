@@ -19,53 +19,56 @@ async function startApp() {
 
   const server = http.createServer((req, res) => {
     if (req.url.startsWith("/api")) {
-      let body = "";
-      req.on("data", (chunk) => (body += chunk));
-      req.on("end", async () => {
-        let matched = null;
+      let matched = null;
 
-        for (const route of routes) {
-          const params = matchRoute(route, req.method, req.url);
-          if (params !== null) {
-            matched = { route, params };
-            break;
-          }
+      for (const route of routes) {
+        const params = matchRoute(route, req.method, req.url);
+        if (params !== null) {
+          matched = { route, params };
+          break;
         }
+      }
 
-        if (!matched) {
-          res.writeHead(404, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Not Found" }));
-          return;
-        }
+      if (!matched) {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Not Found" }));
+        return;
+      }
 
-        let parsedBody = null;
+      req.params = matched.params;
 
-        if (["POST", "PUT", "PATCH"].includes(req.method)) {
-          try {
-            parsedBody = body ? JSON.parse(body) : null;
-          } catch (err) {
-            res.writeHead(400);
-            res.end("Invalid JSON");
-            return;
-          }
-        }
-        req.params = matched.params;
-        req.body = parsedBody;
+      const middlewares = matched.route.middleware || [];
+      let i = 0;
 
-        const middlewares = matched.route.middleware || [];
-        let i = 0;
-
-        const next = async () => {
-          if (i < middlewares.length) {
-            const mw = middlewares[i++];
-            await mw(req, res, next);
+      const next = async () => {
+        if (i < middlewares.length) {
+          const mw = middlewares[i++];
+          await mw(req, res, next);
+        } else {
+          const contentType = req.headers["content-type"] || "";
+          if (
+            ["POST", "PUT", "PATCH"].includes(req.method) &&
+            contentType.includes("application/json")
+          ) {
+            let body = "";
+            req.on("data", (chunk) => (body += chunk));
+            req.on("end", async () => {
+              try {
+                req.body = body ? JSON.parse(body) : null;
+              } catch (err) {
+                res.writeHead(400);
+                res.end("Invalid JSON");
+                return;
+              }
+              await matched.route.handler(req, res);
+            });
           } else {
-            await matched.route.handler(req, res);
+            matched.route.handler(req, res);
           }
-        };
+        }
+      };
 
-        await next();
-      });
+      next();
     } else {
       //ensure the path stays in the public folder
       const safePath = path.normalize(path.join(__dirname, "public", req.url));

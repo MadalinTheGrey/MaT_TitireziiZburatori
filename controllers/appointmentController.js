@@ -63,12 +63,34 @@ exports.addAppointment = async (req, res) => {
 
 exports.uploadAppointmentFiles = async (req, res) => {
   const appointmentId = req.params.id;
-  //TODO: validate id and check that it belongs to the logged user
-  const busboy = new Busboy({ headers: req.headers });
+
+  try {
+    const isAppointmentValid =
+      await appointmentModel.checkAppointmentIdValidity(
+        appointmentId,
+        req.user.id
+      );
+    if (!isAppointmentValid) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          error: "Appointment does not exist or you are not the owner",
+        })
+      );
+      return;
+    }
+  } catch (error) {
+    console.error("Error checking appointment validity: ", error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Internal server error" }));
+  }
+
+  const busboy = Busboy({ headers: req.headers });
   const uploadedFiles = [];
   const filePromises = [];
 
-  busboy.on("file", (fieldname, file, filename) => {
+  busboy.on("file", (fieldname, file, fileInfo) => {
+    const { filename } = fileInfo;
     if (!filename) return;
 
     const dir = path.join(
