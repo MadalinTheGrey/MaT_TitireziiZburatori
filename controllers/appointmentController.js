@@ -115,7 +115,7 @@ exports.uploadAppointmentFiles = async (req, res) => {
       });
 
       const relativePath = path.relative(path.join(__dirname, ".."), savePath);
-      await appointmentModel.addAppointmentFiles(appointmentId, relativePath);
+      await appointmentModel.addAppointmentFile(appointmentId, relativePath);
       uploadedFiles.push(relativePath);
     };
 
@@ -140,4 +140,37 @@ exports.uploadAppointmentFiles = async (req, res) => {
   });
 
   req.pipe(busboy);
+};
+
+exports.getAppointmentById = async (req, res) => {
+  const appointmentId = req.params.id;
+
+  try {
+    const isAdmin = req.user.roles.includes("admin");
+    const appointment = await appointmentModel.getAppointmentById(
+      appointmentId,
+      req.user.id,
+      isAdmin
+    );
+
+    if (!appointment) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          error: "Appointment not found or you are not the owner",
+        })
+      );
+      return;
+    }
+
+    const files = await appointmentModel.getAppointmentFiles(appointmentId);
+    const filePaths = files.map((f) => f.file_path);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ appointment, filePaths }));
+  } catch (error) {
+    console.error("Error trying to fetch appointment by id: ", error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Internal server error" }));
+  }
 };

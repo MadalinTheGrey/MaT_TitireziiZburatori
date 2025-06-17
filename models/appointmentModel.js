@@ -43,16 +43,14 @@ exports.addAppointment = async (appointment) => {
   }
 };
 
-exports.addAppointmentFiles = async (appointment_id, appointmentFiles) => {
+exports.addAppointmentFile = async (appointment_id, appointmentFile) => {
   const query = `
             INSERT INTO appointment_files
             (appointment_id, file_path)
             VALUES ($1, $2)
     `;
   try {
-    for (const file of appointmentFiles) {
-      await pool.query(query, [appointment_id, file]);
-    }
+    await pool.query(query, [appointment_id, appointmentFile]);
   } catch (error) {
     console.error("Error adding appointment files: ", error);
     throw error;
@@ -73,5 +71,42 @@ exports.checkAppointmentIdValidity = async (appointmentId, userId) => {
   } catch (error) {
     console.error("Error checking appointment id validity: ", error);
     throw error;
+  }
+};
+
+exports.getAppointmentById = async (appointmentId, userId, isAdmin) => {
+  let query = `
+              SELECT id, appointment_date, user_id, title, description, is_approved, admin_review
+              FROM appointments
+              WHERE id = $1
+              `;
+  const values = [appointmentId];
+
+  if (!isAdmin) {
+    query += ` AND user_id = $2`;
+    values.push(userId);
+  }
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error getting appointment by id: ", error);
+    throw error;
+  }
+};
+
+exports.getAppointmentFiles = async (appointmentId) => {
+  const query = `
+              SELECT file_path FROM appointment_files
+              WHERE appointment_id = $1
+              `;
+  const values = [appointmentId];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching appointment files");
   }
 };
