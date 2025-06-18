@@ -6,18 +6,15 @@ html {
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;  /*any padding & border are included in width & height.*/
+  box-sizing: border-box; /*any padding & border are included in width & height.*/
 }
 
 body {
   font-family: "Poppins", sans-serif;
-  line-height: 1.6; /*the distance between 2 lines of text*/
-  color: #000;
+  line-height: 1.4; /*the distance between 2 lines of text*/
+  color: #121568;
 }
 
-main {
-  padding: 5% 10% 0 10%;
-}
 
 /* HERO SECTION */
 .hero {
@@ -61,7 +58,7 @@ main {
 }
 
 .btn {
-  background: #0c0b45;
+  background: #121568;
   color: #fff;
   padding: 15px 30px;
   text-decoration: none;
@@ -70,7 +67,7 @@ main {
 }
 
 .btn:hover {
-  background: #1b1a70;
+  background: #c61313;
 }
 
 /* FEATURES SECTION */
@@ -80,7 +77,7 @@ main {
   align-items: flex-start;
   text-align: center;
   position: relative;
-  margin: 10px auto 60px;
+  margin: 100px auto 60px;
   max-width: 1000px;
   padding: 0 20px;
 }
@@ -100,9 +97,9 @@ main {
 }
 
 .icon {
-  background-color: #0b0c57;
+  background-color: #121568;
   color: white;
-  font-size: 24px;
+  font-size: 35px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -121,17 +118,243 @@ main {
   left: 10%;
   right: 10%;
   height: 2px;
-  background-color: #0b0c57;
+  background-color: #121568;
   z-index: 1;
 }
 
 .benefit h3 {
   font-weight: bold;
   margin-bottom: 10px;
-  color: #0b0c57;
+  color: #121568;
 }
 
 .benefit p {
   font-size: 14px;
-  color: #1c1c3c;
+  color: #121568;
+}
+
+@media (max-width: 608px) {
+  .benefits {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .benefit {
+    margin-bottom: 30px;
+  }
+
+  .benefits::before {
+    display: none; /* Ascunde linia orizontala care leaga iconurile */
+  }
+}
+
+/*SPECIAL OFFER SECTION*/
+.special-offer {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.special-offer h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #121568;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.special-offer h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #121568;
+  margin: 0.5rem auto 0;
+}
+
+.offer-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.offer-card {
+  max-width: 300px;
+  text-align: center;
+}
+
+.offer-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.offer-card h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color:#121568;
+  font-weight: bold;
+}
+
+.offer-card p {
+  font-size: 0.95rem;
+  color: #121568;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .offer-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+/*GALERRY PHOTO SECTION*/
+
+.gallery-section {
+  background-color: #121568; 
+  padding: 4rem;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.gallery-title {
+  font-size: 2rem;
+  font-weight:bold;
+  margin-bottom: 2rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.gallery-container {
+  column-count: 2;
+  column-gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+
+.gallery-container img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  display: block;
+  break-inside: avoid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+@media (max-width: 600px) {
+  .gallery-container {
+    column-count: 1;
+  }
+
+  .gallery-container img {
+    width: 90%;
+  }
+}
+
+
+
+/*FAQ SECTION*/
+.faq-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.faq-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.faq-title {
+  font-size: 2rem;
+  color: #121568;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+  font-size: 1.1rem;
+  color: #121568;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.faq-image {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faq-image img {
+  width: 70%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .faq-image img {
+    max-width: 100%;
+  }
+}
+
+
+
+/* FINAL SECTION */
+.final {
+  position: relative;
+  padding: 100px 0;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: blur(3px) brightness(60%);
+}
+
+.final-overlay {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  padding: 40px;
 }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../stylesheets/navbar.css" />
     <link rel="stylesheet" href="../stylesheets/footer.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -18,7 +18,6 @@
     />
   </head>
   <body>
-
     <!-- NAVBAR SECTION -->
     <header data-include="../html-components/navbar.html"></header>
 
@@ -45,7 +44,7 @@
       <section class="benefits">
         <div class="benefit">
           <div class="icon-line">
-            <span class="icon">&#10003;</span>
+            <span class="icon"><i class="uil uil-check"></i></span>
           </div>
           <h3>Instrument inovator</h3>
           <p>MaT oferă o platformă online pentru programări eficiente.</p>
@@ -53,7 +52,7 @@
 
         <div class="benefit">
           <div class="icon-line">
-            <span class="icon">&#10003;</span>
+            <span class="icon"><i class="uil uil-check"></i></span>
           </div>
           <h3>Comunicare</h3>
           <p>
@@ -64,12 +63,108 @@
 
         <div class="benefit">
           <div class="icon-line">
-            <span class="icon">&#10003;</span>
+            <span class="icon"><i class="uil uil-check"></i></span>
           </div>
           <h3>Echipa de profesioniști</h3>
           <p>MaT are tehnicieni experimentați și profesioniști în servicii.</p>
         </div>
       </section>
+      <!--  END OF THE FEATURES SECTION -->
+
+      <!-- SPECIAL OFFER SECTION -->
+      <section class="special-offer">
+        <h2>OFERTĂ SPECIALĂ</h2>
+        <div class="offer-cards">
+          <div class="offer-card">
+            <img
+              src="./intretinere-motociclete.jpg"
+              alt="intretinere-motociclete.jpg"
+            />
+            <h3>Întreținere motociclete</h3>
+            <p>
+              Servicii complete de întreținere pentru motociclete, inclusiv
+              schimb de ulei.
+            </p>
+          </div>
+          <div class="offer-card">
+            <img
+              src="./intretinere-biciclete.jpg"
+              alt="intretinere-biciclete.jpg"
+            />
+            <h3>Întreținere bicicletă</h3>
+            <p>Serviciu complet de întreținere a bicicletelor.</p>
+          </div>
+          <div class="offer-card">
+            <img src="./reparatii-scootere.jpg" alt="reparatii-scootere" />
+            <h3>Reparație scooter</h3>
+            <p>
+              Servicii specializate pentru repararea scuterelor electrice,
+              problemele bateriei.
+            </p>
+          </div>
+        </div>
+      </section>
+      <!--  END OF THE SPECIAL OFFER -->
+
+      <!-- GALLERY SECTION -->
+      <section class="gallery-section">
+        <h2 class="gallery-title">GALERIE FOTO</h2>
+        <div class="gallery-container">
+          <img src="./galerie-masina2.jpg" alt="galerie-masina2.jpg" />
+          <img src="./galerie-bicla1.jpg" alt="galerie-bicla1.jpg" />
+          <img src="./galerie-bicla3.jpg" alt="galerie-bicla3.jpg" />
+          <img src="./galerie-bicla2.jpg" alt="galerie-bicla2.jpg" />
+          <img src="./galerie-bicla4.jpg" alt="galerie-bicla4.jpg" />
+          <img src="./galerie-masina1.jpg" alt="galerie-masina1.jpg" />
+          <!-- poți adăuga câte vrei -->
+        </div>
+      </section>
+      <!--  END OF THE GALLERY SECTION -->
+
+
+
+      <!-- FAQ SECTION-->
+      <section class="faq-section">
+        <div class="faq-content">
+          <h2 class="faq-title">Întrebări frecvente sau FAQ(ma mai gandesc ce titlu las aici)</h2>
+          <div class="faq-item">
+            <h3>Care sunt orele de funcționare?</h3>
+            <p>Suntem deschiși de luni până vineri între orele 08:00 - 18:00.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Este nevoie de programare în avans?</h3>
+            <p>Da, vă recomandăm să faceți o programare telefonic sau online.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Pot atașa imagini sau videoclipuri la cererea mea?</h3>
+            <p>Da, poți atașa imagini sau videoclipuri la cererea ta.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Ce tipuri de servicii oferiți?</h3>
+            <p>Avem specialiști în servicii de întreținere pentru motociclete, biciclete și trotinete electrice.</p>
+          </div>
+        </div>
+        <div class="faq-image">
+          <img src="./faq.png" alt="faq.png">
+        </div>
+      </section>
+      
+      <!--  END OF THE FAQ SECTION -->
+
+
+      <!-- FINAL SECTION -->
+    <section class="final">
+      <img
+        src="./final.jpg"
+        alt="homepage-final-photo"
+        class="final-background"
+      />
+      <div class="final-overlay">
+        <h3>
+          Contactați-ne pentru o experiență de întreținere fără stres!
+        </h3>
+      </div>
+    </section>
     </main>
 
     <!--  END OF THE MAIN SECTION -->
@@ -77,6 +172,7 @@
     <!-- FOOTER SECTION -->
     <footer data-include="../html-components/footer.html"></footer>
 
-    <script src="../assets/includes.js"></script> <!--for including the navbar and the footer-->
+    <script src="../assets/includes.js"></script>
+    <!--for including the navbar and the footer-->
   </body>
 </html>
