@@ -94,18 +94,35 @@ body: json (example below)
 returns: json with "id" field containing the id of the created appointment on success.
 
 POST
-`/api/appointments/:id/files`
+
+```
+/api/appointments/:id/files
+```
+
 body: multipart/form data containing appointment files
+
 params: ":id" is the id of the appointment the files belong to
+
 example:
-`/api/appointments/4/files`
+
+```
+/api/appointments/4/files
+```
+
 Send files belonging to the appointment with id 4
+
 returns: json with "message" and "files" field, the latter containing an array with the paths to the added files.
 
 GET
-`/api/appointments/:id`
+
+```
+/api/appointments/:id
+```
+
 body: n/a
+
 params: ":id" is the id of the appointment to be returned
+
 returns: json as shown below
 
 ````{
@@ -124,15 +141,25 @@ returns: json as shown below
 }```
 
 GET
+
 ```/api/appointments```
+
 or
+
 ```/api/appointments?is_approved=rejected```
+
 query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
+
 body: n/a
+
 returns:
+
 - for clients: all of the appointments belonging to the logged user ignoring filters in the route.
+
 - for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
+
 json maintains the same structure for both:
+
 ```{
     "appointments": [
         {
@@ -152,9 +179,15 @@ json maintains the same structure for both:
 ````
 
 POST
-`/api/register`
+
+```
+/api/register
+```
+
 For registering users.
+
 body: json as shown below
+
 params: n/a
 
 ````{
@@ -162,17 +195,24 @@ params: n/a
     "password": "userPassword",
     "email": "user@email.com"
 }```
+
 returns: json with "id" field containing the id of the registered user.
 
 POST
+
 ```/api/login```
+
 For user log in
+
 body: json as shown below
+
 params: n/a
+
 ```{
     "email": "user@email.com",
     "password": "userPassword"
 }```
+
 returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes, which is to be sent in a header called "authorization" with the value: "Bearer jwtValue".
 
 <!-- Screenshots -->
