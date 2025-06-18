@@ -87,7 +87,7 @@ POST
 /api/appointments
 ```
 
-- body: json (example below)
+- body: json
 
 ```
 {
@@ -165,7 +165,7 @@ OR with query params
 
   - for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
 
-  - json maintains the same structure for both:
+  - json that maintains the same structure for both:
 
 ```
 {
@@ -194,9 +194,7 @@ POST
 
 - For registering users.
 
-- body: json as shown below
-
-- params: n/a
+- body: json
 
 ```
 {
@@ -206,7 +204,67 @@ POST
 }
 ```
 
+- params: n/a
+
 - returns: json with "id" field containing the id of the registered user.
+
+POST
+
+```
+/api/supplies
+```
+
+- body: json
+
+```
+{
+    "name" :"supply name",
+    "description": "supply description",
+	  "in_stock": 20
+}
+```
+
+- params: n/a
+- returns: json with "id" field containing the id of the added supply
+
+PATCH
+
+```
+/api/supplies/:id
+```
+
+- Updates stock for supply with given id
+- body: json with field "in_stock" containing the new number of items in stock
+- params: ":id" is the id of the supply which will be updated
+
+GET
+
+```
+/api/supplies
+```
+
+- body: n/a
+- query params: "name" and "in_stock". The endpoint will search for supplies where these fields have the values given.
+- example:
+
+```
+/api/supplies?name=pry%20bar&in_stock=20
+```
+
+- returns: json
+
+```
+{
+    "supplies": [
+        {
+            "id": 1,
+            "name": "supply name",
+            "description": "supply description",
+            "in_stock": 20
+        }
+    ]
+}
+```
 
 POST
 
