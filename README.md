@@ -125,7 +125,7 @@ params: ":id" is the id of the appointment to be returned
 
 returns: json as shown below
 
-````{
+```{
     "appointment": {
         "id": 4,
         "appointment_date": "2007-02-27T13:21:00.000Z",
@@ -176,7 +176,7 @@ json maintains the same structure for both:
         }
 	]
    }
-````
+```
 
 POST
 
@@ -190,7 +190,7 @@ body: json as shown below
 
 params: n/a
 
-````{
+```{
     "username": "user1",
     "password": "userPassword",
     "email": "user@email.com"
@@ -354,4 +354,3 @@ Project Link: [https://github.com/MadalinTheGrey/MaT_TitireziiZburatori](https:/
 - [Awesome README Template](https://github.com/Louis3797/awesome-readme-template)
 - [Unicons](https://iconscout.com/unicons)
 - [Unsplash](https://unsplash.com/)
-````
