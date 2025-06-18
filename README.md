@@ -146,9 +146,7 @@ returns: json as shown below
 GET
 
 `/api/appointments`
-
 or
-
 `/api/appointments?is_approved=rejected`
 
 query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
