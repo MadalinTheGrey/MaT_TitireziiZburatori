@@ -145,9 +145,11 @@ returns: json as shown below
 
 GET
 
-`/api/appointments`
-or
-`/api/appointments?is_approved=rejected`
+```
+/api/appointments
+OR with query params
+/api/appointments?is_approved=rejected
+```
 
 query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
 
@@ -204,7 +206,9 @@ returns: json with "id" field containing the id of the registered user.
 
 POST
 
-`/api/login`
+```
+/api/login
+```
 
 For user log in
 
