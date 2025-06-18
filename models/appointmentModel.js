@@ -43,16 +43,14 @@ exports.addAppointment = async (appointment) => {
   }
 };
 
-exports.addAppointmentFiles = async (appointment_id, appointmentFiles) => {
+exports.addAppointmentFile = async (appointment_id, appointmentFile) => {
   const query = `
             INSERT INTO appointment_files
             (appointment_id, file_path)
             VALUES ($1, $2)
     `;
   try {
-    for (const file of appointmentFiles) {
-      await pool.query(query, [appointment_id, file]);
-    }
+    await pool.query(query, [appointment_id, appointmentFile]);
   } catch (error) {
     console.error("Error adding appointment files: ", error);
     throw error;
@@ -72,6 +70,100 @@ exports.checkAppointmentIdValidity = async (appointmentId, userId) => {
     return result.rows[0].exists;
   } catch (error) {
     console.error("Error checking appointment id validity: ", error);
+    throw error;
+  }
+};
+
+exports.getAppointmentById = async (appointmentId, userId, isAdmin) => {
+  let query = `
+              SELECT id, appointment_date, user_id, title, description, is_approved, admin_review
+              FROM appointments
+              WHERE id = $1
+              `;
+  const values = [appointmentId];
+
+  if (!isAdmin) {
+    query += ` AND user_id = $2`;
+    values.push(userId);
+  }
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error getting appointment by id: ", error);
+    throw error;
+  }
+};
+
+exports.getAppointmentFiles = async (appointmentId) => {
+  const query = `
+              SELECT file_path FROM appointment_files
+              WHERE appointment_id = $1
+              `;
+  const values = [appointmentId];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching appointment files");
+  }
+};
+
+exports.getAppointmentsByUserId = async (userId) => {
+  const query = `
+              SELECT 
+              a.id AS appointment_id,
+              a.appointment_date,
+              a.user_id,
+              a.title,
+              a.description,
+              a.is_approved,
+              a.admin_review,
+              f.file_path
+              FROM appointments a
+              LEFT JOIN appointment_files f ON a.id = f.appointment_id
+              WHERE a.user_id = $1
+              ORDER BY a.id;
+              `;
+  const values = [userId];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching appointments by user id: ", error);
+    throw error;
+  }
+};
+
+exports.getAppointmentsFiltered = async (filters) => {
+  let query = `
+                SELECT
+                a.id AS appointment_id,
+                a.appointment_date,
+                a.user_id,
+                a.title,
+                a.description,
+                a.is_approved,
+                a.admin_review,
+                f.file_path
+                FROM appointments a
+                LEFT JOIN appointment_files f ON a.id = f.appointment_id
+                `;
+  const values = [];
+  if (filters.is_approved) {
+    query += ` WHERE a.is_approved = $1`;
+    values.push(filters.is_approved.toUpperCase());
+  }
+  query += ` ORDER BY a.appointment_date ASC`;
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching filtered appointments: ", error);
     throw error;
   }
 };

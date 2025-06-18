@@ -66,11 +66,174 @@
 
 To be added: C4 diagrams and detailed design (database schema and details, frontend & backend description).
 
+### Backend
+
+**Login and authorization**:
+
+- Login is performed using JSON web tokens. After the user enters their login data and login is performed successfully a token is generated containing the user's id, email and roles and sent back in a json.
+- When a user tries to access a protected route they must provide a header named "authorization" which contains the string "Bearer " followed by the token received during login.
+
+**Route documentation**:
+
+All routes return a status code and:
+
+- on success: a json with the "message" field usually confirming the action took place successfully.
+- on error: a json with the "error" and eventually "details" fields.
+  If the return field is missing from the details for a route this is all the route returns.
+
+POST
+
+```
+/api/appointments
+```
+
+- body: json (example below)
+
+```
+{
+    "appointment_date" :"2007-02-27 15:21:00",
+    "title": "some title",
+    "description": "some description"
+}
+```
+
+- returns: json with "id" field containing the id of the created appointment on success.
+
+POST
+
+```
+/api/appointments/:id/files
+```
+
+- body: multipart/form data containing appointment files
+
+- params: ":id" is the id of the appointment the files belong to
+
+- example:
+
+```
+/api/appointments/4/files
+Send files belonging to the appointment with id 4
+```
+
+- returns: json with "message" and "files" field, the latter containing an array with the paths to the added files.
+
+GET
+
+```
+/api/appointments/:id
+```
+
+- body: n/a
+
+- params: ":id" is the id of the appointment to be returned
+
+- returns: json as shown below
+
+```
+{
+    "appointment": {
+        "id": 4,
+        "appointment_date": "2007-02-27T13:21:00.000Z",
+        "user_id": 17,
+        "title": "some title",
+        "description": "some description",
+        "is_approved": "PENDING",
+        "admin_review": null
+    },
+    "filePaths": [
+        "file path"
+    ]
+}
+```
+
+GET
+
+```
+/api/appointments
+OR with query params
+/api/appointments?is_approved=rejected
+```
+
+- query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
+
+- body: n/a
+
+- returns:
+
+  - for clients: all of the appointments belonging to the logged user ignoring filters in the route.
+
+  - for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
+
+  - json maintains the same structure for both:
+
+```
+{
+    "appointments": [
+        {
+            "id": 4,
+            "appointment_date": "2007-02-27T13:21:00.000Z",
+            "user_id": 17,
+            "title": "some title",
+            "description": "some description",
+            "is_approved": "PENDING",
+            "admin_review": null,
+            "files": [
+                "file path"
+            ]
+        }
+	]
+   }
+```
+
+POST
+
+```
+/api/register
+```
+
+- For registering users.
+
+- body: json as shown below
+
+- params: n/a
+
+```
+{
+    "username": "user1",
+    "password": "userPassword",
+    "email": "user@email.com"
+}
+```
+
+- returns: json with "id" field containing the id of the registered user.
+
+POST
+
+```
+/api/login
+```
+
+- For user log in
+
+- body: json as shown below
+
+- params: n/a
+
+```
+{
+    "email": "user@email.com",
+    "password": "userPassword"
+}
+```
+
+- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes.
+
 <!-- Screenshots -->
 
 ### :camera: Screenshots
 
-<div align="center"> 
+<div align="center">
   <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
 </div>
 
@@ -105,7 +268,7 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 
 ### :dart: Features
 
-- Every client will be able to view the current schedule for the service.
+- The user is required to make an account before using the features mentioned here.
 - The client can fill out a form with desired date and hour for his appointment. The form will also include details about the problem. The client can attach images/videos if he thinks it is necessary.
 - The administrator can accept or reject an appointment. On reject he will provide an explanation for the rejection and on approval the administrator will provide necessary details.
 - The app keeps track of available supplies as well as orders towards providers.
@@ -173,7 +336,10 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [x] Complete database schema
 - [x] Implement database
 - [x] Setup backend
-- [ ] Other backend stuff
+- [x] Login/register
+- [x] Add appointments endpoint
+- [x] Upload appointment files endpoint
+- [x] GET endpoints for appointments
 
 <!-- FAQ -->
 
