@@ -211,6 +211,27 @@ POST
 POST
 
 ```
+/api/login
+```
+
+- For user log in
+
+- body: json as shown below
+
+- params: n/a
+
+```
+{
+    "email": "user@email.com",
+    "password": "userPassword"
+}
+```
+
+- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes.
+
+POST
+
+```
 /api/supplies
 ```
 
@@ -265,27 +286,6 @@ GET
     ]
 }
 ```
-
-POST
-
-```
-/api/login
-```
-
-- For user log in
-
-- body: json as shown below
-
-- params: n/a
-
-```
-{
-    "email": "user@email.com",
-    "password": "userPassword"
-}
-```
-
-- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes.
 
 <!-- Screenshots -->
 
