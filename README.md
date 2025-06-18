@@ -82,7 +82,7 @@ POST
 /api/appointments
 ```
 
-body: json (example below)
+- body: json (example below)
 
 ```
 {
@@ -92,7 +92,7 @@ body: json (example below)
 }
 ```
 
-returns: json with "id" field containing the id of the created appointment on success.
+- returns: json with "id" field containing the id of the created appointment on success.
 
 POST
 
@@ -100,19 +100,18 @@ POST
 /api/appointments/:id/files
 ```
 
-body: multipart/form data containing appointment files
+- body: multipart/form data containing appointment files
 
-params: ":id" is the id of the appointment the files belong to
+- params: ":id" is the id of the appointment the files belong to
 
-example:
+- example:
 
 ```
 /api/appointments/4/files
+Send files belonging to the appointment with id 4
 ```
 
-Send files belonging to the appointment with id 4
-
-returns: json with "message" and "files" field, the latter containing an array with the paths to the added files.
+- returns: json with "message" and "files" field, the latter containing an array with the paths to the added files.
 
 GET
 
@@ -120,11 +119,11 @@ GET
 /api/appointments/:id
 ```
 
-body: n/a
+- body: n/a
 
-params: ":id" is the id of the appointment to be returned
+- params: ":id" is the id of the appointment to be returned
 
-returns: json as shown below
+- returns: json as shown below
 
 ```
 {
@@ -151,17 +150,17 @@ OR with query params
 /api/appointments?is_approved=rejected
 ```
 
-query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
+- query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
 
-body: n/a
+- body: n/a
 
-returns:
+- returns:
 
-- for clients: all of the appointments belonging to the logged user ignoring filters in the route.
+  - for clients: all of the appointments belonging to the logged user ignoring filters in the route.
 
-- for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
+  - for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
 
-json maintains the same structure for both:
+  - json maintains the same structure for both:
 
 ```
 {
@@ -188,11 +187,11 @@ POST
 /api/register
 ```
 
-For registering users.
+- For registering users.
 
-body: json as shown below
+- body: json as shown below
 
-params: n/a
+- params: n/a
 
 ```
 {
@@ -202,7 +201,7 @@ params: n/a
 }
 ```
 
-returns: json with "id" field containing the id of the registered user.
+- returns: json with "id" field containing the id of the registered user.
 
 POST
 
@@ -210,11 +209,11 @@ POST
 /api/login
 ```
 
-For user log in
+- For user log in
 
-body: json as shown below
+- body: json as shown below
 
-params: n/a
+- params: n/a
 
 ```
 {
@@ -223,7 +222,7 @@ params: n/a
 }
 ```
 
-returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes, which is to be sent in a header called "authorization" with the value: "Bearer jwtValue".
+- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes, which is to be sent in a header called "authorization" with the value: "Bearer jwtValue".
 
 <!-- Screenshots -->
 
