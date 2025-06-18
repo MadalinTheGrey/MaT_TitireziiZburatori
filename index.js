@@ -22,9 +22,9 @@ async function startApp() {
       let matched = null;
 
       for (const route of routes) {
-        const params = matchRoute(route, req.method, req.url);
-        if (params !== null) {
-          matched = { route, params };
+        const result = matchRoute(route, req.method, req.url);
+        if (result !== null) {
+          matched = { route, ...result };
           break;
         }
       }
@@ -36,6 +36,7 @@ async function startApp() {
       }
 
       req.params = matched.params;
+      req.query = matched.query;
 
       const middlewares = matched.route.middleware || [];
       let i = 0;

@@ -3,6 +3,7 @@ const { z } = require("zod");
 const fs = require("fs");
 const path = require("path");
 const Busboy = require("busboy");
+const appointmentFunctions = require("../utils/appointmentFunctions");
 
 function isTimestamp(value) {
   const iso8601 = value.replace(" ", "T");
@@ -170,6 +171,26 @@ exports.getAppointmentById = async (req, res) => {
     res.end(JSON.stringify({ appointment, filePaths }));
   } catch (error) {
     console.error("Error trying to fetch appointment by id: ", error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Internal server error" }));
+  }
+};
+
+exports.getAppointments = async (req, res) => {
+  try {
+    let appointments;
+    let dbResults;
+    if (req.user.roles.includes("admin")) {
+      dbResults = await appointmentModel.getAppointmentsFiltered(req.query);
+    } else {
+      dbResults = await appointmentModel.getAppointmentsByUserId(req.user.id);
+    }
+
+    appointments = await appointmentFunctions.mapFilesToAppointment(dbResults);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ appointments }));
+  } catch (error) {
+    console.error("Error trying to fetch appointments: ", error);
     res.writeHead(500, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Internal server error" }));
   }
