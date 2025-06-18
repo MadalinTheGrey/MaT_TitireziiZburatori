@@ -68,7 +68,12 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 
 ### Backend
 
-Route documentation:
+LOGIN AND AUTHORIZATION:
+
+- Login is performed using JSON web tokens. After the user enters their login data and login is performed successfully a token is generated containing the user's id, email and roles and sent back in a json.
+- When a user tries to access a protected route they must provide a header named "authorization" which contains the string "Bearer " followed by the token received during login.
+
+ROUTE DOCUMENTATION:
 
 All routes return a status code and:
 
@@ -222,7 +227,7 @@ POST
 }
 ```
 
-- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes, which is to be sent in a header called "authorization" with the value: "Bearer jwtValue".
+- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes.
 
 <!-- Screenshots -->
 
