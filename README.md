@@ -125,7 +125,8 @@ params: ":id" is the id of the appointment to be returned
 
 returns: json as shown below
 
-```{
+```
+{
     "appointment": {
         "id": 4,
         "appointment_date": "2007-02-27T13:21:00.000Z",
@@ -138,7 +139,8 @@ returns: json as shown below
     "filePaths": [
         "file path"
     ]
-}```
+}
+```
 
 GET
 
@@ -160,7 +162,8 @@ returns:
 
 json maintains the same structure for both:
 
-```{
+```
+{
     "appointments": [
         {
             "id": 4,
@@ -190,11 +193,13 @@ body: json as shown below
 
 params: n/a
 
-```{
+```
+{
     "username": "user1",
     "password": "userPassword",
     "email": "user@email.com"
-}```
+}
+```
 
 returns: json with "id" field containing the id of the registered user.
 
@@ -208,10 +213,12 @@ body: json as shown below
 
 params: n/a
 
-```{
+```
+{
     "email": "user@email.com",
     "password": "userPassword"
-}```
+}
+```
 
 returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes, which is to be sent in a header called "authorization" with the value: "Bearer jwtValue".
 
