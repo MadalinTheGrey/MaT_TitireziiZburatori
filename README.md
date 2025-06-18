@@ -69,11 +69,12 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 ### Backend
 
 Route documentation:
+
 All routes return a status code and:
 
 - on success: a json with the "message" field usually confirming the action took place successfully.
 - on error: a json with the "error" and eventually "details" fields.
-  If the return field is missing for a route this is all the route returns.
+  If the return field is missing from the details for a route this is all the route returns.
 
 POST
 
@@ -144,11 +145,11 @@ returns: json as shown below
 
 GET
 
-```/api/appointments```
+`/api/appointments`
 
 or
 
-```/api/appointments?is_approved=rejected```
+`/api/appointments?is_approved=rejected`
 
 query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
 
@@ -205,7 +206,7 @@ returns: json with "id" field containing the id of the registered user.
 
 POST
 
-```/api/login```
+`/api/login`
 
 For user log in
 
