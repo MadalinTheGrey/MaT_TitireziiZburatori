@@ -241,7 +241,7 @@ POST
 {
     "name" :"supply name",
     "description": "supply description",
-	  "in_stock": 20
+    "in_stock": 20
 }
 ```
 
