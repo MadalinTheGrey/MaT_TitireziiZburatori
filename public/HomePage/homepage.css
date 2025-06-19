@@ -3,7 +3,7 @@ html {
   overflow-x: auto;
 }
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,64 +11,26 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  line-height: 1.6;
-  color: #000;
+  line-height: 1.4;
+  color: #121568;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #121568;
-  z-index: 1000;
+h1, h2, h3 {
+  font-weight: bold;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  gap: 2rem;
-  white-space: nowrap;
-  overflow: hidden;
+h2 {
+  font-size: 2rem;
 }
 
-.menu,
-.logo {
-  list-style-type: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-}
-
-.menu li a,
-.logo li a {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem, 1rem;
-  white-space: nowrap;
-}
-
-.logo img {
-  max-height: 2rem;
-  width: auto;
-  border-radius: 2px;
-}
-
-/*pt paginile pe care le poti accesa din navbar*/
-.menu li a:hover {
-  text-decoration: underline;
-}
-
-main {
-  padding: 5% 10% 0 10%;
+.hero, .benefits, .special-offer, .offer-card, .gallery-section, .faq-title, .final {
+  text-align: center;
 }
 
 /* HERO SECTION */
 .hero {
   position: relative;
-  height: 100vh;
+  padding: 100px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,69 +49,58 @@ main {
   position: relative;
   z-index: 2;
   color: #fff;
-  text-align: center;
-  padding: 40px;
 }
 
 .hero h1 {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
-.hero h1 span {
-  display: block;
+  font-size: 5rem;
 }
 
 .hero p {
-  margin: 20px 0;
   font-size: 1.2rem;
+  margin: 20px 30px 40px;
 }
 
+/* Buttons */
 .btn {
-  background: #0c0b45;
+  background: #121568;
   color: #fff;
-  padding: 12px 24px;
+  padding: 15px 30px;
   text-decoration: none;
   border-radius: 6px;
   font-weight: bold;
-  transition: background 0.3s;
+  display: inline-block;
 }
-
 
 .btn:hover {
-  background: #1b1a70;
+  background: #c61313;
 }
 
-/* FEATURES SECTION */
+/* FEATURES */
 .benefits {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  text-align: center;
-  position: relative;
-  margin: 60px auto;
+  margin: 100px auto 60px;
   max-width: 1000px;
   padding: 0 20px;
+  position: relative;
 }
 
 .benefit {
   flex: 1;
   padding: 0 20px;
-  position: relative;
 }
 
 .icon-line {
-  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .icon {
-  background-color: #0b0c57;
-  color: white;
-  font-size: 24px;
+  background: #121568;
+  color: #fff;
+  font-size: 35px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -157,64 +108,246 @@ main {
   align-items: center;
   justify-content: center;
   z-index: 2;
-  position: relative;
 }
 
-/* Linia de legătură */
 .benefits::before {
   content: "";
   position: absolute;
-  top: 24px; /* mijlocul iconului (48px/2) */
+  top: 24px;
   left: 10%;
   right: 10%;
   height: 2px;
-  background-color: #0b0c57;
+  background: #121568;
   z-index: 1;
-}
-
-.benefit h3 {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #0b0c57;
 }
 
 .benefit p {
   font-size: 14px;
-  color: #1c1c3c;
 }
 
+/* SPECIAL OFFER */
+.special-offer {
+  padding: 4rem 2rem;
+}
 
+.special-offer h2 {
+  font-weight: 700;
+  color: #121568;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
 
+.special-offer h2::before {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 7px;
+  background: #121568;
+  margin: 0.5rem auto 5px;
+}
 
-.footer {
-  background-color: #121568;
-  color: white;
+.offer-cards {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1.5rem 2rem;
-  font-family: "Poppins", sans-serif;
   flex-wrap: wrap;
   gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-.footer-item {
-  font-size: 1rem;
+.offer-card {
+  max-width: 300px;
 }
 
-.footer-item a {
-  color: white;
-  text-decoration: none;
+.offer-card img {
+  width: 100%;
+  border-radius: 8px;
 }
 
-.footer-socials a {
-  margin: 0 0.5rem;
-  font-size: 1.3rem;
-  color: white;
-  text-decoration: none;
+.offer-card h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #121568;
 }
 
-.footer-socials a:hover {
-  color: #ccc;
+.offer-card p {
+  font-size: 0.95rem;
+  color: #121568;
+  margin-top: 0.5rem;
 }
 
+/* GALLERY */
+.gallery-section {
+  background: #121568;
+  padding: 4rem;
+  color: #fff;
+  width: 100%;
+}
+
+.gallery-title {
+  margin-bottom: 2rem;
+}
+
+.gallery-container {
+  column-count: 2;
+  column-gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.gallery-container img {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  display: block;
+  break-inside: avoid;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* FAQ */
+.faq-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.faq-content {
+  flex: 1;
+  min-width: 300px;
+  text-align: left;
+}
+
+.faq-title {
+  color: #121568;
+  margin-bottom: 2rem;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+.faq-title::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 7px;
+  background: #121568;
+  margin: 0 auto 5px;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+  font-size: 1.1rem;
+  color: #121568;
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.faq-image {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faq-image img {
+  width: 70%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* FINAL */
+.final {
+  position: relative;
+  padding: 100px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: blur(3px) brightness(60%);
+}
+
+.final-overlay {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: 40px;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    margin: 10px 20px 30px;
+  }
+
+  .offer-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery-container {
+    column-count: 1;
+  }
+
+  .gallery-container img {
+    width: 90%;
+  }
+
+  .faq-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .faq-section, .faq-content {
+    text-align: center;
+  }
+
+  .faq-content {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 1rem;
+  }
+
+  .faq-image img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 608px) {
+  .benefits {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .benefit {
+    margin-bottom: 30px;
+  }
+
+  .benefits::before {
+    display: none;
+  }
+}

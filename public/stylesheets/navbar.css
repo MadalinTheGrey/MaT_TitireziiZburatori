@@ -10,26 +10,31 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  gap: 2rem;
+  padding: 1rem 1rem;
+  gap: 1rem;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; 
 }
 
 .menu,
 .logo {
   list-style-type: none;
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
+
 
 .menu li a,
 .logo li a {
   color: white;
   text-decoration: none;
-  padding: 0.5rem, 1rem;
+  padding: 0.5rem 1rem;
   white-space: nowrap;
 }
 
@@ -39,16 +44,38 @@ nav {
   border-radius: 2px;
 }
 
+/*for the pages you access from the navbar*/
 .menu li a:hover {
   text-decoration: underline;
 }
 
-@media (max-width: 400px) {
-  .logo img {
-    max-height: 1.5rem;
+
+@media (max-width: 500px) {
+  nav {
+    gap: 0.5rem;
+    padding: 0.5rem;
   }
 
-  .menu li a {
-    font-size: 0.8rem;
+  .menu li a,
+  .logo li a {
+    font-size: 0.75rem; 
+    padding: 0.3rem 0.5rem;
+  }
+
+  .logo img {
+    max-height: 1.2rem; /* logo mai mic */
+  }
+}
+
+
+@media (max-width: 350px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu,
+  .logo {
+    justify-content: center;
   }
 }
