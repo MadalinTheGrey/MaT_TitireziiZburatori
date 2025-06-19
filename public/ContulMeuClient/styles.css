@@ -11,6 +11,8 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
+  line-height: 1.4;
+  color: #121568;
 }
 
 main {
@@ -21,7 +23,7 @@ main {
   width: 5rem;
   height: 0.5rem;
   background-color: #121568;
-  margin-bottom: 1rem;
+  margin-bottom: 5px;
 }
 
 .desc-programari,
@@ -39,6 +41,7 @@ main {
   margin: 0 auto;
   padding: 2rem;
 }
+
 
 .image-content img {
   max-width: 100%;
