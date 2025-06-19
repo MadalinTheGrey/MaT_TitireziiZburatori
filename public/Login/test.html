@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="../stylesheets/navbar.css" />
   <link rel="stylesheet" href="../stylesheets/footer.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+      rel="stylesheet"
+    />
 </head>
 <body>
     <!-- NAVBAR SECTION -->
@@ -18,11 +22,12 @@
   <section class="appointment-form">
     <div class="form-content">
       <h1 class="form-title">LOGIN</h1>
-      <p>Intră</p>
+      <p>Intră în cont</p>
       <form id="form-login" method="post" action="">
         <fieldset>
           <label id="email">Adresa ta de e-mail:</label>
           <input
+          class="input-text"
             type="text"
             id="email-input"
             name="Adresa email"
@@ -31,13 +36,14 @@
           />
           <label id="password-label">Parola:</label>
           <input
+          class="input-text"
             type="text"
             id="password-input"
             name="Parola Input"
             required
             placeholder="parola ta"
           />
-          <input id="send-form" type="submit" value="Trimiteți" />
+          <input class="submit-btn" id="send-form" type="submit" value="Trimiteți" />
         </fieldset>
       </form>
     </div>
