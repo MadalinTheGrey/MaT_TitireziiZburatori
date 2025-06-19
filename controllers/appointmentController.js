@@ -207,3 +207,55 @@ exports.getAppointments = async (req, res) => {
     res.end(JSON.stringify({ error: "Internal server error" }));
   }
 };
+
+const reviewSchema = z.object({
+  is_approved: z
+    .string()
+    .transform((val) => val.toUpperCase())
+    .refine((val) => ["PENDING", "APPROVED", "REJECTED"].includes(val), {
+      message: "is_approved must be pending, approved, or rejected",
+    }),
+  admin_review: z.string().min(1),
+});
+
+exports.reviewAppointment = async (req, res) => {
+  const appointmentId = parseInt(req.params.id);
+
+  if (isNaN(appointmentId)) {
+    res.writeHead(400, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Invalid appointment id" }));
+    return;
+  }
+
+  const schemaResult = reviewSchema.safeParse(req.body);
+  if (!schemaResult.success) {
+    res.writeHead(400, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        error: "Missing or malformed review data",
+        details: schemaResult.error.errors,
+      })
+    );
+    return;
+  }
+
+  const review = schemaResult.data;
+
+  try {
+    const updated = await appointmentModel.updateAppointmentWithReview(
+      review,
+      appointmentId
+    );
+    if (updated) {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Review added successfully" }));
+    } else {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Appointment not found" }));
+    }
+  } catch (error) {
+    console.error("Error adding review: ", error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Internal server error" }));
+  }
+};
