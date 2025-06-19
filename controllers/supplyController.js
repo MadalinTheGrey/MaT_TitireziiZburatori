@@ -138,7 +138,6 @@ exports.importSuppliesFromCsv = async (req, res) => {
             if (checkedSupplies.length > 0) {
               insertedRows = await supplyModel.importSupplies(checkedSupplies);
             }
-            fs.unlink(tempPath, () => {});
             res.writeHead(201, { "Content-Type": "application/json" });
             res.end(
               JSON.stringify({
@@ -150,6 +149,10 @@ exports.importSuppliesFromCsv = async (req, res) => {
             console.error("Error importing supplies:", error);
             res.writeHead(500, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ error: "Internal server error" }));
+          } finally {
+            fs.unlink(tempPath, (err) => {
+              if (err) console.error("Failed to delete temp file:", err);
+            });
           }
         });
     });
