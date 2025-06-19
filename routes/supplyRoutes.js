@@ -21,4 +21,10 @@ exports.supplyRoutes = [
     middleware: [verifyToken([adminRole])],
     handler: supplyController.updateSupplyStock,
   },
+  {
+    method: "POST",
+    path: "/api/supplies/import",
+    middleware: [verifyToken([adminRole])],
+    handler: supplyController.importSuppliesFromCsv,
+  },
 ];

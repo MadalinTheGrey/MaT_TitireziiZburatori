@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.2",
     "bcrypt": "^6.0.0",
     "zod": "^3.24.4",
-    "busboy": "^1.6.0"
+    "busboy": "^1.6.0",
+    "csv-parser": "^3.2.0"
   }
 }

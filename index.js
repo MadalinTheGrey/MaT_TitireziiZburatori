@@ -91,8 +91,8 @@ async function startApp() {
           ".png": "image/png",
         }[extname] || "text/plain";
 
-      fs.readFile(path.join(__dirname, filePath), (err, content) => {
-        if (err) {
+      fs.readFile(path.join(__dirname, filePath), (error, content) => {
+        if (error) {
           res.writeHead(404);
           res.end("Not found");
         } else {
