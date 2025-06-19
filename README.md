@@ -186,6 +186,18 @@ OR with query params
    }
 ```
 
+PATCH
+
+```
+/api/appointments/:id
+```
+
+- For adding admin reviews
+- body: json containing
+  - "is_approved": pending, approved, rejected
+  - "admin_review": explanation for the decision
+- params: ":id" the id of the appointment that is being reviewed
+
 POST
 
 ```
