@@ -219,7 +219,7 @@ h2 {
 
 .faq-content {
   flex: 1;
-  min-width: 300px;
+  min-width: 200px;
   text-align: left;
 }
 
@@ -228,7 +228,6 @@ h2 {
   margin-bottom: 2rem;
   display: inline-block;
   position: relative;
-  width: 100%;
 }
 
 .faq-title::before {
@@ -237,7 +236,7 @@ h2 {
   width: 50px;
   height: 7px;
   background: #121568;
-  margin: 0 auto 5px;
+  margin-bottom: 8px;
 }
 
 .faq-item {
@@ -257,7 +256,7 @@ h2 {
 
 .faq-image {
   flex: 1;
-  min-width: 300px;
+  min-width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -330,6 +329,10 @@ h2 {
     width: 100%;
     max-width: 500px;
     padding: 0 1rem;
+  }
+
+  .faq-title::before {
+    visibility: hidden;
   }
 
   .faq-image img {

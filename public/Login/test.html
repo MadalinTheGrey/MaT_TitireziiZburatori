@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="test.css" />
+  <!-- CSS global stylesheets (especially for navbar & footer) -->
+  <link rel="stylesheet" href="../stylesheets/navbar.css" />
+  <link rel="stylesheet" href="../stylesheets/footer.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <!-- NAVBAR SECTION -->
+    <header data-include="../html-components/navbar.html"></header>
+
+  <!-- FAQ/Întrebări frecvente SECTION-->
+  <section class="appointment-form">
+    <div class="form-content">
+      <h1 class="form-title">LOGIN</h1>
+      <p>Intră</p>
+      <form id="form-login" method="post" action="">
+        <fieldset>
+          <label id="email">Adresa ta de e-mail:</label>
+          <input
+            type="text"
+            id="email-input"
+            name="Adresa email"
+            required
+            placeholder="adresaEmail@gmail.com"
+          />
+          <label id="password-label">Parola:</label>
+          <input
+            type="text"
+            id="password-input"
+            name="Parola Input"
+            required
+            placeholder="parola ta"
+          />
+          <input id="send-form" type="submit" value="Trimiteți" />
+        </fieldset>
+      </form>
+    </div>
+    <div class="faq-image">
+      <img src="..\assets\faq.png" alt="faq.png">
+    </div>
+  </section>
+  
+  <!--  END OF THE FAQ SECTION -->
+
+  <!-- FOOTER SECTION -->
+  <footer data-include="../html-components/footer.html"></footer>
+
+  <script src="../assets/includes.js"></script> <!--for including the navbar and the footer-->
+</body>
+</html>

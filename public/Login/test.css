@@ -1,0 +1,122 @@
+html {
+    min-width: 320px;
+    overflow-x: auto;
+  }
+  
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.4;
+    color: #121568;
+  }
+  
+  h1 {
+    font-weight: bold;
+    font-size: 3.5rem;
+  }
+
+/* FAQ */
+.appointment-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 5rem;
+  }
+  
+  .form-content {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+  }
+
+  .form-title {
+    color: #121568;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .form-title::before {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 7px;
+    background-color: #121568;
+    margin-bottom: 8px;
+  }
+
+  #form-login {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  #form-login fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    border-width: 0;
+    gap: 1rem;
+  }
+  
+  .faq-image {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .faq-image img {
+    width: 70%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 768px) {
+    .appointment-form {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .appointment-form, .form-content {
+      text-align: center;
+    }
+
+    .form-title::before {
+        visibility: hidden;
+      }
+  
+    .form-content {
+      width: 100%;
+      max-width: 500px;
+      padding: 0 1rem;
+    }
+  
+    .faq-image img {
+      max-width: 100%;
+    }
+  }
+    @media (max-width: 500px){
+        .appointment-form {
+            margin-top: 2rem;
+    }
+  }
+
+  @media (max-width: 350px){
+    .appointment-form {
+        margin-top: 3rem;
+}
+}
