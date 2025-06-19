@@ -65,3 +65,20 @@ exports.getSupplies = async (filters) => {
     throw error;
   }
 };
+
+exports.existsSupply = async (id) => {
+  const query = `
+              SELECT EXISTS (
+                SELECT 1 FROM supplies WHERE id = $1
+              ) AS "exists";
+              `;
+  const values = [id];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows[0].exists;
+  } catch (error) {
+    console.error("Error checking supply existence: ", error);
+    throw error;
+  }
+};

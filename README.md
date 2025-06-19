@@ -281,11 +281,64 @@ GET
             "id": 1,
             "name": "supply name",
             "description": "supply description",
-            "in_stock": 20
+        "in_stock": 20
         }
     ]
 }
 ```
+
+POST
+
+```
+/api/orders
+```
+
+- body: json
+
+```
+{
+    "supply_id": 1,
+    "provider": "some provider",
+    "description": "some description"
+}
+```
+
+- params: n/a
+- returns: json with "id" field containing the id of the created order
+
+GET
+
+```
+/api/orders
+```
+
+- body: n/a
+- params: n/a
+- Returns all orders in json
+
+```
+{
+    "orders": [
+        {
+            "id": 1,
+            "supply_id": 1,
+            "supply_name": "supply name",
+            "provider": "some provider",
+            "description": "some description"
+        }
+    ]
+}
+```
+
+DELETE
+
+```
+/api/orders/:id
+```
+
+- body: n/a
+- params: ":id" - id of the order to be deleted
+- Deletes order with given id
 
 <!-- Screenshots -->
 
