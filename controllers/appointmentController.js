@@ -56,14 +56,20 @@ exports.addAppointment = async (req, res) => {
     res.writeHead(201, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ id: appointmentId }));
   } catch (error) {
-    console.error("Error adding equipment: ", error);
+    console.error("Error adding appointment: ", error);
     res.writeHead(500, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Internal server error" }));
   }
 };
 
 exports.uploadAppointmentFiles = async (req, res) => {
-  const appointmentId = req.params.id;
+  const appointmentId = parseInt(req.params.id);
+
+  if (isNaN(appointmentId)) {
+    res.writeHead(400, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Invalid appointment id" }));
+    return;
+  }
 
   try {
     const isAppointmentValid =
@@ -144,7 +150,13 @@ exports.uploadAppointmentFiles = async (req, res) => {
 };
 
 exports.getAppointmentById = async (req, res) => {
-  const appointmentId = req.params.id;
+  const appointmentId = parseInt(req.params.id);
+
+  if (isNaN(appointmentId)) {
+    res.writeHead(400, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Invalid appointment id" }));
+    return;
+  }
 
   try {
     const isAdmin = req.user.roles.includes("admin");

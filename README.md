@@ -87,7 +87,7 @@ POST
 /api/appointments
 ```
 
-- body: json (example below)
+- body: json
 
 ```
 {
@@ -165,7 +165,7 @@ OR with query params
 
   - for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
 
-  - json maintains the same structure for both:
+  - json that maintains the same structure for both:
 
 ```
 {
@@ -194,9 +194,7 @@ POST
 
 - For registering users.
 
-- body: json as shown below
-
-- params: n/a
+- body: json
 
 ```
 {
@@ -205,6 +203,8 @@ POST
     "email": "user@email.com"
 }
 ```
+
+- params: n/a
 
 - returns: json with "id" field containing the id of the registered user.
 
@@ -228,6 +228,117 @@ POST
 ```
 
 - returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes.
+
+POST
+
+```
+/api/supplies
+```
+
+- body: json
+
+```
+{
+    "name" :"supply name",
+    "description": "supply description",
+    "in_stock": 20
+}
+```
+
+- params: n/a
+- returns: json with "id" field containing the id of the added supply
+
+PATCH
+
+```
+/api/supplies/:id
+```
+
+- Updates stock for supply with given id
+- body: json with field "in_stock" containing the new number of items in stock
+- params: ":id" is the id of the supply which will be updated
+
+GET
+
+```
+/api/supplies
+```
+
+- body: n/a
+- query params: "name" and "in_stock". The endpoint will search for supplies where these fields have the values given.
+- example:
+
+```
+/api/supplies?name=pry%20bar&in_stock=20
+```
+
+- returns: json
+
+```
+{
+    "supplies": [
+        {
+            "id": 1,
+            "name": "supply name",
+            "description": "supply description",
+            "in_stock": 20
+        }
+    ]
+}
+```
+
+POST
+
+```
+/api/orders
+```
+
+- body: json
+
+```
+{
+    "supply_id": 1,
+    "provider": "some provider",
+    "description": "some description"
+}
+```
+
+- params: n/a
+- returns: json with "id" field containing the id of the created order
+
+GET
+
+```
+/api/orders
+```
+
+- body: n/a
+- params: n/a
+- Returns all orders in json
+
+```
+{
+    "orders": [
+        {
+            "id": 1,
+            "supply_id": 1,
+            "supply_name": "supply name",
+            "provider": "some provider",
+            "description": "some description"
+        }
+    ]
+}
+```
+
+DELETE
+
+```
+/api/orders/:id
+```
+
+- body: n/a
+- params: ":id" - id of the order to be deleted
+- Deletes order with given id
 
 <!-- Screenshots -->
 
