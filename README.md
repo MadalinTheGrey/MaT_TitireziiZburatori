@@ -309,6 +309,16 @@ POST
 - params: n/a
 - returns: json with "message" and "count" fields, the latter containing the number of supplies added.
 
+GET
+
+```
+/api/supplies/export
+```
+
+- body: n/a
+- params: n/a
+- returns: downloadable json containing all supplies
+
 POST
 
 ```
