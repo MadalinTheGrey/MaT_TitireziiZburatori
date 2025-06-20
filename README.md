@@ -372,6 +372,16 @@ DELETE
 - params: ":id" - id of the order to be deleted
 - Deletes order with given id
 
+POST
+
+```
+/api/roles
+```
+
+- Adds a role to a user using their ids
+- body: json with user_id and role_id to help identify which role should be assigned to which user
+- params: n/a
+
 <!-- Screenshots -->
 
 ### :camera: Screenshots
