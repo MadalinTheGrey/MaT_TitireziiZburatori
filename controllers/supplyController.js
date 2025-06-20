@@ -1,10 +1,7 @@
 const { z } = require("zod");
 const supplyModel = require("../models/supplyModel");
-const fs = require("fs");
-const path = require("path");
 const Busboy = require("busboy");
 const csv = require("csv-parser");
-const { check } = require("zod/v4");
 
 const supplySchema = z.object({
   name: z.string().min(1, { message: "Name must be included for supply" }),
@@ -97,18 +94,18 @@ exports.getSupplies = async (req, res) => {
 exports.importSuppliesFromCsv = async (req, res) => {
   const busboy = Busboy({ headers: req.headers });
   const supplies = [];
+  let fileReceived = false;
 
   busboy.on("file", (fieldname, file, fileInfo) => {
+    if (fileReceived) {
+      file.resume();
+      return;
+    }
+    fileReceived = true;
     const { filename } = fileInfo;
     if (!filename) return;
-    const dir = path.join(__dirname, "..", "uploads");
-    fs.mkdirSync(dir, { recursive: true });
-    const tempPath = path.join(dir, Date.now() + "-" + filename);
-    const writeStream = fs.createWriteStream(tempPath);
-    file.pipe(writeStream);
-
-    writeStream.on("finish", () => {
-      fs.createReadStream(tempPath)
+    if (filename.endsWith(".csv")) {
+      file
         .pipe(csv())
         .on("data", (row) => {
           supplies.push({
@@ -118,45 +115,69 @@ exports.importSuppliesFromCsv = async (req, res) => {
           });
         })
         .on("end", async () => {
-          try {
-            const checkedSupplies = [];
-            for (const supply of supplies) {
-              const schemaResult = supplySchema.safeParse(supply);
-              if (!schemaResult.success) {
-                res.writeHead(400, { "Content-Type": "application/json" });
-                res.end(
-                  JSON.stringify({
-                    error: "Missing or invalid data for supply",
-                    details: schemaResult.error.errors,
-                  })
-                );
-                return;
-              }
-              checkedSupplies.push(schemaResult.data);
-            }
-            let insertedRows = 0;
-            if (checkedSupplies.length > 0) {
-              insertedRows = await supplyModel.importSupplies(checkedSupplies);
-            }
-            res.writeHead(201, { "Content-Type": "application/json" });
-            res.end(
-              JSON.stringify({
-                message: "Supplies imported successfully",
-                count: insertedRows,
-              })
-            );
-          } catch (error) {
-            console.error("Error importing supplies:", error);
-            res.writeHead(500, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ error: "Internal server error" }));
-          } finally {
-            fs.unlink(tempPath, (err) => {
-              if (err) console.error("Failed to delete temp file:", err);
-            });
-          }
+          await processSupplies(supplies, res);
         });
-    });
+    } else if (filename.endsWith(".json")) {
+      let jsonContent = "";
+      file.setEncoding("utf8");
+      file.on("data", (chunk) => {
+        jsonContent += chunk;
+      });
+      file.on("end", async () => {
+        try {
+          const data = JSON.parse(jsonContent);
+          if (!Array.isArray(data)) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({ error: "JSON file must contain an array" })
+            );
+            return;
+          }
+          await processSupplies(data, res);
+        } catch (err) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid JSON file" }));
+        }
+      });
+    } else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Unsupported file type for import" }));
+    }
   });
-
   req.pipe(busboy);
 };
+
+async function processSupplies(supplies, res) {
+  try {
+    const checkedSupplies = [];
+    for (const supply of supplies) {
+      const schemaResult = supplySchema.safeParse(supply);
+      if (!schemaResult.success) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            error: "Missing or invalid data for supply",
+            details: schemaResult.error.errors,
+          })
+        );
+        return;
+      }
+      checkedSupplies.push(schemaResult.data);
+    }
+    let insertedRows = 0;
+    if (checkedSupplies.length > 0) {
+      insertedRows = await supplyModel.importSupplies(checkedSupplies);
+    }
+    res.writeHead(201, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        message: "Supplies imported successfully",
+        count: insertedRows,
+      })
+    );
+  } catch (error) {
+    console.error("Error importing supplies:", error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Internal server error" }));
+  }
+}
