@@ -181,3 +181,22 @@ async function processSupplies(supplies, res) {
     res.end(JSON.stringify({ error: "Internal server error" }));
   }
 }
+
+exports.exportSuppliesAsJson = async (req, res) => {
+  try {
+    const supplies = await supplyModel.getSupplies({});
+
+    const jsonData = JSON.stringify(supplies, null, 2);
+
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+      "Content-Disposition": 'attachment; filename="supplies-export.json"',
+    });
+
+    res.end(jsonData);
+  } catch (error) {
+    console.error("Error exporting supplies: ", error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Internal server error" }));
+  }
+};

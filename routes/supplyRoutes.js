@@ -27,4 +27,10 @@ exports.supplyRoutes = [
     middleware: [verifyToken([adminRole])],
     handler: supplyController.importSupplies,
   },
+  {
+    method: "GET",
+    path: "/api/supplies/export",
+    middleware: [verifyToken([adminRole])],
+    handler: supplyController.exportSuppliesAsJson,
+  },
 ];
