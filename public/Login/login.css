@@ -67,6 +67,10 @@ h1 {
   max-width: 200px;
 }
 
+.btn-register{
+  font-size: 14px;
+}
+
 .faq-image {
   flex: 1;
   display: flex;
@@ -80,6 +84,11 @@ h1 {
   max-height: 420px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.register-p {
+  padding-top: 30px;
+  padding-right: 30px;
 }
 
 @media (max-width: 768px) {
