@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
-  <link rel="stylesheet" href="test.css" />
+  <title>Register</title>
+  <link rel="stylesheet" href="register.css" />
+  <link rel="stylesheet" href="/stylesheets/default.css" />
   <!-- CSS global stylesheets (especially for navbar & footer) -->
   <link rel="stylesheet" href="../stylesheets/navbar.css" />
   <link rel="stylesheet" href="../stylesheets/footer.css" />
@@ -21,8 +22,8 @@
   <!-- FAQ/Întrebări frecvente SECTION-->
   <section class="appointment-form">
     <div class="form-content">
-      <h1 class="form-title">LOGIN</h1>
-      <p>Intră în cont</p>
+      <h1 class="form-title">REGISTER</h1>
+      <p>Creează un cont</p>
       <form id="form-login" method="post" action="">
         <fieldset>
           <label id="email">Adresa ta de e-mail:</label>
@@ -32,9 +33,18 @@
             id="email-input"
             name="Adresa email"
             required
-            placeholder="adresaEmail@gmail.com"
+            placeholder="adresaemail@gmail.com"
           />
-          <label id="password-label">Parola:</label>
+          <label id="email">Username:</label>
+          <input
+          class="input-text"
+            type="text"
+            id="username-input"
+            name="username"
+            required
+            placeholder="pinguinul cel roșcat"
+          />
+          <label id="password-label">Parolă:</label>
           <input
           class="input-text"
             type="text"
@@ -43,12 +53,12 @@
             required
             placeholder="parola ta"
           />
-          <input class="submit-btn" id="send-form" type="submit" value="Trimiteți" />
+          <input class="button btn-login" id="send-form" type="submit" value="ÎNREGISTREAZĂ-TE" />
         </fieldset>
       </form>
     </div>
     <div class="faq-image">
-      <img src="..\assets\faq.png" alt="faq.png">
+      <img src="https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg" alt="faq.png">
     </div>
   </section>
   

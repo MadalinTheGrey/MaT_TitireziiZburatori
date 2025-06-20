@@ -1,70 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login/Register</title>
-    <link rel="stylesheet" href="/ContulMeuClient/styles.css" />
-    <!-- CSS global stylesheets (especially for navbar & footer) -->
-    <link rel="stylesheet" href="../stylesheets/navbar.css" />
-    <link rel="stylesheet" href="../stylesheets/footer.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- <link
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="/stylesheets/default.css" />
+  <!-- CSS global stylesheets (especially for navbar & footer) -->
+  <link rel="stylesheet" href="../stylesheets/navbar.css" />
+  <link rel="stylesheet" href="../stylesheets/footer.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link
       href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
       rel="stylesheet"
-    /> -->
-  </head>
-  <body>
+    />
+</head>
+<body>
     <!-- NAVBAR SECTION -->
     <header data-include="../html-components/navbar.html"></header>
 
-    <main>
-      <section class="desc-login">
-        <div class="text-content">
-          <div class="blue-line"></div>
-          <h1>LOGIN</h1>
-          <p>
-            Creează/Intră în cont
-          </p>
-        </div>
-        <div class="image-content">
-          <img src="https://images.pexels.com/photos/175039/pexels-photo-175039.jpeg" alt="hammer.jpg"
+  <!-- FAQ/Întrebări frecvente SECTION-->
+  <section class="appointment-form">
+    <div class="form-content">
+      <h1 class="form-title">LOGIN</h1>
+      <p>Intră în cont</p>
+      <form id="form-login" method="post" action="">
+        <fieldset>
+          <label id="email">Adresa ta de e-mail:</label>
+          <input
+          class="input-text"
+            type="text"
+            id="email-input"
+            name="Adresa email"
+            required
+            placeholder="adresaemail@gmail.com"
           />
-        </div>
-      </section>
-      <section class="login-form">
-        <form id="form-login" method="post" action="">
-          <fieldset>
-            <label id="email-label">Adresa ta de e-mail:</label>
-            <input
-              type="text"
-              id="email-input"
-              name="Nume email"
-              required
-              placeholder="adresaEmail@gmail.com"
-            />
-            <label id="password-label">Parolă:</label>
-            <input
-              type="text"
-              id="password-input"
-              name="password"
-              required
-              placeholder="parola ta"
-            />
-            <input id="send-form" type="submit" value="Trimite" />
-          </fieldset>
-        </form>
-        <div id="form-message"></div>
-      </section>
-      
-    </main>
+          <label id="password-label">Parolă:</label>
+          <input
+          class="input-text"
+            type="text"
+            id="password-input"
+            name="Parola Input"
+            required
+            placeholder="parola ta"
+          />
+          <input class="button btn-login" id="send-form" type="submit" value="CONECTEAZĂ-TE" />
+        </fieldset>
+      </form>
+    </div>
+    <div class="faq-image">
+      <img src="https://images.pexels.com/photos/175039/pexels-photo-175039.jpeg" alt="faq.png">
+    </div>
+  </section>
+  
+  <!--  END OF THE FAQ SECTION -->
 
-    <!-- FOOTER SECTION -->
-    <footer data-include="../html-components/footer.html"></footer>
+  <!-- FOOTER SECTION -->
+  <footer data-include="../html-components/footer.html"></footer>
 
-    <script src="../assets/includes.js"></script> <!--for including the navbar and the footer-->
-  </body>
+  <script src="../assets/includes.js"></script> <!--for including the navbar and the footer-->
+</body>
 </html>
