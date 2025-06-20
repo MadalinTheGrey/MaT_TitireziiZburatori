@@ -25,6 +25,6 @@ exports.supplyRoutes = [
     method: "POST",
     path: "/api/supplies/import",
     middleware: [verifyToken([adminRole])],
-    handler: supplyController.importSuppliesFromCsv,
+    handler: supplyController.importSupplies,
   },
 ];

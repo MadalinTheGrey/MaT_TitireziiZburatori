@@ -91,7 +91,7 @@ exports.getSupplies = async (req, res) => {
   }
 };
 
-exports.importSuppliesFromCsv = async (req, res) => {
+exports.importSupplies = async (req, res) => {
   const busboy = Busboy({ headers: req.headers });
   const supplies = [];
   let fileReceived = false;
