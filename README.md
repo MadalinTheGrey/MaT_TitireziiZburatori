@@ -302,6 +302,26 @@ GET
 POST
 
 ```
+/api/supplies/import
+```
+
+- body: multipart/form-data containing either a json or a csv file with supplies that respect the form of a supply mentioned at the other POST route
+- params: n/a
+- returns: json with "message" and "count" fields, the latter containing the number of supplies added.
+
+GET
+
+```
+/api/supplies/export
+```
+
+- body: n/a
+- params: n/a
+- returns: downloadable json containing all supplies
+
+POST
+
+```
 /api/orders
 ```
 

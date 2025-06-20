@@ -5,7 +5,7 @@ const orderModel = require("../models/orderModel");
 const orderSchema = z.object({
   supply_id: z.number().int().min(1),
   provider: z.string().min(1),
-  description: z.string().optional(),
+  description: z.string().nullable().optional(),
 });
 
 exports.addOrder = async (req, res) => {
