@@ -34,6 +34,8 @@ h2 {
     font-family: "Poppins", sans-serif;
     border: 2px solid #121568;
     text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .button:hover {
