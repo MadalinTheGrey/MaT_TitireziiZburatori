@@ -41,4 +41,5 @@ h2 {
 .button:hover {
     background-color: orangered;
     border: 2px solid orangered;
+    transform: scale(1.05); /* Efect de scalare la hover */
 }

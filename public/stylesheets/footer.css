@@ -30,6 +30,11 @@
   color: #ccc;
 }
 
+.footer-item a:hover {
+  color: #ccc;
+  text-decoration: underline;
+}
+
 @media (max-width: 500px) {
   .footer-item{
     font-size: 0.75rem;
