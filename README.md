@@ -277,7 +277,7 @@ GET
 ```
 
 - body: n/a
-- query params: "name" and "in_stock". The endpoint will search for supplies where these fields have the values given.
+- query params: "name" and "in_stock". The endpoint will search for supplies with the given name where in_stock is equal or lower than the given value.
 - example:
 
 ```
