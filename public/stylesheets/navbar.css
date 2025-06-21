@@ -43,6 +43,7 @@ nav {
 
 .menu li a:hover {
   text-decoration: underline;
+  color: #ccc;
 }
 
 
