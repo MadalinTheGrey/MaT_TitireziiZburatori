@@ -18,7 +18,7 @@ body {
   flex-grow: 1;
   padding: 20px;
   padding-top: 80px; /* Spațiu pentru navbar fix */
-  padding-bottom: 80px; /* Spațiu pentru footer fix */
+  padding-bottom: 0; /* MODIFICAT: Setăm padding-ul de jos la 0 pentru a permite bannerului să se lipească de footer */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -517,6 +517,32 @@ body {
   width: 100%; /* Asigură că mesajul se centrează pe toată lățimea */
 }
 
+/* NOUA SECȚIUNE: BANNER IMAGINE FUNDAL (inspirată din .final de pe homepage) */
+.admin-bottom-banner {
+  position: relative;
+  width: 100vw;
+  height: 250px; /* O înălțime fixă pentru banner (poți ajusta) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px; /* Păstrăm spațiul deasupra față de secțiunea anterioară */
+  margin-bottom: 0; /* MODIFICAT: Eliminăm marginea de jos pentru a se lipi de footer */
+  /* Truc pentru a se extinde full-width din main-content dacă main-content are max-width */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden; /* Ascunde părțile din imagine care depășesc containerul */
+}
+
+.admin-banner-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.6);
+}
+
+/* Nu este nevoie de .admin-banner-overlay sau .admin-banner-text, deoarece nu vrem text */
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -619,30 +645,36 @@ body {
   .supplier-requests-section {
     margin: 30px auto; /* Reducem marginile pe mobil */
     padding: 0 15px; /* Reducem padding-ul */
-}
+  }
 
-.supplier-requests-section .section-title {
+  .supplier-requests-section .section-title {
     font-size: 1.5em; /* Titlu mai mic pe mobil */
     margin-bottom: 15px;
-}
+  }
 
-.supplier-requests-container {
+  .supplier-requests-container {
     padding-bottom: 8px; /* Ajustăm padding-ul scrollbar-ului pe mobil */
     gap: 0.8rem; /* Reducem spațiul dintre carduri */
-}
+  }
 
-.supplier-request-card {
+  .supplier-request-card {
     min-width: 250px; /* Lățime minimă mai mică pe mobil */
     padding: 1rem;
-}
+  }
 
-.supplier-request-card h3 {
+  .supplier-request-card h3 {
     font-size: 1.1rem;
-}
+  }
 
-.supplier-request-card .part-name,
-.supplier-request-card .part-description {
+  .supplier-request-card .part-name,
+  .supplier-request-card .part-description {
     font-size: 0.9em;
+  }
+
+  .admin-bottom-banner {
+    height: 200px; /* Înălțime mai mică pe mobil */
+    margin-top: 40px;
+    margin-bottom: 0; /* Asigurăm și aici că e 0 */
 }
 }
 
@@ -690,14 +722,20 @@ body {
   .supplier-requests-section {
     margin: 20px auto;
     padding: 0 10px;
-}
+  }
 
-.supplier-requests-section .section-title {
+  .supplier-requests-section .section-title {
     font-size: 1.3em;
-}
+  }
 
-.supplier-request-card {
+  .supplier-request-card {
     min-width: 220px;
     padding: 0.8rem;
+  }
+
+  .admin-bottom-banner {
+    height: 150px; /* Și mai mică pe ecrane foarte mici */
+    margin-top: 30px;
+    margin-bottom: 0; /* Asigurăm și aici că e 0 */
 }
 }
