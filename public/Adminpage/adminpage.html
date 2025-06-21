@@ -26,7 +26,9 @@
       <!-- LIST APPOINTMENTS SECTION -->
       <section class="requests-carousel-section">
         <div class="carousel-wrapper">
-          <button class="button nav-button prev-button desktop-nav-button">&lt;</button>
+          <button class="button nav-button prev-button desktop-nav-button">
+            &lt;
+          </button>
 
           <div class="request-card">
             <div class="request-details">
@@ -42,8 +44,8 @@
                 <p id="problemDescription">
                   Am intrat cu bicicleta în copacul din imagine și am stricat
                   roata din spate. Mi-aș dori să o reparați și apoi să vopsesc
-                  bicicleta în roșu (cuminte după ce se ferește după copacii
-                  de mine!)
+                  bicicleta în roșu (cuminte după ce se ferește după copacii de
+                  mine!)
                 </p>
               </div>
               <div class="detail-item">
@@ -78,7 +80,9 @@
             </div>
           </div>
 
-          <button class="button nav-button next-button desktop-nav-button">&gt;</button>
+          <button class="button nav-button next-button desktop-nav-button">
+            &gt;
+          </button>
         </div>
 
         <div class="nav-buttons-mobile-wrapper">
@@ -91,8 +95,7 @@
       <section class="occupied-appointments-section">
         <h2 class="section-title">CERERI APROBATE</h2>
         <div class="appointments-list-container">
-          <ul id="occupiedAppointmentsList" class="appointments-list">
-            </ul>
+          <ul id="occupiedAppointmentsList" class="appointments-list"></ul>
           <p id="noAppointmentsMessage">Nu există cereri aprobate.</p>
         </div>
       </section>
@@ -103,7 +106,24 @@
           <h2>PIESE SERVICE</h2>
         </a>
       </section>
-      </main>
+
+      <!-- NOUA SECȚIUNE: CERERI DE LA FURNIZORI -->
+      <section class="supplier-requests-section">
+        <h2 class="section-title">CERERI - FURNIZORI</h2>
+        <div id="supplierRequestsContainer" class="supplier-requests-container">
+          <!-- Cardurile cu cereri de la furnizori vor fi generate dinamic aici de JS -->
+          <!-- Exemplu de structură pentru un card:
+          <div class="supplier-request-card">
+            <h3>Nume Furnizor</h3>
+            <p class="part-name">Nume Piesa</p>
+            <p class="part-description">Descrierea detaliată a cererii pentru piesa.</p>
+          </div>
+          -->
+          <p id="noSupplierRequestsMessage" class="no-requests-message">Nu există cereri de la furnizori.</p>
+        </div>
+      </section>
+      <!-- END NOUA SECȚIUNE: CERERI DE LA FURNIZORI -->
+    </main>
 
     <footer data-include="../html-components/footer.html"></footer>
 

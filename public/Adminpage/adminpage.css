@@ -415,6 +415,109 @@ body {
   ); /* Face fundalul ușor mai opac la hover */
 }
 
+/* NOUA SECȚIUNE: CERERI DE LA FURNIZORI */
+.supplier-requests-section {
+  width: 100%;
+  max-width: 1200px; /* Lățime maximă consistentă */
+  margin: 40px auto; /* Spațiu deasupra și dedesubt, centrat orizontal */
+  padding: 0 20px; /* Padding lateral pentru a alinia conținutul cu restul paginii */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.supplier-requests-section .section-title {
+  color: #121568;
+  font-size: 2em; /* Dimensiune consistentă cu alte titluri de secțiune */
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+  width: 100%;
+}
+
+.supplier-requests-container {
+  display: flex; /* Activează Flexbox pentru aranjare orizontală */
+  gap: 1rem; /* Spațiu între carduri */
+  overflow-x: auto; /* Activează scroll-ul orizontal */
+  scroll-snap-type: x mandatory; /* Asigură un scroll lin la carduri */
+  width: 100%; /* Ocupă toată lățimea disponibilă */
+  max-width: 900px; /* Similar cu request-card pentru a limita lățimea vizibilă */
+  padding-bottom: 10px; /* Spațiu pentru scrollbar */
+
+  /* Stiluri pentru bara de scroll (Webkit) */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #121568 #f1f1f1; /* Thumb și Track */
+}
+
+/* Personalizarea scrollbar-ului pentru Webkit (Chrome, Safari, Edge) */
+.supplier-requests-container::-webkit-scrollbar {
+  height: 8px; /* Înălțimea barei de scroll orizontale */
+}
+
+.supplier-requests-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.supplier-requests-container::-webkit-scrollbar-thumb {
+  background-color: #121568;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+}
+
+.supplier-requests-container::-webkit-scrollbar-thumb:hover {
+  background-color: #0d1052;
+}
+
+.supplier-request-card {
+  min-width: 300px; /* Lățime minimă a cardului (important pentru scroll) */
+  flex-shrink: 0; /* Nu permite cardurilor să se micșoreze */
+  height: auto;
+  background-color: #f1f1f1; /* Fundal gri deschis */
+  border-radius: 10px;
+  padding: 1.5rem;
+  scroll-snap-align: start; /* Aliniere la începutul cardului la scroll */
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Umbră similară */
+  display: flex; /* Activează flexbox pentru conținutul intern */
+  flex-direction: column; /* Stivuiește elementele intern */
+  gap: 0.5rem; /* Spațiu între elementele din card */
+}
+
+.supplier-request-card h3 {
+  margin: 0; /* Elimină marginile implicite */
+  font-size: 1.2rem;
+  color: #121568; /* Culoare albastră pentru titlu (nume furnizor) */
+  border-bottom: 1px solid #eee; /* O linie sub numele furnizorului */
+  padding-bottom: 0.5rem; /* Spațiu sub linie */
+  margin-bottom: 0.5rem; /* Spațiu sub linie și titlu */
+  font-weight: 600;
+}
+
+.supplier-request-card .part-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.supplier-request-card .part-description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  flex-grow: 1; /* Permite descrierii să ocupe spațiul rămas */
+}
+
+.no-requests-message {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 20px;
+  width: 100%; /* Asigură că mesajul se centrează pe toată lățimea */
+}
+
+
 /* Responsive design */
 @media (max-width: 768px) {
   /* Ascunde butoanele de desktop pe mobil */
@@ -512,6 +615,35 @@ body {
     font-size: 2em; /* Reducem dimensiunea fontului pe mobil */
     padding: 12px 25px; /* Ajustăm padding-ul butonului */
   }
+
+  .supplier-requests-section {
+    margin: 30px auto; /* Reducem marginile pe mobil */
+    padding: 0 15px; /* Reducem padding-ul */
+}
+
+.supplier-requests-section .section-title {
+    font-size: 1.5em; /* Titlu mai mic pe mobil */
+    margin-bottom: 15px;
+}
+
+.supplier-requests-container {
+    padding-bottom: 8px; /* Ajustăm padding-ul scrollbar-ului pe mobil */
+    gap: 0.8rem; /* Reducem spațiul dintre carduri */
+}
+
+.supplier-request-card {
+    min-width: 250px; /* Lățime minimă mai mică pe mobil */
+    padding: 1rem;
+}
+
+.supplier-request-card h3 {
+    font-size: 1.1rem;
+}
+
+.supplier-request-card .part-name,
+.supplier-request-card .part-description {
+    font-size: 0.9em;
+}
 }
 
 @media (max-width: 480px) {
@@ -554,4 +686,18 @@ body {
     letter-spacing: 1px;
     padding: 10px 20px;
   }
+
+  .supplier-requests-section {
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+.supplier-requests-section .section-title {
+    font-size: 1.3em;
+}
+
+.supplier-request-card {
+    min-width: 220px;
+    padding: 0.8rem;
+}
 }

@@ -59,6 +59,52 @@ const occupiedAppointments = [
   { date: "26.06.2025", time: "15:00 - 16:00", clientName: "Laura Georgescu" },
 ];
 
+// NOU: Simulează datele pentru cererile de la furnizori
+const supplierRequests = [
+  {
+      id: 1,
+      supplierName: "Furnizor MotoPiese SRL",
+      partName: "Filtru Ulei Motocicletă",
+      description: "Necesită 5 bucăți, cod produs: FUMT-2023. Urgență medie. Livrare în 3 zile."
+  },
+  {
+      id: 2,
+      supplierName: "CicluServicii SA",
+      partName: "Set Frâne Hidraulice Bicicletă",
+      description: "2 seturi, pentru biciclete de munte. Calitate superioară. Termen limită 5 zile."
+  },
+  {
+      id: 3,
+      supplierName: "ElectroMobility Distribuitor",
+      partName: "Baterie Trotinetă Electrică 36V",
+      description: "10 bucăți, model standard. Compatibil cu Xiaomi M365. Stoc limitat."
+  },
+  {
+      id: 4,
+      supplierName: "AutoPro Componente",
+      partName: "Lanț Transmisie Moto",
+      description: "Diverse dimensiuni, pentru modele Honda și Yamaha. Cantitate mare necesară."
+  },
+  {
+      id: 5,
+      supplierName: "Piese Rapid SRL",
+      partName: "Anvelopă Bicicletă 29 inch",
+      description: "Anvelope off-road, 15 bucăți. Așteptăm oferta de preț."
+  },
+  {
+      id: 6,
+      supplierName: "General Parts Inc.",
+      partName: "Amortizor Trotinetă Față",
+      description: "Model universal, 8 bucăți. Avem nevoie urgentă."
+  },
+  {
+      id: 7,
+      supplierName: "MegaMoto Spares",
+      partName: "Set garnituri motor",
+      description: "Pentru motor Suzuki GSX-R, an 2018. 3 seturi."
+  }
+];
+
 let currentRequestIndex = 0; // Indexul cererii curente afișate
 
 // Referințe la elementele DOM
@@ -90,6 +136,11 @@ const occupiedAppointmentsListElem = document.getElementById(
 const noAppointmentsMessageElem = document.getElementById(
   "noAppointmentsMessage"
 );
+
+// NOU: Referințe la elementele pentru cererile de la furnizori
+const supplierRequestsContainerElem = document.getElementById("supplierRequestsContainer");
+const noSupplierRequestsMessageElem = document.getElementById("noSupplierRequestsMessage");
+
 
 /**
  * Funcție pentru a afișa detaliile unei cereri specifice.
@@ -223,6 +274,29 @@ async function sendDataToServer(data) {
   });
 }
 
+// NOU: Funcție pentru a afișa cererile de la furnizori
+function displaySupplierRequests(requests) {
+  supplierRequestsContainerElem.innerHTML = ''; // Golește containerul existent
+
+  if (requests.length === 0) {
+      noSupplierRequestsMessageElem.style.display = 'block'; // Afișează mesajul "Nu există..."
+  } else {
+      noSupplierRequestsMessageElem.style.display = 'none'; // Ascunde mesajul
+      
+      requests.forEach(request => {
+          const card = document.createElement('div');
+          card.classList.add('supplier-request-card');
+          card.innerHTML = `
+              <h3>${request.supplierName}</h3>
+              <p class="part-name">${request.partName}</p>
+              <p class="part-description">${request.description}</p>
+          `;
+          supplierRequestsContainerElem.appendChild(card);
+      });
+  }
+}
+
+
 // Adaugă event listeners
 document.addEventListener("DOMContentLoaded", () => {
   // Afișează prima cerere la încărcarea paginii
@@ -299,4 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     alert(`Cererea #${currentRequest.id} a fost refuzată!`);
   });
+
+  // NOU: Afișează cererile de la furnizori la încărcarea paginii
+  displaySupplierRequests(supplierRequests);
 });
