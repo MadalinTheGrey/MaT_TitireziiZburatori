@@ -28,4 +28,10 @@ exports.appointmentRoutes = [
     middleware: [verifyToken([clientRole])],
     handler: appointmentController.getAppointments,
   },
+  {
+    method: "PATCH",
+    path: "/api/appointments/:id",
+    middleware: [verifyToken([adminRole])],
+    handler: appointmentController.reviewAppointment,
+  },
 ];

@@ -186,6 +186,18 @@ OR with query params
    }
 ```
 
+PATCH
+
+```
+/api/appointments/:id
+```
+
+- For adding admin reviews
+- body: json containing
+  - "is_approved": pending, approved, rejected
+  - "admin_review": explanation for the decision
+- params: ":id" the id of the appointment that is being reviewed
+
 POST
 
 ```
@@ -290,6 +302,26 @@ GET
 POST
 
 ```
+/api/supplies/import
+```
+
+- body: multipart/form-data containing either a json or a csv file with supplies that respect the form of a supply mentioned at the other POST route
+- params: n/a
+- returns: json with "message" and "count" fields, the latter containing the number of supplies added.
+
+GET
+
+```
+/api/supplies/export
+```
+
+- body: n/a
+- params: n/a
+- returns: downloadable json containing all supplies
+
+POST
+
+```
 /api/orders
 ```
 
@@ -339,6 +371,16 @@ DELETE
 - body: n/a
 - params: ":id" - id of the order to be deleted
 - Deletes order with given id
+
+POST
+
+```
+/api/roles
+```
+
+- Adds a role to a user using their ids
+- body: json with user_id and role_id to help identify which role should be assigned to which user
+- params: n/a
 
 <!-- Screenshots -->
 
