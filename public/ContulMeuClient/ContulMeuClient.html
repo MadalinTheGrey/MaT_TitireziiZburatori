@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contul Meu</title>
     <link rel="stylesheet" href="/ContulMeuClient/styles.css" />
+    <link rel="stylesheet" href="/stylesheets/default.css" />
     <!-- CSS global stylesheets (especially for navbar & footer) -->
     <link rel="stylesheet" href="../stylesheets/navbar.css" />
     <link rel="stylesheet" href="../stylesheets/footer.css" />
@@ -22,7 +23,7 @@
     <header data-include="../html-components/navbar.html"></header>
 
     <main>
-      <section class="desc-programari">
+      <section class="desc-appointments">
         <div class="text-content">
           <div class="blue-line"></div>
           <h1>PROGRAMĂRI</h1>
@@ -45,20 +46,20 @@
       </section>
       <section class="appointment-form">
         <h2>Formular programare</h2>
-        <form id="formular-inscriere" method="post" action="">
+        <form id="form-register-app" method="post" action="">
           <fieldset>
-            <label id="produs-label">Nume produs</label>
+            <label id="prod-label">Nume produs</label>
             <input
               type="text"
-              id="produs-input"
-              name="Nume produs"
+              id="prod-input"
+              name="Name prod"
               required
               placeholder="Motocicleta Kawasaki Ninja H2 R, 1:12"
             />
-            <label id="detalii-problema-label">Detalii problema</label>
+            <label id="details-problem-label">Detalii problema</label>
             <textarea
-              id="detalii-problema-input"
-              name="detalii"
+              id="details-problem-input"
+              name="details"
               cols="40"
               rows="10"
               maxlength="500"
@@ -68,7 +69,7 @@
             <input type="datetime-local" id="datetime-input" required />
             <label id="add-file-label">Fotografii/clipuri cu problema</label>
             <input id="add-file" type="file" multiple />
-            <input id="send-form" type="submit" value="Trimiteți" />
+            <input class="button" id="send-form" type="submit" value="TRIMITEȚI" />
           </fieldset>
         </form>
         <div id="form-message"></div>
@@ -79,32 +80,32 @@
           <div class="request-card">
             <h3>Cerere1</h3>
             <p>Tare, se rezolva.</p>
-            <span class="status acceptata">Acceptată</span>
+            <span class="status accepted">Acceptată</span>
           </div>
           <div class="request-card">
             <h3>Cerere2</h3>
             <p>Nu-mi place, alta data.</p>
-            <span class="status refuzata">Refuzată</span>
+            <span class="status refuzed">Refuzată</span>
           </div>
           <div class="request-card">
             <h3>Cerere3</h3>
             <p>Ok, boss, stai fara griji.</p>
-            <span class="status acceptata">Acceptată</span>
+            <span class="status accepted">Acceptată</span>
           </div>
           <div class="request-card">
             <h3>Cerere4</h3>
             <p>Nu inteleg ce vrei</p>
-            <span class="status refuzata">Refuzată</span>
+            <span class="status refuzed">Refuzată</span>
           </div>
           <div class="request-card">
             <h3>Cerere4</h3>
             <p>Nu inteleg ce vrei</p>
-            <span class="status refuzata">Refuzată</span>
+            <span class="status refuzed">Refuzată</span>
           </div>
           <div class="request-card">
             <h3>Cerere4</h3>
             <p>Nu inteleg ce vrei</p>
-            <span class="status refuzata">Refuzată</span>
+            <span class="status refuzed">Refuzată</span>
           </div>
           <!-- Only an example, these will be added based on what's saved in the database -->
         </div>

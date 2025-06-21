@@ -1,0 +1,132 @@
+h1 {
+  font-size: 3.5rem;
+}
+
+.appointment-form {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 5rem auto 0 auto;
+}
+
+.form-content {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.form-content p {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.form-title {
+  color: #121568;
+  position: relative;
+  display: inline-block;
+}
+
+.form-title::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 7px;
+  background-color: #121568;
+  margin-bottom: 8px;
+}
+
+#form-login {
+  width: 100%;
+}
+
+#form-login fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border-width: 0;
+  gap: 1rem;
+}
+
+.input-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  padding: 0.75rem;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn-login{
+  padding: 0.75rem 1.5rem;
+  max-width: 200px;
+}
+
+.btn-register{
+  font-size: 14px;
+}
+
+.faq-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.faq-image img {
+  width: auto;
+  max-height: 420px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.register-p {
+  padding-top: 30px;
+  padding-right: 30px;
+}
+
+@media (max-width: 768px) {
+  .appointment-form {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .form-content {
+    flex: 1 1 100%;
+    max-width: 100%;
+    text-align: center; 
+  }
+
+  .form-title {
+    display: block; 
+    margin: 0 auto; 
+  }
+
+  .form-title::before {
+    visibility: hidden;
+  }
+
+  #form-login fieldset {
+    align-items: center;
+    text-align: center;
+  }
+
+  .faq-image {
+    flex: 1 1 100%;
+    margin-top: 2rem;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .faq-image img {
+    width: 90%;     
+    max-width: 400px;
+    height: auto;
+  }
+}

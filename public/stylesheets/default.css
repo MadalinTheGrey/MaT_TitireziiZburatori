@@ -1,0 +1,44 @@
+html {
+    min-width: 320px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+  
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+body {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.4;
+    color: #121568;
+}
+  
+h1, h2, h3 {
+    font-weight: bold;
+}
+  
+h2 {
+    font-size: 2rem;
+}
+
+/* Buttons */
+.button {
+    background: #121568;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    border: 2px solid #121568;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: orangered;
+    border: 2px solid orangered;
+}

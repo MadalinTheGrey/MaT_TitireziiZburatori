@@ -1,20 +1,3 @@
-html {
-  min-width: 320px;
-  overflow-x: auto;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  line-height: 1.4;
-  color: #121568;
-}
-
 main {
   padding: 5% 10% 0 10%;
 }
@@ -26,7 +9,7 @@ main {
   margin-bottom: 5px;
 }
 
-.desc-programari,
+.desc-appointments,
 .appointment-form,
 .requests-section {
   display: flex;
@@ -36,7 +19,7 @@ main {
   gap: 2rem;
 }
 
-.desc-programari {
+.desc-appointments {
   justify-content: space-between;
   margin: 0 auto;
   padding: 2rem;
@@ -69,13 +52,13 @@ main {
   color: #121568;
 }
 
-#formular-inscriere {
+#form-register-app {
   display: flex;
   width: 100%;
   max-width: 100%;
 }
 
-#formular-inscriere fieldset {
+#form-register-app fieldset {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -85,8 +68,8 @@ main {
   gap: 1rem;
 }
 
-#produs-input,
-#detalii-problema-input,
+#prod-input,
+#details-problem-input,
 #datetime-input {
   width: 95%;
   max-width: 100%;
@@ -97,18 +80,9 @@ main {
 
 #send-form {
   width: 9rem;
-  height: 2rem;
-  background-color: #121568;
-  color: white;
-  font-family: "Poppins", sans-serif;
-  border: 2px solid #121568;
-  border-radius: 5px;
-}
-
-#send-form:hover {
-  background-color: orangered;
-  border: 2px solid orangered;
-}
+  height: 2.5rem;
+  padding: 10px 30px;
+} 
 
 #form-message {
   display: none;
@@ -167,16 +141,16 @@ main {
   color: white;
 }
 
-.acceptata {
+.accepted {
   background-color: #28a745;
 }
 
-.refuzata {
+.refuzed {
   background-color: #dc3545;
 }
 
 @media (max-width: 768px) {
-  .desc-programari {
+  .desc-appointments {
     flex-direction: column;
     align-items: center;
     text-align: center;

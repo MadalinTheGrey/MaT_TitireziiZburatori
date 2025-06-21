@@ -9,12 +9,9 @@
 nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 1rem 1rem;
   gap: 1rem;
   white-space: nowrap;
-  overflow: hidden;
-  max-width: 1200px;
   margin: 0 auto;
   flex-wrap: wrap; 
 }
@@ -44,7 +41,6 @@ nav {
   border-radius: 2px;
 }
 
-/*for the pages you access from the navbar*/
 .menu li a:hover {
   text-decoration: underline;
 }
