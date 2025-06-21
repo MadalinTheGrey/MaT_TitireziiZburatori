@@ -48,7 +48,7 @@ exports.getSupplies = async (filters) => {
   }
   if (filters.in_stock != null) {
     if (!values.length) {
-      query += ` WHERE in_stock = $1`;
+      query += ` WHERE in_stock <= $1`;
     } else {
       query += ` AND in_stock = ${values.length + 1}`;
     }
