@@ -341,6 +341,80 @@ body {
   width: 100%;
 }
 
+/* NOUA SECȚIUNE: PIESE SERVICE BANNER */
+.service-parts-banner {
+  background-color: #121568; /* Fundal albastru închis */
+  width: 100vw; /* Se întinde pe toată lățimea viewport-ului */
+  /* Eliminăm max-width și margin: auto pentru a se întinde full-width */
+  margin-left: calc(
+    50% - 50vw
+  ); /* Truc pentru a se extinde full-width din elemente centrate */
+  margin-right: calc(
+    50% - 50vw
+  ); /* Truc pentru a se extinde full-width din elemente centrate */
+  margin-top: 100px; /* Spațiu deasupra */
+  margin-bottom: 40px; /* Spațiu dedesubt */
+  padding: 60px 20px; /* Padding vertical și orizontal interior */
+  display: flex; /* Folosim flexbox pentru centrare verticală */
+  align-items: center; /* Centrează conținutul vertical */
+  justify-content: center; /* Centrează conținutul orizontal */
+  min-height: 120px; /* O înălțime minimă pentru banner */
+  /* Eliminăm border-radius și box-shadow de pe banner-ul exterior */
+  /* Eliminăm transition și hover de pe banner-ul exterior */
+}
+
+/* Stiluri pentru link-ul/butonul PIESE SERVICE */
+.service-parts-link.button {
+  /* Selectorul acum include și clasa .button */
+  background: white; /* Fundal alb pentru buton */
+  border: 2px solid white; /* Bordură albă */
+  color: #121568; /* Culoare albastră pentru text */
+  padding: 15px 30px; /* Padding consistent cu butoanele globale */
+  border-radius: 6px; /* Colțuri rotunjite */
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+  display: inline-block; /* Pentru a permite marginile și padding-ul */
+  text-align: center;
+  font-size: 2.8em; /* Mărimea fontului, similară cu ce aveam înainte */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Umbră pentru a-l scoate în evidență */
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, transform 0.2s ease; /* Păstrăm tranzițiile pentru hover */
+  max-width: 800px; /* Lățime maximă pentru butonul PIESE SERVICE */
+  width: 100%; /* Ocupă 100% din spațiul disponibil în containerul său (max-width îl limitează) */
+}
+
+/* Comportamentul de hover va fi preluat de la .button:hover din default.css */
+/* .service-parts-link.button:hover {
+  background-color: orangered;
+  border: 2px solid orangered;
+  transform: scale(1.05);
+} */
+
+/* Stiluri pentru textul din interiorul link-ului/butonului (nu mai are fundal propriu) */
+.service-parts-link.button h2 {
+  color: inherit; /* Moștenește culoarea textului de la părinte (.service-parts-link.button) */
+  font-size: inherit; /* Moștenește mărimea fontului */
+  font-weight: inherit; /* Moștenește greutatea fontului */
+  margin: 0; /* Elimină marginile implicite */
+  letter-spacing: inherit; /* Moștenește spațierea literelor */
+  text-transform: inherit; /* Moștenește transformarea textului */
+  padding: 0; /* Elimină padding-ul de pe h2, deoarece link-ul are deja padding */
+  background-color: transparent; /* Nu mai are fundal propriu */
+  border-radius: 0; /* Nu mai are border-radius propriu */
+}
+
+.service-parts-banner h2:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Face fundalul ușor mai opac la hover */
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   /* Ascunde butoanele de desktop pe mobil */
@@ -426,6 +500,18 @@ body {
     width: 100%; /* Ocupă toată lățimea disponibilă */
     text-align: left; /* Aliniază totul la stânga */
   }
+
+  .service-parts-banner {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 0; /* Ajustăm padding-ul, lăsăm link-ul să aibă padding orizontal */
+    min-height: 100px;
+  }
+
+  .service-parts-link.button {
+    font-size: 2em; /* Reducem dimensiunea fontului pe mobil */
+    padding: 12px 25px; /* Ajustăm padding-ul butonului */
+  }
 }
 
 @media (max-width: 480px) {
@@ -454,5 +540,18 @@ body {
   }
   .appointments-list li {
     font-size: 0.85em;
+  }
+
+  .service-parts-banner {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px 0;
+    min-height: 80px;
+  }
+
+  .service-parts-link.button {
+    font-size: 1.5em; /* Reducem și mai mult pe telefoane foarte mici */
+    letter-spacing: 1px;
+    padding: 10px 20px;
   }
 }
