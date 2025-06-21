@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="ro">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Contul Meu</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/stylesheets/default.css" />
-    <link rel="stylesheet" href="adminpage.css" />
-    <link rel="stylesheet" href="../stylesheets/navbar.css" />
-    <link rel="stylesheet" href="../stylesheets/footer.css" />
-    <link
-      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/stylesheets/default.css"/>
+    <link rel="stylesheet" href="adminpage.css"/>
+    <link rel="stylesheet" href="../stylesheets/navbar.css"/>
+    <link rel="stylesheet" href="../stylesheets/footer.css"/>
+    <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet"/>
   </head>
   <body>
+
     <header data-include="../html-components/navbar.html"></header>
 
     <main class="main-content">
@@ -26,19 +21,16 @@
       <!-- LIST APPOINTMENTS SECTION -->
       <section class="requests-carousel-section">
         <div class="carousel-wrapper">
-          <button class="button nav-button prev-button desktop-nav-button">
-            &lt;
-          </button>
+          <button class="button nav-button prev-button desktop-nav-button">&lt;</button>
 
           <div class="request-card">
             <div class="request-details">
-              <h2 class="request-id">
-                CERERE #<span id="requestId">748</span>
-              </h2>
+              <h2 class="request-id">CERERE #<span id="requestId">748</span></h2>
               <div class="detail-item">
                 <span class="label">Nume produs:</span>
                 <p id="productName">Bicicletă Calypso 1000</p>
               </div>
+
               <div class="detail-item description">
                 <span class="label">Descriere problemă:</span>
                 <p id="problemDescription">
@@ -48,10 +40,12 @@
                   mine!)
                 </p>
               </div>
+
               <div class="detail-item">
                 <span class="label">Data și ora:</span>
                 <p id="dateTime">30.02.1999</p>
               </div>
+
               <div class="detail-item textarea-item">
                 <span class="label">Motivul aprobării/anulării cererii:</span>
                 <textarea
@@ -61,28 +55,23 @@
                 ></textarea>
               </div>
 
+
               <div class="action-buttons">
-                <button class="action-btn accept-btn" id="acceptBtn">
-                  Acceptă
-                </button>
-                <button class="action-btn refuse-btn" id="refuseBtn">
-                  Refuză
-                </button>
+                <button class="action-btn accept-btn" id="acceptBtn">Acceptă</button>
+                <button class="action-btn refuse-btn" id="refuseBtn">Refuză</button>
               </div>
             </div>
 
             <div class="request-image">
               <img
                 id="requestImage"
-                src="https://i.ibb.co/3kX4t2n/image-ba757b.jpg"
+                src="https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg"
                 alt="Bicicletă stricată"
               />
             </div>
           </div>
 
-          <button class="button nav-button next-button desktop-nav-button">
-            &gt;
-          </button>
+          <button class="button nav-button next-button desktop-nav-button">&gt;</button>
         </div>
 
         <div class="nav-buttons-mobile-wrapper">
@@ -107,7 +96,7 @@
         </a>
       </section>
 
-      <!-- NOUA SECȚIUNE: CERERI DE LA FURNIZORI -->
+      <!-- APPOINTMENTS TO THE PROVIDERS SECTION -->
       <section class="supplier-requests-section">
         <h2 class="section-title">CERERI - FURNIZORI</h2>
         <div id="supplierRequestsContainer" class="supplier-requests-container">
@@ -122,8 +111,8 @@
           <p id="noSupplierRequestsMessage" class="no-requests-message">Nu există cereri de la furnizori.</p>
         </div>
       </section>
-      <!-- END NOUA SECȚIUNE: CERERI DE LA FURNIZORI -->
 
+      <!-- ADMIN BOTTOM BANNER SECTION -->
       <section class="admin-bottom-banner">
         <img
           src="https://images.pexels.com/photos/31945005/pexels-photo-31945005.jpeg"

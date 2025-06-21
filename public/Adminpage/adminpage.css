@@ -1,9 +1,3 @@
-/*
-   Stiluri specifice pentru secțiunea de cereri (carusel)
-   Acestea construiesc pe baza stilurilor din global.css și adaugă
-   sau suprascriu unde este necesar pentru aspectul unic al acestei secțiuni.
-*/
-
 body {
   background-color: #fff; /* Fundal alb pentru întreaga pagină */
   color: #121568; /* Asigură că textul general al paginii este albastru */
@@ -58,8 +52,6 @@ body {
 .nav-button {
   background-color: #121568;
   color: white;
-  border: none;
-  border-radius: 0;
   width: 55px;
   height: 55px;
   font-size: 2em;
@@ -74,10 +66,6 @@ body {
   padding: 0;
 }
 
-.nav-button:hover {
-  background-color: #0d1052;
-  transform: scale(1.05);
-}
 
 /* Ascunde wrapper-ul pentru butoanele mobile pe desktop */
 .nav-buttons-mobile-wrapper {
