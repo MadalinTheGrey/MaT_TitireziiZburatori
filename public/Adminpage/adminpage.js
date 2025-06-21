@@ -44,6 +44,21 @@ const requests = [
   },
 ];
 
+// NOU: Simulează datele pentru programările ocupate
+// Acum include și numele clientului
+const occupiedAppointments = [
+  { date: "22.06.2025", time: "10:00 - 11:00", clientName: "Ion Popescu" },
+  { date: "22.06.2025", time: "14:00 - 15:00", clientName: "Maria Ionescu" },
+  { date: "23.06.2025", time: "09:30 - 10:30", clientName: "Andrei Vasilescu" },
+  { date: "23.06.2025", time: "16:00 - 17:00", clientName: "Elena Dumitrescu" },
+  { date: "24.06.2025", time: "11:00 - 12:00", clientName: "George Enescu" },
+  { date: "24.06.2025", time: "15:00 - 16:00", clientName: "Ana Maria Popa" },
+  { date: "25.06.2025", time: "09:00 - 10:00", clientName: "Victor Stancu" },
+  { date: "25.06.2025", time: "13:00 - 14:00", clientName: "Diana Munteanu" },
+  { date: "26.06.2025", time: "10:00 - 11:00", clientName: "Cristian Avram" },
+  { date: "26.06.2025", time: "15:00 - 16:00", clientName: "Laura Georgescu" },
+];
+
 let currentRequestIndex = 0; // Indexul cererii curente afișate
 
 // Referințe la elementele DOM
@@ -56,18 +71,25 @@ const requestImageElem = document.getElementById("requestImage");
 const acceptBtn = document.getElementById("acceptBtn");
 const refuseBtn = document.getElementById("refuseBtn");
 
-// Modificare: Referințe la butoanele de navigare (desktop ȘI mobile)
 // Referințele existente (desktop):
 const prevButtonDesktop = document.querySelector(
   ".prev-button.desktop-nav-button"
-); // Adăugat clasa 'desktop-nav-button'
+);
 const nextButtonDesktop = document.querySelector(
   ".next-button.desktop-nav-button"
-); // Adăugat clasa 'desktop-nav-button'
+);
 
-// NOU: Referințe la butoanele de navigare mobile
+// Referințe la butoanele de navigare mobile
 const prevButtonMobile = document.querySelector(".prev-button-mobile");
 const nextButtonMobile = document.querySelector(".next-button-mobile");
+
+// NOU: Referințe la elementele pentru programări ocupate
+const occupiedAppointmentsListElem = document.getElementById(
+  "occupiedAppointmentsList"
+);
+const noAppointmentsMessageElem = document.getElementById(
+  "noAppointmentsMessage"
+);
 
 /**
  * Funcție pentru a afișa detaliile unei cereri specifice.
@@ -106,6 +128,37 @@ function displayRequest(index) {
   }
 }
 
+// NOU: Funcție pentru a afișa programările ocupate
+function displayOccupiedAppointments(appointments) {
+  occupiedAppointmentsListElem.innerHTML = ""; // Golește lista existentă
+
+  if (appointments.length === 0) {
+    noAppointmentsMessageElem.style.display = "block"; // Afișează mesajul "Nu există..."
+  } else {
+    noAppointmentsMessageElem.style.display = "none"; // Ascunde mesajul
+    // Sortează programările după dată și ora pentru o afișare ordonată
+    const sortedAppointments = [...appointments].sort((a, b) => {
+      const dateA = new Date(
+        a.date.split(".").reverse().join("-") + "T" + a.time.split(" ")[0]
+      ); // Parsează doar ora de început pentru sortare
+      const dateB = new Date(
+        b.date.split(".").reverse().join("-") + "T" + b.time.split(" ")[0]
+      );
+      return dateA - dateB;
+    });
+
+    sortedAppointments.forEach((appointment) => {
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
+                <span class="appointment-date">${appointment.date}</span>
+                <span class="appointment-time">${appointment.time}</span>
+                <span class="appointment-client">${appointment.clientName}</span>
+            `; // Am adăugat appointment-client
+      occupiedAppointmentsListElem.appendChild(listItem);
+    });
+  }
+}
+
 /**
  * Funcție pentru a naviga la cererea anterioară.
  */
@@ -138,28 +191,28 @@ async function sendDataToServer(data) {
 
   // Aici ar veni codul real pentru un apel API, de exemplu:
   /*
-      try {
-          const response = await fetch('/api/update-request', { // Exemplu de endpoint
-              method: 'POST', // Sau 'PUT'
-              headers: {
-                  'Content-Type': 'application/json',
-                  // 'Authorization': 'Bearer YOUR_TOKEN' // Dacă ai nevoie de autentificare
-              },
-              body: JSON.stringify(data)
-          });
-  
-          if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-          }
-  
-          const result = await response.json();
-          console.log('Răspuns de la server:', result);
-          alert('Cerearea a fost actualizată cu succes!');
-      } catch (error) {
-          console.error('Eroare la trimiterea datelor către server:', error);
-          alert('A apărut o eroare la actualizarea cererii. Te rugăm să încerci din nou.');
-      }
-      */
+    try {
+        const response = await fetch('/api/update-request', { // Exemplu de endpoint
+            method: 'POST', // Sau 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer YOUR_TOKEN' // Dacă ai nevoie de autentificare
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Răspuns de la server:', result);
+        alert('Cerearea a fost actualizată cu succes!');
+    } catch (error) {
+        console.error('Eroare la trimiterea datelor către server:', error);
+        alert('A apărut o eroare la actualizarea cererii. Te rugăm să încerci din nou.');
+    }
+    */
 
   // Pentru acest exemplu, doar simulăm o întârziere și apoi actualizăm statusul local
   return new Promise((resolve) => {
@@ -175,31 +228,28 @@ document.addEventListener("DOMContentLoaded", () => {
   // Afișează prima cerere la încărcarea paginii
   displayRequest(currentRequestIndex);
 
-  // Modificare: Atașează event listeneri pentru ambele seturi de butoane
+  // NOU: Afișează programările ocupate la încărcarea paginii
+  displayOccupiedAppointments(occupiedAppointments);
+
   if (prevButtonDesktop) {
-    // Verifică dacă butonul de desktop există
     prevButtonDesktop.addEventListener("click", goToPrevRequest);
   }
   if (nextButtonDesktop) {
-    // Verifică dacă butonul de desktop există
     nextButtonDesktop.addEventListener("click", goToNextRequest);
   }
 
-  // NOU: Atașează event listeneri pentru butoanele mobile
+  // Atașează event listeneri pentru butoanele mobile
   if (prevButtonMobile) {
-    // Verifică dacă butonul mobil există
     prevButtonMobile.addEventListener("click", goToPrevRequest);
   }
   if (nextButtonMobile) {
-    // Verifică dacă butonul mobil există
     nextButtonMobile.addEventListener("click", goToNextRequest);
   }
 
   acceptBtn.addEventListener("click", async () => {
     const currentRequest = requests[currentRequestIndex];
-    const adminComment = adminCommentElem.value.trim(); // Trim spațiile albe
+    const adminComment = adminCommentElem.value.trim();
 
-    // Verificăm dacă comentariul este obligatoriu la acceptare/refuz
     if (!adminComment) {
       alert("Te rog să introduci un motiv pentru aprobarea cererii.");
       return;
@@ -208,7 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentRequest.status = "accepted";
     currentRequest.adminComment = adminComment;
 
-    // Ascunde butoanele și setează câmpul read-only după acțiune
     acceptBtn.style.display = "none";
     refuseBtn.style.display = "none";
     adminCommentElem.readOnly = true;
@@ -236,7 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentRequest.status = "rejected";
     currentRequest.adminComment = adminComment;
 
-    // Ascunde butoanele și setează câmpul read-only după acțiune
     acceptBtn.style.display = "none";
     refuseBtn.style.display = "none";
     adminCommentElem.readOnly = true;
