@@ -1,0 +1,282 @@
+/*
+   Stiluri specifice pentru secțiunea de cereri (carusel)
+   Acestea construiesc pe baza stilurilor din global.css și adaugă
+   sau suprascriu unde este necesar pentru aspectul unic al acestei secțiuni.
+*/
+
+body {
+  background-color: #fff; /* Fundal alb pentru întreaga pagină */
+  color: #121568; /* Asigură că textul general al paginii este albastru */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  padding-top: 130px; /* Spațiu pentru navbar fix */
+  padding-bottom: 80px; /* Spațiu pentru footer fix */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-title {
+  text-align: center;
+  color: #121568;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.carousel-wrapper {
+  display: flex; /* Activează Flexbox */
+  align-items: center; /* Centrează vertical butoanele cu cardul pe desktop */
+  justify-content: center; /* Centrează orizontal conținutul pe desktop */
+  gap: 30px; /* Spațiu între elemente (butoane și card) pe desktop */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Nav Buttons - Stiluri generale (aplicate ambelor seturi de butoane) */
+.nav-button {
+  background-color: #121568;
+  color: white;
+  width: 55px;
+  height: 55px;
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-shrink: 0; /* Nu permite butoanelor să se micșoreze */
+  padding: 0;
+}
+
+/* Ascunde wrapper-ul pentru butoanele mobile pe desktop */
+.nav-buttons-mobile-wrapper {
+  display: none;
+}
+
+.request-card {
+  display: flex;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-grow: 1;
+  max-width: 900px; /* Lățime maximă pentru card pe desktop */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.request-details {
+  flex: 2;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.request-id {
+  color: #121568;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-item .label {
+  font-weight: 600;
+  color: #121568;
+  margin-bottom: 5px;
+  font-size: 0.95em;
+}
+
+.detail-item p {
+  margin: 0;
+  color: #121568;
+  line-height: 1.6;
+  font-size: 1em;
+}
+
+.detail-item.description p {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+.detail-item.textarea-item {
+  margin-top: 15px;
+}
+
+#adminComment {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95em;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+  color: #333;
+}
+
+#adminComment:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.request-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e2eaf2;
+  padding: 15px;
+}
+
+.request-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Action Buttons */
+.action-btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  max-width: 150px;
+}
+
+.accept-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.refuse-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.refuse-btn:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  /* Ascunde butoanele de desktop pe mobil */
+  .desktop-nav-button {
+      display: none;
+  }
+
+  /* Afișează containerul pentru butoanele mobile și stilizează-l */
+  .nav-buttons-mobile-wrapper {
+      display: flex; /* Le face să stea unul lângă celălalt */
+      justify-content: center; /* Centrează butoanele orizontal */
+      gap: 20px; /* Spațiu între ele */
+      width: 100%; /* Ocupă toată lățimea disponibilă */
+      margin-top: 20px; /* Spațiu deasupra butoanelor (sub card) */
+      margin-bottom: 20px; /* Poți adăuga spațiu și sub ele, dacă e cazul */
+      /* Order: nu este necesar aici, deoarece este un frate al carousel-wrapper în main-content */
+  }
+
+  /* Stiluri specifice pentru butoanele din wrapper-ul mobil */
+  .nav-buttons-mobile-wrapper .nav-button {
+      width: 40px; /* Butoane mai mici pe mobil */
+      height: 40px;
+      font-size: 1.5em;
+      margin: 0; /* Elimină marginile individuale */
+  }
+
+  .carousel-wrapper {
+      flex-direction: column; /* Stivuiește elementele: cardul */
+      align-items: center; /* Centrează cardul */
+      gap: 15px; /* Spațiu sub card (dacă ar mai fi elemente în el, dar acum nu) */
+      /* Aici carousel-wrapper va conține doar request-card */
+  }
+
+  .request-card {
+      flex-direction: column;
+      width: 100%; /* Ocupă toată lățimea disponibilă */
+      max-width: none; /* Nu mai are lățime maximă fixă pe mobil */
+  }
+
+  .request-details, .request-image {
+      flex: none;
+      width: 100%;
+      padding: 20px;
+  }
+
+  .request-image {
+      order: -1; /* Asigură că imaginea este deasupra detaliilor în card */
+  }
+  
+  .action-buttons {
+      flex-direction: column;
+  }
+  .action-btn {
+      max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+      font-size: 1.8em;
+  }
+  .request-details {
+      padding: 15px;
+  }
+  .request-id {
+      font-size: 1.4em;
+  }
+  .detail-item .label {
+      font-size: 0.9em;
+  }
+  .detail-item p, #adminComment {
+      font-size: 0.9em;
+  }
+  .action-btn {
+      padding: 10px 20px;
+      font-size: 1em;
+  }
+}
