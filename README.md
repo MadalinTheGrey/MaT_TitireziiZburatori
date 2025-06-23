@@ -215,6 +215,10 @@ Fetch info about a certain appointment. If called by a client that does not own 
 - body: n/a
 - params: ":id" is the id of the appointment to be returned
 - returns:
+  - status codes:
+    - 400 - Invalid appointment id
+    - 404 - Appointment not found / You are not the owner
+    - 200 - Appointment returned successfully
   - json
 
 ```
@@ -234,11 +238,6 @@ Fetch info about a certain appointment. If called by a client that does not own 
 }
 ```
 
-- status codes:
-  - 400 - Invalid appointment id
-  - 404 - Appointment not found / You are not the owner
-  - 200 - Appointment returned successfully
-
 GET
 
 ```
@@ -257,6 +256,8 @@ Returns all appointments or the ones that fit the query params. Clients will onl
 - query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
 - body: n/a
 - returns:
+  - status codes:
+    - 200 - Appointments returned successfully
   - json with appointments field containing an array of appointments
 
 ```
@@ -277,9 +278,6 @@ Returns all appointments or the ones that fit the query params. Clients will onl
     ]
 }
 ```
-
-- status codes:
-  - 200 - Appointments returned successfully
 
 PATCH
 
@@ -371,6 +369,8 @@ Fetches the supply that has the name "pry bar" with 20 of it being in stock.
 ```
 
 - returns:
+  - status codes:
+    - 200 - Supplies returned successfully
   - json
 
 ```
@@ -385,9 +385,6 @@ Fetches the supply that has the name "pry bar" with 20 of it being in stock.
     ]
 }
 ```
-
-- status codes:
-  - 200 - Supplies returned successfully
 
 POST
 
@@ -418,7 +415,7 @@ Exports all current supplies as a JSON file.
 - returns:
   - downloadable json with an array of supplies
   - status codes:
-    - 200: json attached successfully
+    - 200 - json attached successfully
 
 **Orders**
 
@@ -466,6 +463,8 @@ Fetches all orders from the database
 - body: n/a
 - params: n/a
 - returns:
+  - status codes:
+    - 200 - orders fetched successfully
   - json
 
 ```
@@ -481,9 +480,6 @@ Fetches all orders from the database
     ]
 }
 ```
-
-- status codes:
-  - 200 - orders fetched successfully
 
 DELETE
 
