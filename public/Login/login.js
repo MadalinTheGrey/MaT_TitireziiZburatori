@@ -23,8 +23,9 @@ document
       localStorage.setItem("jwt", data.jwt);
 
       alert("Login succesful!");
+      updateNavbarLink();
     } catch (error) {
-      console.error("Login error:", err);
+      console.error("Login error:", error);
       alert("An error occured during login");
     }
   });

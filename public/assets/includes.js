@@ -10,13 +10,11 @@ async function includeHTML() {
       if (file.includes("navbar.html")) {
         updateNavbarLink();
       }
-
     } catch (err) {
       console.error(`Error loading ${file}`, err);
     }
   }
 }
-
 
 /**
  * actualizeaza sectiunea din navbar cu "Contul Meu" in functie de cine e logat si ce rol are
@@ -28,14 +26,13 @@ function updateNavbarLink() {
     console.warn("Elementul 'Contul-Meu' nu a fost găsit în navbar.");
     return;
   }
-
   let isLoggedIn = false;
   let userRole = null;
 
   try {
     const token = localStorage.getItem("jwt");
     if (token) {
-      const decoded = jwtDecode(token);
+      const decoded = jwt_decode(token);
       if (decoded && decoded.roles) {
         isLoggedIn = true;
         if (decoded.roles.includes("client")) {
@@ -53,15 +50,14 @@ function updateNavbarLink() {
   if (isLoggedIn) {
     contulMeuLink.textContent = "Contul Meu";
     if (userRole === "client") {
-      contulMeuLink.href = "/ContulMeuClient/ContulMeuClient.html"; 
+      contulMeuLink.href = "/ContulMeuClient/ContulMeuClient.html";
     } else if (userRole === "admin") {
-      contulMeuLink.href = "/Adminpage/adminpage.html"; 
-    } 
+      contulMeuLink.href = "/Adminpage/adminpage.html";
+    }
   } else {
     contulMeuLink.textContent = "Login";
-    contulMeuLink.href = "/Login/login.html"; 
+    contulMeuLink.href = "/Login/login.html";
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", includeHTML);

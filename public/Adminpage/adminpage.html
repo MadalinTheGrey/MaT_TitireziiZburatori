@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="ro">
   <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contul Meu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="/stylesheets/default.css"/>
-    <link rel="stylesheet" href="adminpage.css"/>
-    <link rel="stylesheet" href="../stylesheets/navbar.css"/>
-    <link rel="stylesheet" href="../stylesheets/footer.css"/>
-    <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/default.css" />
+    <link rel="stylesheet" href="adminpage.css" />
+    <link rel="stylesheet" href="../stylesheets/navbar.css" />
+    <link rel="stylesheet" href="../stylesheets/footer.css" />
+    <link
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-
     <header data-include="../html-components/navbar.html"></header>
 
     <main class="main-content">
@@ -21,11 +26,15 @@
       <!-- LIST APPOINTMENTS SECTION -->
       <section class="requests-carousel-section">
         <div class="carousel-wrapper">
-          <button class="button nav-button prev-button desktop-nav-button">&lt;</button>
+          <button class="button nav-button prev-button desktop-nav-button">
+            &lt;
+          </button>
 
           <div class="request-card">
             <div class="request-details">
-              <h2 class="request-id">CERERE #<span id="requestId">748</span></h2>
+              <h2 class="request-id">
+                CERERE #<span id="requestId">748</span>
+              </h2>
               <div class="detail-item">
                 <span class="label">Nume produs:</span>
                 <p id="productName">Bicicletă Calypso 1000</p>
@@ -55,10 +64,13 @@
                 ></textarea>
               </div>
 
-
               <div class="action-buttons">
-                <button class="action-btn accept-btn" id="acceptBtn">Acceptă</button>
-                <button class="action-btn refuse-btn" id="refuseBtn">Refuză</button>
+                <button class="action-btn accept-btn" id="acceptBtn">
+                  Acceptă
+                </button>
+                <button class="action-btn refuse-btn" id="refuseBtn">
+                  Refuză
+                </button>
               </div>
             </div>
 
@@ -71,7 +83,9 @@
             </div>
           </div>
 
-          <button class="button nav-button next-button desktop-nav-button">&gt;</button>
+          <button class="button nav-button next-button desktop-nav-button">
+            &gt;
+          </button>
         </div>
 
         <div class="nav-buttons-mobile-wrapper">
@@ -108,7 +122,9 @@
             <p class="part-description">Descrierea detaliată a cererii pentru piesa.</p>
           </div>
           -->
-          <p id="noSupplierRequestsMessage" class="no-requests-message">Nu există cereri de la furnizori.</p>
+          <p id="noSupplierRequestsMessage" class="no-requests-message">
+            Nu există cereri de la furnizori.
+          </p>
         </div>
       </section>
 
@@ -124,6 +140,7 @@
 
     <footer data-include="../html-components/footer.html"></footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <script src="../assets/includes.js"></script>
     <script src="adminpage.js"></script>
   </body>

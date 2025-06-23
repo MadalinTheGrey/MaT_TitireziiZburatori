@@ -69,7 +69,12 @@
             <input type="datetime-local" id="datetime-input" required />
             <label id="add-file-label">Fotografii/clipuri cu problema</label>
             <input id="add-file" type="file" multiple />
-            <input class="button" id="send-form" type="submit" value="TRIMITEȚI" />
+            <input
+              class="button"
+              id="send-form"
+              type="submit"
+              value="TRIMITEȚI"
+            />
           </fieldset>
         </form>
         <div id="form-message"></div>
@@ -115,6 +120,7 @@
     <!-- FOOTER SECTION -->
     <footer data-include="../html-components/footer.html"></footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <script src="../assets/includes.js"></script>
     <!--for including the navbar and the footer-->
     <script src="/ContulMeuClient/script.js"></script>
