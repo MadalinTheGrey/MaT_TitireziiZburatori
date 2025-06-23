@@ -76,7 +76,7 @@ exports.uploadAppointmentFiles = async (req, res) => {
         req.user.id
       );
     if (!isAppointmentValid) {
-      res.writeHead(400, { "Content-Type": "application/json" });
+      res.writeHead(404, { "Content-Type": "application/json" });
       res.end(
         JSON.stringify({
           error: "Appointment does not exist or you are not the owner",
