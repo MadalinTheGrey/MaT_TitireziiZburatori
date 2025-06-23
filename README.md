@@ -619,9 +619,13 @@ To run this project, you will need to add the following environment variables to
 
 ### :test_tube: Running Tests
 
+N/A
+
 <!-- Run Locally -->
 
 ### :running: Run Locally
+
+Complete installation steps and run index.js in any preferred IDE (VS Code recommended).
 
 <!-- Deployment -->
 
@@ -651,6 +655,7 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [x] Supplies endpoints
 - [x] Orders endpoints
 - [x] Admin grant role endpoint
+- [ ] Integrate backend & frontend functionalities (in progress)
 
 <!-- FAQ -->
 
