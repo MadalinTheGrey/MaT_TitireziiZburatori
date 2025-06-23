@@ -6,10 +6,8 @@ const Busboy = require("busboy");
 const appointmentFunctions = require("../utils/appointmentFunctions");
 
 function isTimestamp(value) {
-  const iso8601 = value.replace(" ", "T");
-  const date = new Date(iso8601);
-
-  return !isNaN(date.getTime()) && iso8601.length >= 19;
+  const date = new Date(value);
+  return !isNaN(date.getTime()) && value.length >= 19;
 }
 
 const appointmentSchema = z.object({
@@ -98,14 +96,14 @@ exports.uploadAppointmentFiles = async (req, res) => {
 
   busboy.on("file", (fieldname, file, fileInfo) => {
     const { filename } = fileInfo;
-    if (!filename) return;
+    if (!filename || fieldname != "files") return;
 
     const dir = path.join(
       __dirname,
       "..",
       "uploads",
       "appointments",
-      appointmentId
+      String(appointmentId)
     );
 
     const filePromise = async () => {
