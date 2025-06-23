@@ -68,23 +68,76 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 
 ### Backend
 
+**General info**
+
+The backend server is created in Node.js and uses the built in http module to handle communication with clients. It follows the REST arhitectural style, organizing interactions around resources, identified by URLs and uses the standard HTTP verbs to perform operations. In regards to this, the server also provides a stateless API that ensures a clear separation between the server and the client.
+
 **Database**
 
-Made using postgresql because of its full ACID compliance and great performance for frequent write operations. The database contains tables for users, roles, appointments, supplies and orders leading to a grand total of 8 tables.
+Made using postgresql because of its full ACID compliance and great performance for frequent write operations. The database contains 7 tables related to users, roles, appointments, supplies and orders.
 
-The app contains a database initialization script that creates the mentioned tables, inserts some default data and adds some basic constraints.
+The app includes a database initialization script that creates the mentioned tables, inserts default data and adds basic constraints.
 
 **Login and authorization**:
 
-Login is performed using JSON web tokens. After the user enters their login data, and login is performed successfully, a token is generated, containing the user's id, email and roles, and sent back in a json.
+Login is performed using JSON web tokens. After the user enters their login data (email and password), and login is performed successfully, a token is generated, containing the user's id, email and roles, and sent back in a json. Said token expires in 10 hours after which the user would have to perform another login.
 
-When a user tries to access a protected route they must provide a header named "authorization" which contains the string "Bearer " followed by the token received during login.
+When a user tries to access a protected route they must provide a header named "authorization" which contains the string "Bearer " followed by the token received during login. Note that all routes except login and register are protected.
 
 Even if a user is logged in they will not be able to access certain routes if they lack the necessary role to do so. The client role is provided by default while the admin role is only obtainable when an admin deems it necessary.
+
+To aid and streamline authorization a middleware is placed before every protected route, ensuring that the user is logged in with a valid token and has the necessary roles to access said route. This way specific endpoints do not need to do further authorization verifications and are no longer called if the user fails any checks.
+
+_Endpoints:_
+
+POST
+
+```
+/api/register
+```
+
+Allows user registration adding their info to the database. The user's password is saved as a hash.
+
+- body: json, all fields are required
+
+```
+{
+    "username": "user1",
+    "password": "userPassword",
+    "email": "user@email.com"
+}
+```
+
+- params: n/a
+- returns: json with "id" field containing the id of the registered user.
+
+POST
+
+```
+/api/login
+```
+
+Allows user login and provides the token necessary for users to access protected routes.
+
+- body: json, all fields are required
+
+```
+{
+    "email": "user@email.com",
+    "password": "userPassword"
+}
+```
+
+- params: n/a
+- returns: json with the "message" and "jwt" fields, the latter containing the user's login token.
 
 **Appointments**
 
 Endpoints for managing appointments are provided, allowing users to create and view their own appointments. Admins can view every appointment and leave a review deciding whether to approve or reject the appointment. All requests require the user to be authenticated via JWT. The API validates received input, ensures role based access and handles files related to appointments.
+
+An appointment has a title, a description, a date, is associated to a user through their id, a status (approved/rejected/pending) and a review from an admin as well as associated files from the owner.
+
+_Endpoints:_
 
 POST
 
@@ -211,61 +264,13 @@ Allows admins to review appointments.
   - "admin_review": explanation for the decision
 - params: ":id" the id of the appointment that is being reviewed
 
-**Note for routes**:
+**Supplies**
 
-All routes return a status code and:
+The backend provides endpoints for adding, viewing and modifying supplies. All endpoints require admin authorization to be accessed. Additionally, supplies can also be imported from a csv or a json and exported as a json file.
 
-- on success: a json with the "message" field usually confirming the action took place successfully.
-- on error: a json with the "error" and eventually "details" fields.
+A supply has a name, a description and a value representing the number of items in stock.
 
-If the return field is missing from the details for a route this is all the route returns.
-
-Error codes:
-401 - Unauthorized: The token provided is invalid
-403 - Forbidden: You lack the necessary role for accessing the route
-
-POST
-
-```
-/api/register
-```
-
-- For registering users.
-
-- body: json
-
-```
-{
-    "username": "user1",
-    "password": "userPassword",
-    "email": "user@email.com"
-}
-```
-
-- params: n/a
-
-- returns: json with "id" field containing the id of the registered user.
-
-POST
-
-```
-/api/login
-```
-
-- For user log in
-
-- body: json as shown below
-
-- params: n/a
-
-```
-{
-    "email": "user@email.com",
-    "password": "userPassword"
-}
-```
-
-- returns: json with the "message" and "jwt" fields, the latter containing the token the user needs to access protected routes.
+_Endpoints:_
 
 POST
 
@@ -273,7 +278,10 @@ POST
 /api/supplies
 ```
 
-- body: json
+Allows the addition of a new supply.
+
+- role required: admin
+- body: json, all fields except description are required
 
 ```
 {
@@ -292,7 +300,9 @@ PATCH
 /api/supplies/:id
 ```
 
-- Updates stock for supply with given id
+Updates the stock for a certain supply.
+
+- required role: admin
 - body: json with field "in_stock" containing the new number of items in stock
 - params: ":id" is the id of the supply which will be updated
 
@@ -302,9 +312,14 @@ GET
 /api/supplies
 ```
 
+Returns all supplies or the ones that fit the query parameters.
+
+- required role: admin
 - body: n/a
-- query params: "name" and "in_stock". The endpoint will search for supplies with the given name where in_stock is equal or lower than the given value.
+- query params: "name" and "in_stock". The endpoint will search for supplies with the given name where in_stock is equal to or lower than the given value.
 - example:
+
+Fetches the supply that has the name "pry bar" with 20 of it being in stock.
 
 ```
 /api/supplies?name=pry%20bar&in_stock=20
@@ -331,7 +346,9 @@ POST
 /api/supplies/import
 ```
 
-- body: multipart/form-data containing either a json or a csv file with supplies that respect the form of a supply mentioned at the other POST route
+Imports supplies from the provided csv or json file, assuming that the format of the supplies follows the one used by the app. Only one file may be provided per request.
+
+- body: multipart/form-data containing the file to import from.
 - params: n/a
 - returns: json with "message" and "count" fields, the latter containing the number of supplies added.
 
@@ -341,9 +358,19 @@ GET
 /api/supplies/export
 ```
 
+Exports all current supplies as a JSON file.
+
 - body: n/a
 - params: n/a
-- returns: downloadable json containing all supplies
+- returns: downloadable json with an array of supplies
+
+**Orders**
+
+For orders, the admin has the ability to add, modify, view and delete them as is necessary. Similarly to supplies, admin authorization is required to access any of the endpoints in this category.
+
+An order has a provider, a description and the id of the associated supply the order is for.
+
+_Endpoints:_
 
 POST
 
@@ -351,7 +378,10 @@ POST
 /api/orders
 ```
 
-- body: json
+Adds an order to the database.
+
+- required role: admin
+- body: json, supply_id and provider fields are required
 
 ```
 {
@@ -370,9 +400,11 @@ GET
 /api/orders
 ```
 
+Fetches all orders from the database
+
 - body: n/a
 - params: n/a
-- Returns all orders in json
+- returns: json
 
 ```
 {
@@ -394,9 +426,14 @@ DELETE
 /api/orders/:id
 ```
 
+Deletes the specified order from the database.
+
 - body: n/a
 - params: ":id" - id of the order to be deleted
-- Deletes order with given id
+
+**Grant role endpoint**
+
+In regard to roles there is a single endpoint meant to allow the transfer of rights from the default admin account to a new admin account when necessary. Obviously, it is necessary for the user granting the role to be an admin.
 
 POST
 
@@ -404,9 +441,24 @@ POST
 /api/roles
 ```
 
-- Adds a role to a user using their ids
+Allows admins to grant a role to another user.
+
 - body: json with user_id and role_id to help identify which role should be assigned to which user
 - params: n/a
+
+**Note for routes**:
+
+All routes return a status code respecting the HTTP standard, as well as:
+
+- on success: a json with the "message" field usually confirming the action took place successfully.
+- on error: a json with the "error" and eventually "details" fields.
+
+If the return field is missing from the details for a route this is all the route returns.
+
+General error codes:
+
+- 401 - Unauthorized: The token provided is invalid
+- 403 - Forbidden: You lack the necessary role for accessing the route
 
 <!-- Screenshots -->
 
