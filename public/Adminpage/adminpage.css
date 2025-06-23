@@ -1,6 +1,6 @@
 body {
-  background-color: #fff; /* Fundal alb pentru întreaga pagină */
-  color: #121568; /* Asigură că textul general al paginii este albastru */
+  background-color: #fff; 
+  color: #121568; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,9 +10,8 @@ body {
 
 .main-content {
   flex-grow: 1;
-  /* padding: 20px; */
-  padding-top: 80px; /* Spațiu pentru navbar fix */
-  padding-bottom: 0; /* MODIFICAT: Setăm padding-ul de jos la 0 pentru a permite bannerului să se lipească de footer */
+  padding-top: 80px; 
+  padding-bottom: 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,28 +28,28 @@ body {
   font-weight: 700;
 }
 
-/* Stiluri pentru secțiunea de carusel a cererilor (noua secțiune) */
+/* Stiluri pentru sectiunea de carusel a cererilor */
 .requests-carousel-section {
   width: 100%;
-  max-width: 1200px; /* Lățime maximă consistentă cu carousel-wrapper */
-  margin-bottom: 40px; /* Spațiu sub această secțiune */
+  max-width: 1200px; /* Latime maxima consistenta cu carousel-wrapper */
+  margin-bottom: 40px;
   display: flex;
   padding: 20px;
-  flex-direction: column; /* Organizează carousel-wrapper și butoanele mobile wrapper */
+  flex-direction: column; /* Organizeaza carousel-wrapper si butoanele mobile wrapper */
   align-items: center;
 }
 
 .carousel-wrapper {
-  display: flex; /* Activează Flexbox */
-  align-items: center; /* Centrează vertical butoanele cu cardul pe desktop */
-  justify-content: center; /* Centrează orizontal conținutul pe desktop */
-  gap: 30px; /* Spațiu între elemente (butoane și card) pe desktop */
+  display: flex; 
+  align-items: center; /* Centreaza vertical butoanele cu cardul pe desktop */
+  justify-content: center; /* Centreaza orizontal continutul pe desktop */
+  gap: 30px; /* Spatiu intre elemente (butoane si card) pe desktop */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Nav Buttons - Stiluri generale (aplicate ambelor seturi de butoane) */
+/* Nav Buttons - Stiluri generale */
 .nav-button {
   background-color: #121568;
   color: white;
@@ -64,7 +63,7 @@ body {
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.2s ease;
-  flex-shrink: 0; /* Nu permite butoanelor să se micșoreze */
+  flex-shrink: 0; /* Nu permite butoanelor sa se micsoreze */
   padding: 0;
 }
 
@@ -80,7 +79,7 @@ body {
   border-radius: 8px;
   overflow: hidden;
   flex-grow: 1;
-  max-width: 900px; /* Lățime maximă pentru card pe desktop */
+  max-width: 900px; /* Latime maxima pentru card pe desktop */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -150,38 +149,38 @@ body {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* MODIFICAT: Stiluri pentru containerul principal de imagine */
+/* ************************Stiluri pentru containerul principal de imagine */
 .request-image {
   flex: 1;
   display: flex;
-  justify-content: center; /* Centrează orizontal conținutul (galeria de imagini) */
-  align-items: center; /* Centrează vertical conținutul (galeria de imagini) */
+  justify-content: center; /* Centrează orizontal continutul */
+  align-items: center; /* Centreaza vertical continutul*/
   background-color: #e2eaf2;
   padding: 15px;
-  min-height: 250px; /* Asigură o înălțime minimă pentru zona de imagine */
+  min-height: 250px; /* Asigura o inaltime minima pentru zona de imagine */
 }
 
-/* NOU: Stiluri pentru containerul galeriei de imagini */
+/* Stiluri pentru containerul de imagini */
 .image-gallery-container {
-  width: 100%; /* Ocupă lățimea disponibilă în request-image */
-  max-width: 100%; /* Asigură că nu depășește lățimea părintească */
-  max-height: 400px; /* Înălțimea maximă care va declanșa scroll-ul. Ajustează pentru a vedea 2 imagini. */
-  overflow-y: auto; /* Activează scroll-ul vertical dacă conținutul depășește max-height */
+  width: 100%; /* Ocupa latimea disponibila in request-image */
+  max-width: 100%; /* Asigura ca nu depaseste latimea parinteasca */
+  max-height: 400px; /* inaltimea maxima care va declansa scroll-ul. Ajusteaza pentru a vedea 2 imagini. */
+  overflow-y: auto; /* Activeaza scroll-ul vertical daca continutul depaseste max-height */
   display: flex;
-  flex-direction: column; /* Imaginile se așează una sub alta */
-  gap: 10px; /* Spațiu între imagini */
+  flex-direction: column; /* Imaginile se asează una sub alta */
+  gap: 10px; /* Spatiu intre imagini */
   padding: 5px; /* Un pic de padding pentru a vizualiza mai bine scrollbarul */
-  box-sizing: border-box; /* Include padding-ul în lățime/înălțime */
+  box-sizing: border-box; /* Include padding-ul in latime/inaltime */
   border-radius: 5px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05); /* Umbră internă subtilă */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05); /* Umbra interna subtila */
 
   /* Stiluri personalizate pentru bara de scroll (Webkit - Chrome, Safari, Edge) */
   scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #121568 #f1f1f1; /* Thumb și Track */
+  scrollbar-color: #121568 #f1f1f1; /* Thumb si Track */
 }
 
 .image-gallery-container::-webkit-scrollbar {
-  width: 8px; /* Lățimea barei de scroll */
+  width: 8px; /* Latimea barei de scroll */
 }
 
 .image-gallery-container::-webkit-scrollbar-track {
@@ -206,6 +205,25 @@ body {
   display: block; /* Elimină spațiul suplimentar de sub imagini */
   border-radius: 5px; /* Colțuri rotunjite pentru imagini */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Umbră pentru imagini */
+}
+
+/* NOU: Stiluri pentru elementele video din galerie */
+.request-item-video {
+  max-width: 100%; /* Asigură că videoclipul nu depășește lățimea containerului */
+  height: auto; /* Păstrează raportul de aspect */
+  display: block; /* Elimină spațiul suplimentar de sub videoclipuri */
+  border-radius: 5px; /* Colțuri rotunjite pentru videoclipuri */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Umbră pentru videoclipuri */
+  background-color: #000; /* Un fundal negru pentru videoclipuri */
+}
+
+/* Stiluri existente pentru imagini - asigură-te că le ai */
+.request-item-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .action-buttons {

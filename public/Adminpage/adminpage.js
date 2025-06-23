@@ -1,4 +1,3 @@
-// Simulează datele cererilor. În aplicația reală, acestea ar veni de la un API/bază de date.
 const requests = [
   {
     id: 748,
@@ -6,12 +5,16 @@ const requests = [
     problemDescription:
       "Am intrat cu bicicleta în copacul din imagine și am stricat roata din spate. Mi-aș dori să o reparați și apoi să vopsesc bicicleta în roșu (cuminte după ce se ferește după copacii de mine!)",
     dateTime: "30.02.1999",
-    // MODIFICAT: Acum este un array de URL-uri
-    imageUrls: [
-      "https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg",
-      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // A doua imagine
-      "https://images.pexels.com/photos/1595476/pexels-photo-1595476.jpeg", // A treia imagine (pentru a testa scroll-ul)
-      "https://youtu.be/i5IdjJiCgj0?si=_tB3XwLhOeMUHyan",
+    // MODIFICAT: Acum este un array de URL-uri care pot include și videoclipuri
+    mediaUrls: [
+      // Renumit de la 'imageUrls' la 'mediaUrls'
+      "https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg", // Imagine
+      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // Imagine
+      "https://images.pexels.com/photos/1595476/pexels-photo-1595476.jpeg", // Imagine (pentru a testa scroll-ul)
+      // EXEMPLU: Adăugăm un URL de videoclip (trebuie să simulezi un fișier video local)
+      // Să presupunem că ai un fișier 'video1.mp4' în directorul 'assets/videos/'
+      // path-ul real va depinde de unde stochezi videoclipurile pe server
+      "/assets/videos/video1.mp4", // VIDEOCLIP
     ],
     status: "pending", // pending, accepted, rejected
     adminComment: "",
@@ -23,9 +26,7 @@ const requests = [
       "Ecranul a început să pâlpâie intermitent, iar bateria se descarcă foarte repede. Am nevoie de el pentru facultate.",
     dateTime: "15.05.2025 10:30",
     // MODIFICAT: Acum este un array de URL-uri (unul singur pentru acest caz)
-    imageUrls: [
-      "https://images.unsplash.com/photo-1625047509168-a7026f36de04?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ],
+    mediaUrls: ["/assets/faq.png"],
     status: "pending",
     adminComment: "",
   },
@@ -35,12 +36,11 @@ const requests = [
     problemDescription:
       "Camera frontală nu mai funcționează după ce mi-a căzut pe jos. De asemenea, sticla de pe spate este spartă.",
     dateTime: "01.06.2025 14:00",
-    imageUrls: [
-      "https://via.placeholder.com/400x300?text=Telefon+Samsung",
-      "https://via.placeholder.com/400x300?text=Ecran+Spart",
-      "https://via.placeholder.com/400x300?text=Camera+Defecta", // Adaug o a treia imagine pentru a declanșa scroll-ul
-      "https://via.placeholder.com/400x300?text=Alta+poza+1",
-      "https://via.placeholder.com/400x300?text=Alta+poza+2",
+    mediaUrls: [
+      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // Adaug o a treia imagine pentru a declanșa scroll-ul
+      // EXEMPLU: Adăugăm un alt URL de videoclip
+      "/assets/videos/video1.mp4", // VIDEOCLIP 
+      "/assets/faq.png",
     ],
     status: "pending",
     adminComment: "",
@@ -51,9 +51,9 @@ const requests = [
     problemDescription:
       "Nu mai răcește deloc, iar becul interior nu se mai aprinde. Alimentele din el s-au stricat.",
     dateTime: "20.06.2025 09:00",
-    imageUrls: [
-      "https://via.placeholder.com/400x300?text=Frigider+Arctic",
-      "https://via.placeholder.com/400x300?text=Interior+Frigider",
+    mediaUrls: [
+      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg",
+      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg",
     ],
     status: "pending",
     adminComment: "",
@@ -133,8 +133,10 @@ const productNameElem = document.getElementById("productName");
 const problemDescriptionElem = document.getElementById("problemDescription");
 const dateTimeElem = document.getElementById("dateTime");
 const adminCommentElem = document.getElementById("adminComment");
-// MODIFICAT: Reținem referința la noul container, nu la o singură imagine
-const requestImageContainer = document.getElementById("requestImageContainer");
+const requestImageContainer = document.getElementById("requestImageContainer"); // Containerul pentru media
+
+const acceptBtn = document.getElementById("acceptBtn"); // Asigură-te că ai această referință
+const refuseBtn = document.getElementById("refuseBtn"); // Asigură-te că ai această referință
 
 // Referințele existente (desktop):
 const prevButtonDesktop = document.querySelector(
@@ -165,12 +167,36 @@ const noSupplierRequestsMessageElem = document.getElementById(
 );
 
 /**
- * Funcție pentru a afișa detaliile unei cereri specifice.
+ * Funcție helper pentru a determina tipul de fișier pe baza extensiei URL-ului.
+ * @param {string} url - URL-ul fișierului.
+ * @returns {string} - 'image' sau 'video' sau 'unknown'.
+ */
+function getMediaType(url) {
+  const extension = url.split(".").pop().toLowerCase();
+  const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp"];
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "flv"]; // Adaugă aici toate extensiile video pe care le vei folosi
+
+  if (imageExtensions.includes(extension)) {
+    return "image";
+  } else if (videoExtensions.includes(extension)) {
+    return "video";
+  } else {
+    return "unknown"; // Pentru alte tipuri de fișiere sau URL-uri invalide
+  }
+}
+
+/**
+ * Funcție pentru a afișa detaliile unei cereri specifice, inclusiv media (imagini/videoclipuri).
  * @param {number} index - Indexul cererii în array-ul `requests`.
  */
 function displayRequest(index) {
   if (index < 0 || index >= requests.length) {
     console.warn("Index invalid pentru cerere.");
+    // Opțional: poți afișa un mesaj "Nu mai sunt cereri" sau ascunde cardul
+    // if (requests.length === 0) {
+    //   document.querySelector('.request-card').style.display = 'none';
+    //   document.querySelector('.requests-carousel-section h1').textContent = 'Nu există cereri în așteptare.';
+    // }
     return;
   }
 
@@ -182,25 +208,45 @@ function displayRequest(index) {
   dateTimeElem.textContent = request.dateTime;
   adminCommentElem.value = request.adminComment; // Setează valoarea textarea-ului
 
-  // MODIFICARE AICI: Afișează imaginile
-  requestImageContainer.innerHTML = ""; // Golește containerul de imagini înainte de a adăuga altele noi
+  // MODIFICARE AICI: Afișează imaginile ȘI videoclipurile
+  requestImageContainer.innerHTML = ""; // Golește containerul de media înainte de a adăuga altele noi
 
-  if (request.imageUrls && request.imageUrls.length > 0) {
-    request.imageUrls.forEach((url) => {
-      const img = document.createElement("img");
-      img.src = url;
-      img.alt = `Imagine pentru cererea #${request.id}`;
-      // Adaugă o clasă pentru stilizare, dacă e necesar
-      img.classList.add("request-item-image");
-      requestImageContainer.appendChild(img);
+  if (request.mediaUrls && request.mediaUrls.length > 0) {
+    request.mediaUrls.forEach((url) => {
+      const mediaType = getMediaType(url);
+
+      if (mediaType === "image") {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = `Imagine pentru cererea #${request.id}`;
+        img.classList.add("request-item-image"); // Clasă pentru stilizare
+        requestImageContainer.appendChild(img);
+      } else if (mediaType === "video") {
+        const video = document.createElement("video");
+        video.src = url;
+        video.controls = true; // Adaugă controalele native (play, pauză, volum)
+        video.preload = "metadata"; // Încarcă doar metadatele (dimensiune, durată)
+        video.classList.add("request-item-video"); // Clasă nouă pentru stilizare
+        // Optional: video.autoplay = true; // Dacă vrei să pornească automat
+        // Optional: video.loop = true; // Dacă vrei să se repete
+        // Optional: video.muted = true; // Dacă vrei să fie mut implicit
+        requestImageContainer.appendChild(video);
+      } else {
+        // Afișează un mesaj pentru tipuri de fișiere necunoscute
+        const unknownMediaText = document.createElement("p");
+        unknownMediaText.textContent = `Tip media necunoscut: ${url}`;
+        unknownMediaText.style.textAlign = "center";
+        unknownMediaText.style.color = "#FF0000"; // Roșu pentru eroare/avertisment
+        requestImageContainer.appendChild(unknownMediaText);
+      }
     });
   } else {
-    // Afișează un placeholder sau un mesaj dacă nu există imagini
-    const noImageText = document.createElement("p");
-    noImageText.textContent = "Nicio imagine disponibilă.";
-    noImageText.style.textAlign = "center";
-    noImageText.style.color = "#777";
-    requestImageContainer.appendChild(noImageText);
+    // Afișează un placeholder sau un mesaj dacă nu există media
+    const noMediaText = document.createElement("p");
+    noMediaText.textContent = "Nicio imagine sau videoclip disponibil(ă).";
+    noMediaText.style.textAlign = "center";
+    noMediaText.style.color = "#777";
+    requestImageContainer.appendChild(noMediaText);
   }
 
   // Gestionează vizibilitatea butoanelor Acceptă/Refuză și a textarea-ului
@@ -328,10 +374,10 @@ function displaySupplierRequests(requests) {
       const card = document.createElement("div");
       card.classList.add("supplier-request-card");
       card.innerHTML = `
-              <h3>${request.supplierName}</h3>
-              <p class="part-name">${request.partName}</p>
-              <p class="part-description">${request.description}</p>
-          `;
+                <h3>${request.supplierName}</h3>
+                <p class="part-name">${request.partName}</p>
+                <p class="part-description">${request.description}</p>
+            `;
       supplierRequestsContainerElem.appendChild(card);
     });
   }
@@ -340,7 +386,16 @@ function displaySupplierRequests(requests) {
 // Adaugă event listeners
 document.addEventListener("DOMContentLoaded", () => {
   // Afișează prima cerere la încărcarea paginii
-  displayRequest(currentRequestIndex);
+  if (requests.length > 0) {
+    // Adaugă această verificare
+    displayRequest(currentRequestIndex);
+  } else {
+    // Opțional: Ascunde elementele legate de cerere dacă nu există cereri
+    document.querySelector(".request-card").style.display = "none";
+    document.querySelector(".requests-carousel-section h1").textContent =
+      "Nu există cereri în așteptare.";
+    // Poți de asemenea ascunde butoanele de navigare etc.
+  }
 
   // NOU: Afișează programările ocupate la încărcarea paginii
   displayOccupiedAppointments(occupiedAppointments);
@@ -360,59 +415,64 @@ document.addEventListener("DOMContentLoaded", () => {
     nextButtonMobile.addEventListener("click", goToNextRequest);
   }
 
-  acceptBtn.addEventListener("click", async () => {
-    const currentRequest = requests[currentRequestIndex];
-    const adminComment = adminCommentElem.value.trim();
+  // Adaugă verificări pentru a te asigura că butoanele există înainte de a adăuga listeneri
+  if (acceptBtn) {
+    acceptBtn.addEventListener("click", async () => {
+      const currentRequest = requests[currentRequestIndex];
+      const adminComment = adminCommentElem.value.trim();
 
-    if (!adminComment) {
-      alert("Te rog să introduci un motiv pentru aprobarea cererii.");
-      return;
-    }
+      if (!adminComment) {
+        alert("Te rog să introduci un motiv pentru aprobarea cererii.");
+        return;
+      }
 
-    currentRequest.status = "accepted";
-    currentRequest.adminComment = adminComment;
+      currentRequest.status = "accepted";
+      currentRequest.adminComment = adminComment;
 
-    acceptBtn.style.display = "none";
-    refuseBtn.style.display = "none";
-    adminCommentElem.readOnly = true;
-    adminCommentElem.style.backgroundColor = "#f0f0f0";
-    adminCommentElem.style.cursor = "not-allowed";
+      acceptBtn.style.display = "none";
+      refuseBtn.style.display = "none";
+      adminCommentElem.readOnly = true;
+      adminCommentElem.style.backgroundColor = "#f0f0f0";
+      adminCommentElem.style.cursor = "not-allowed";
 
-    await sendDataToServer({
-      id: currentRequest.id,
-      status: "accepted",
-      adminComment: adminComment,
+      await sendDataToServer({
+        id: currentRequest.id,
+        status: "accepted",
+        adminComment: adminComment,
+      });
+
+      alert(`Cererea #${currentRequest.id} a fost acceptată!`);
     });
+  }
 
-    alert(`Cererea #${currentRequest.id} a fost acceptată!`);
-  });
+  if (refuseBtn) {
+    refuseBtn.addEventListener("click", async () => {
+      const currentRequest = requests[currentRequestIndex];
+      const adminComment = adminCommentElem.value.trim();
 
-  refuseBtn.addEventListener("click", async () => {
-    const currentRequest = requests[currentRequestIndex];
-    const adminComment = adminCommentElem.value.trim();
+      if (!adminComment) {
+        alert("Te rog să introduci un motiv pentru refuzul cererii.");
+        return;
+      }
 
-    if (!adminComment) {
-      alert("Te rog să introduci un motiv pentru refuzul cererii.");
-      return;
-    }
+      currentRequest.status = "rejected";
+      currentRequest.adminComment = adminComment;
 
-    currentRequest.status = "rejected";
-    currentRequest.adminComment = adminComment;
+      acceptBtn.style.display = "none";
+      refuseBtn.style.display = "none";
+      adminCommentElem.readOnly = true;
+      adminCommentElem.style.backgroundColor = "#f0f0f0";
+      adminCommentElem.style.cursor = "not-allowed";
 
-    acceptBtn.style.display = "none";
-    refuseBtn.style.display = "none";
-    adminCommentElem.readOnly = true;
-    adminCommentElem.style.backgroundColor = "#f0f0f0";
-    adminCommentElem.style.cursor = "not-allowed";
+      await sendDataToServer({
+        id: currentRequest.id,
+        status: "rejected",
+        adminComment: adminComment,
+      });
 
-    await sendDataToServer({
-      id: currentRequest.id,
-      status: "rejected",
-      adminComment: adminComment,
+      alert(`Cererea #${currentRequest.id} a fost refuzată!`);
     });
-
-    alert(`Cererea #${currentRequest.id} a fost refuzată!`);
-  });
+  }
 
   // NOU: Afișează cererile de la furnizori la încărcarea paginii
   displaySupplierRequests(supplierRequests);
