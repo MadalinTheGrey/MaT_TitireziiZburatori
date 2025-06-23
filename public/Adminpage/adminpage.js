@@ -26,7 +26,7 @@ const requests = [
       "Ecranul a început să pâlpâie intermitent, iar bateria se descarcă foarte repede. Am nevoie de el pentru facultate.",
     dateTime: "15.05.2025 10:30",
     // MODIFICAT: Acum este un array de URL-uri (unul singur pentru acest caz)
-    mediaUrls: ["/assets/faq.png"],
+    mediaUrls: ["/assets/imgs/faq.png"],
     status: "pending",
     adminComment: "",
   },
@@ -40,7 +40,7 @@ const requests = [
       "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // Adaug o a treia imagine pentru a declanșa scroll-ul
       // EXEMPLU: Adăugăm un alt URL de videoclip
       "/assets/videos/video1.mp4", // VIDEOCLIP 
-      "/assets/faq.png",
+      "/assets/imgs/faq.png",
     ],
     status: "pending",
     adminComment: "",
