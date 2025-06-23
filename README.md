@@ -92,7 +92,10 @@ POST
 /api/appointments
 ```
 
-- body: json
+Add info about an appointment to the database.
+
+- required role: client
+- body: json, all fields are required
 
 ```
 {
@@ -102,6 +105,7 @@ POST
 }
 ```
 
+- params: n/a
 - returns: json with "id" field containing the id of the created appointment on success.
 
 POST
@@ -110,15 +114,17 @@ POST
 /api/appointments/:id/files
 ```
 
+Allows the upload of files related to an appointment.
+
+- required role: client
 - body: multipart/form data containing appointment files
-
 - params: ":id" is the id of the appointment the files belong to
-
 - example:
+
+Send files belonging to the appointment with id 4
 
 ```
 /api/appointments/4/files
-Send files belonging to the appointment with id 4
 ```
 
 - returns: json with "message" and "files" field, the latter containing an array with the paths to the added files.
@@ -129,11 +135,12 @@ GET
 /api/appointments/:id
 ```
 
+Fetch info about a certain appointment. If called by a client that does not own the appointment it returns an error.
+
+- required role: client
 - body: n/a
-
 - params: ":id" is the id of the appointment to be returned
-
-- returns: json as shown below
+- returns: json
 
 ```
 {
@@ -156,21 +163,20 @@ GET
 
 ```
 /api/appointments
-OR with query params
+```
+
+OR with query parameters
+
+```
 /api/appointments?is_approved=rejected
 ```
 
+Returns all appointments or the ones that fit the query params. Clients will only get appointments that they own, ignoring query parameters.
+
+- required role: client
 - query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
-
 - body: n/a
-
-- returns:
-
-  - for clients: all of the appointments belonging to the logged user ignoring filters in the route.
-
-  - for admin: all of the appointments fitting the given filters. If there are no filters then all appointments will be returned.
-
-  - json that maintains the same structure for both:
+- returns: json with appointments field containing an array of appointments
 
 ```
 {
@@ -197,19 +203,26 @@ PATCH
 /api/appointments/:id
 ```
 
-- For adding admin reviews
-- body: json containing
+Allows admins to review appointments.
+
+- required role: admin
+- body: json, all fields required
   - "is_approved": pending, approved, rejected
   - "admin_review": explanation for the decision
 - params: ":id" the id of the appointment that is being reviewed
 
-**Route documentation**:
+**Note for routes**:
 
 All routes return a status code and:
 
 - on success: a json with the "message" field usually confirming the action took place successfully.
 - on error: a json with the "error" and eventually "details" fields.
-  If the return field is missing from the details for a route this is all the route returns.
+
+If the return field is missing from the details for a route this is all the route returns.
+
+Error codes:
+401 - Unauthorized: The token provided is invalid
+403 - Forbidden: You lack the necessary role for accessing the route
 
 POST
 
@@ -434,7 +447,8 @@ POST
 
 ### :dart: Features
 
-- The user is required to make an account before using the features mentioned here.
+The user is required to make an account before using the features mentioned here.
+
 - The client can fill out a form with desired date and hour for his appointment. The form will also include details about the problem. The client can attach images/videos if he thinks it is necessary.
 - The client can view his appointments and their status in his account page
 - The administrator can accept or reject an appointment. On reject he will provide an explanation for the rejection and on approval the administrator will provide necessary details.
