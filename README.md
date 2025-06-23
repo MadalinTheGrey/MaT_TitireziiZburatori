@@ -109,7 +109,11 @@ Allows user registration adding their info to the database. The user's password 
 ```
 
 - params: n/a
-- returns: json with "id" field containing the id of the registered user.
+- returns:
+  - json with "id" field containing the id of the registered user.
+  - status codes:
+    - 400 - Invalid user data
+    - 409 - Email already in use
 
 POST
 
