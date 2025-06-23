@@ -114,6 +114,7 @@ Allows user registration adding their info to the database. The user's password 
   - status codes:
     - 400 - Invalid user data
     - 409 - Email already in use
+    - 201 - register successful
 
 POST
 
@@ -133,7 +134,13 @@ Allows user login and provides the token necessary for users to access protected
 ```
 
 - params: n/a
-- returns: json with the "message" and "jwt" fields, the latter containing the user's login token.
+- returns:
+  - json with the "message" and "jwt" fields, the latter containing the user's login token.
+  - status codes:
+    - 400 - Invalid login data
+    - 404 - User not found
+    - 401 - Incorrect email/password
+    - 200 - Login successful
 
 **Appointments**
 
@@ -163,7 +170,12 @@ Add info about an appointment to the database.
 ```
 
 - params: n/a
-- returns: json with "id" field containing the id of the created appointment on success.
+- returns:
+  - json with "id" field containing the id of the created appointment on success.
+  - status codes:
+    - 400: Missing or malformed data for appointment
+    - 409: Appointment time overlaps with existing ones
+    - 201: Appointment created successfully
 
 POST
 
@@ -184,7 +196,12 @@ Send files belonging to the appointment with id 4
 /api/appointments/4/files
 ```
 
-- returns: json with "message" and "files" field, the latter containing an array with the paths to the added files.
+- returns:
+  - json with "message" and "files" field, the latter containing an array with the paths to the added files.
+  - status codes:
+    - 400 - Invalid appointment id
+    - 404 - Appointment not found / You are not the owner
+    - 201 - Files uploaded successfully
 
 GET
 
@@ -197,7 +214,8 @@ Fetch info about a certain appointment. If called by a client that does not own 
 - required role: client
 - body: n/a
 - params: ":id" is the id of the appointment to be returned
-- returns: json
+- returns:
+  - json
 
 ```
 {
@@ -216,6 +234,11 @@ Fetch info about a certain appointment. If called by a client that does not own 
 }
 ```
 
+- status codes:
+  - 400 - Invalid appointment id
+  - 404 - Appointment not found / You are not the owner
+  - 200 - Appointment returned successfully
+
 GET
 
 ```
@@ -233,7 +256,8 @@ Returns all appointments or the ones that fit the query params. Clients will onl
 - required role: client
 - query params: "is_approved" is the current state of the appointment. Can be: pending, rejected, approved.
 - body: n/a
-- returns: json with appointments field containing an array of appointments
+- returns:
+  - json with appointments field containing an array of appointments
 
 ```
 {
@@ -254,6 +278,9 @@ Returns all appointments or the ones that fit the query params. Clients will onl
 }
 ```
 
+- status codes:
+  - 200 - Appointments returned successfully
+
 PATCH
 
 ```
@@ -267,6 +294,11 @@ Allows admins to review appointments.
   - "is_approved": pending, approved, rejected
   - "admin_review": explanation for the decision
 - params: ":id" the id of the appointment that is being reviewed
+- returns:
+  - status codes:
+    - 400 - Invalid appointment id
+    - 404 - Appointment not found
+    - 200 - Review added successfully
 
 **Supplies**
 
@@ -296,7 +328,11 @@ Allows the addition of a new supply.
 ```
 
 - params: n/a
-- returns: json with "id" field containing the id of the added supply
+- returns:
+  - json with "id" field containing the id of the added supply
+  - status codes:
+    - 400 - Missing or malformed supply data
+    - 201 - Supply added successfully
 
 PATCH
 
@@ -309,6 +345,11 @@ Updates the stock for a certain supply.
 - required role: admin
 - body: json with field "in_stock" containing the new number of items in stock
 - params: ":id" is the id of the supply which will be updated
+- returns:
+  - status codes:
+    - 400 - Invalid supply id/Missing or invalid stock data
+    - 404 - Supply not found
+    - 200 - Supply stock updated
 
 GET
 
@@ -329,7 +370,8 @@ Fetches the supply that has the name "pry bar" with 20 of it being in stock.
 /api/supplies?name=pry%20bar&in_stock=20
 ```
 
-- returns: json
+- returns:
+  - json
 
 ```
 {
@@ -344,6 +386,9 @@ Fetches the supply that has the name "pry bar" with 20 of it being in stock.
 }
 ```
 
+- status codes:
+  - 200 - Supplies returned successfully
+
 POST
 
 ```
@@ -354,7 +399,11 @@ Imports supplies from the provided csv or json file, assuming that the format of
 
 - body: multipart/form-data containing the file to import from.
 - params: n/a
-- returns: json with "message" and "count" fields, the latter containing the number of supplies added.
+- returns:
+  - json with "message" and "count" fields, the latter containing the number of supplies added.
+  - status codes:
+    - 400 - JSON is not an array/Invalid JSON/Unsupported file type/Missing or invalid data
+    - 201 - Supplies imported successfully
 
 GET
 
@@ -366,7 +415,10 @@ Exports all current supplies as a JSON file.
 
 - body: n/a
 - params: n/a
-- returns: downloadable json with an array of supplies
+- returns:
+  - downloadable json with an array of supplies
+  - status codes:
+    - 200: json attached successfully
 
 **Orders**
 
@@ -396,7 +448,12 @@ Adds an order to the database.
 ```
 
 - params: n/a
-- returns: json with "id" field containing the id of the created order
+- returns:
+  - json with "id" field containing the id of the created order
+  - status codes:
+    - 400 - Missing or malformed order data
+    - 404 - Associated supply not found
+    - 201 - Order added successfully
 
 GET
 
@@ -408,7 +465,8 @@ Fetches all orders from the database
 
 - body: n/a
 - params: n/a
-- returns: json
+- returns:
+  - json
 
 ```
 {
@@ -424,6 +482,9 @@ Fetches all orders from the database
 }
 ```
 
+- status codes:
+  - 200 - orders fetched successfully
+
 DELETE
 
 ```
@@ -434,6 +495,11 @@ Deletes the specified order from the database.
 
 - body: n/a
 - params: ":id" - id of the order to be deleted
+- returns:
+  - status codes:
+    - 400 - Invalid order id
+    - 404 - Order not found
+    - 204 - Order deleted successfully
 
 **Grant role endpoint**
 
@@ -449,6 +515,12 @@ Allows admins to grant a role to another user.
 
 - body: json with user_id and role_id to help identify which role should be assigned to which user
 - params: n/a
+- returns:
+  - status codes:
+    - 400 - Missing or malformed role data
+    - 404 - User/role not found
+    - 409 - User already has role
+    - 201 - Role added successfully
 
 **Note for routes**:
 
@@ -463,6 +535,7 @@ General error codes:
 
 - 401 - Unauthorized: The token provided is invalid
 - 403 - Forbidden: You lack the necessary role for accessing the route
+- 500 - Internal server error
 
 <!-- Screenshots -->
 
