@@ -68,18 +68,23 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 
 ### Backend
 
+**Database**
+
+Made using postgresql because of its full ACID compliance and great performance for frequent write operations. The database contains tables for users, roles, appointments, supplies and orders leading to a grand total of 8 tables.
+
+The app contains a database initialization script that creates the mentioned tables, inserts some default data and adds some basic constraints.
+
 **Login and authorization**:
 
-- Login is performed using JSON web tokens. After the user enters their login data and login is performed successfully a token is generated containing the user's id, email and roles and sent back in a json.
-- When a user tries to access a protected route they must provide a header named "authorization" which contains the string "Bearer " followed by the token received during login.
+Login is performed using JSON web tokens. After the user enters their login data, and login is performed successfully, a token is generated, containing the user's id, email and roles, and sent back in a json.
 
-**Route documentation**:
+When a user tries to access a protected route they must provide a header named "authorization" which contains the string "Bearer " followed by the token received during login.
 
-All routes return a status code and:
+Even if a user is logged in they will not be able to access certain routes if they lack the necessary role to do so. The client role is provided by default while the admin role is only obtainable when an admin deems it necessary.
 
-- on success: a json with the "message" field usually confirming the action took place successfully.
-- on error: a json with the "error" and eventually "details" fields.
-  If the return field is missing from the details for a route this is all the route returns.
+**Appointments**
+
+Endpoints for managing appointments are provided, allowing users to create and view their own appointments. Admins can view every appointment and leave a review deciding whether to approve or reject the appointment. All requests require the user to be authenticated via JWT. The API validates received input, ensures role based access and handles files related to appointments.
 
 POST
 
@@ -197,6 +202,14 @@ PATCH
   - "is_approved": pending, approved, rejected
   - "admin_review": explanation for the decision
 - params: ":id" the id of the appointment that is being reviewed
+
+**Route documentation**:
+
+All routes return a status code and:
+
+- on success: a json with the "message" field usually confirming the action took place successfully.
+- on error: a json with the "error" and eventually "details" fields.
+  If the return field is missing from the details for a route this is all the route returns.
 
 POST
 
@@ -423,8 +436,9 @@ POST
 
 - The user is required to make an account before using the features mentioned here.
 - The client can fill out a form with desired date and hour for his appointment. The form will also include details about the problem. The client can attach images/videos if he thinks it is necessary.
+- The client can view his appointments and their status in his account page
 - The administrator can accept or reject an appointment. On reject he will provide an explanation for the rejection and on approval the administrator will provide necessary details.
-- The app keeps track of available supplies as well as orders towards providers.
+- The app helps keep track of available supplies as well as orders towards providers.
 
 <!-- Env Variables -->
 
@@ -438,6 +452,8 @@ To run this project, you will need to add the following environment variables to
 - DB_PASSWORD=yourpassword
 - DB_PORT=5432
 - PORT=8021
+- JWT_SECRET="supersecretkey"
+- ADMIN_PASS=passwordforthedefaultadmin
 
 <!-- Getting Started -->
 
@@ -485,7 +501,7 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [ ] Write a comprehensive readme detailing the project (in progress)
 - [ ] Define project architecture (C4 diagrams) (in progress)
 - [x] Decide on a design for the website
-- [ ] Implement design using HTML & CSS (in progress)
+- [x] Implement design using HTML & CSS
 - [x] Complete database schema
 - [x] Implement database
 - [x] Setup backend
@@ -493,6 +509,9 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [x] Add appointments endpoint
 - [x] Upload appointment files endpoint
 - [x] GET endpoints for appointments
+- [x] Supplies endpoints
+- [x] Orders endpoints
+- [x] Admin grant role endpoint
 
 <!-- FAQ -->
 
