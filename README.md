@@ -193,8 +193,8 @@ Returns all appointments or the ones that fit the query params. Clients will onl
                 "file path"
             ]
         }
-	]
-   }
+    ]
+}
 ```
 
 PATCH
