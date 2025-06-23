@@ -3,6 +3,7 @@ const { registerRoutes } = require("./registerRoutes");
 const { loginRoutes } = require("./loginRoutes");
 const { supplyRoutes } = require("./supplyRoutes");
 const { orderRoutes } = require("./orderRoutes");
+const { roleRoutes } = require("./roleRoutes");
 
 exports.routes = [
   ...appointmentRoutes,
@@ -10,4 +11,5 @@ exports.routes = [
   ...loginRoutes,
   ...supplyRoutes,
   ...orderRoutes,
+  ...roleRoutes,
 ];

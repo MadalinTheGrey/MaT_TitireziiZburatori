@@ -48,7 +48,7 @@ exports.getSupplies = async (filters) => {
   }
   if (filters.in_stock != null) {
     if (!values.length) {
-      query += ` WHERE in_stock = $1`;
+      query += ` WHERE in_stock <= $1`;
     } else {
       query += ` AND in_stock = ${values.length + 1}`;
     }
@@ -79,6 +79,29 @@ exports.existsSupply = async (id) => {
     return result.rows[0].exists;
   } catch (error) {
     console.error("Error checking supply existence: ", error);
+    throw error;
+  }
+};
+
+exports.importSupplies = async (supplies) => {
+  const values = [];
+  const valuePlaceholders = supplies
+    .map((supply, index) => {
+      const valueIndex = index * 3;
+      values.push(supply.name, supply.description, supply.in_stock);
+      return `($${valueIndex + 1}, $${valueIndex + 2}, $${valueIndex + 3})`;
+    })
+    .join(", ");
+
+  const query = `
+              INSERT INTO supplies (name, description, in_stock)
+              VALUES ${valuePlaceholders};
+              `;
+  try {
+    const result = await pool.query(query, values);
+    return result.rowCount;
+  } catch (error) {
+    console.error("Error importing supplies: ", error);
     throw error;
   }
 };

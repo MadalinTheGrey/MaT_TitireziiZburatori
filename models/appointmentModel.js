@@ -167,3 +167,21 @@ exports.getAppointmentsFiltered = async (filters) => {
     throw error;
   }
 };
+
+exports.updateAppointmentWithReview = async (review, appointmentId) => {
+  const query = `
+              UPDATE appointments
+              SET is_approved = $1,
+                  admin_review = $2
+              WHERE id = $3
+              `;
+  const values = [review.is_approved, review.admin_review, appointmentId];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rowCount > 0;
+  } catch (error) {
+    console.error("Error updating appointment with review: ", error);
+    throw error;
+  }
+};
