@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stoc Piese Service</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/default.css" />
+    <link rel="stylesheet" href="supplies.css" />
+    <link rel="stylesheet" href="../stylesheets/navbar.css" />
+    <link rel="stylesheet" href="../stylesheets/footer.css" />
+    <link
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+      rel="stylesheet"
+    />
+    </head>
+  <body>
+    <header data-include="../html-components/navbar.html"></header>
+
+    <main class="main-content">
+      <h1 class="main-title">STOCUL PIESELOR SERVICE</h1>
+
+      <section class="stock-controls-section">
+        <div class="search-filters-container">
+          <div class="search-bar">
+            <i class="uil uil-search"></i>
+            <input
+              type="text"
+              id="searchByName"
+              placeholder="Căută după nume piesă..."
+            />
+          </div>
+          <div class="search-bar quantity-search">
+            <i class="uil uil-search"></i>
+            <input
+              type="number"
+              id="searchByQuantity"
+              placeholder="Nr. piese în stoc..."
+              min="0"
+            />
+          </div>
+
+          </div>
+
+        <div class="action-buttons-container">
+          <button class="action-btn import-btn" id="importBtn">
+            <i class="uil uil-import"></i> Import
+          </button>
+          <button class="action-btn export-btn" id="exportBtn">
+            <i class="uil uil-export"></i> Export
+          </button>
+          <button class="action-btn add-item-btn" id="addItemBtn">
+            <i class="uil uil-plus"></i> Adaugă piesă
+          </button>
+        </div>
+      </section>
+
+      <section class="stock-list-section">
+        <div class="stock-table-container">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th>Nume Piesă</th>
+                <th>Descriere</th>
+                <th>Nr. în stoc</th>
+                </tr>
+            </thead>
+            <tbody id="stockTableBody">
+              <tr class="stock-item" data-id="1">
+                <td>Roată Față Bicicletă Standard</td>
+                <td>Roată față universală pentru biciclete de oraș, 26 inch.</td>
+                <td>15</td>
+                </tr>
+              <tr class="stock-item" data-id="2">
+                <td>Set Plăcuțe Frână Disc</td>
+                <td>Set de 2 plăcuțe de frână, compatibile cu etriere Shimano.</td>
+                <td>5</td>
+                </tr>
+              <tr class="stock-item" data-id="3">
+                <td>Lanț Moto Heavy Duty</td>
+                <td>Lanț de transmisie ranforsat pentru motociclete sport.</td>
+                <td>2</td>
+                </tr>
+              <tr class="stock-item" data-id="4">
+                <td>Ulei Motor 10W-40 (1L)</td>
+                <td>Ulei semisintetic pentru motoare în 4 timpi.</td>
+                <td>30</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+        <p
+          id="noStockMessage"
+          class="no-requests-message"
+          style="display: none"
+        >
+          Nu există piese în stoc conform filtrelor aplicate.
+        </p>
+      </section>
+
+      <!-- <section class="admin-bottom-banner">
+        <img
+          src="https://images.pexels.com/photos/31945005/pexels-photo-31945005.jpeg"
+          alt="Imagine-fundal-administrative"
+          class="admin-banner-background"
+        />
+      </section> -->
+    </main>
+
+    <footer data-include="../html-components/footer.html"></footer>
+
+    <script src="../assets/includes.js"></script>
+    <script src="supplies.js"></script>
+  </body>
+</html>
