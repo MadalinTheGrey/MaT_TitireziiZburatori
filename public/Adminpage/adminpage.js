@@ -6,8 +6,13 @@ const requests = [
     problemDescription:
       "Am intrat cu bicicleta în copacul din imagine și am stricat roata din spate. Mi-aș dori să o reparați și apoi să vopsesc bicicleta în roșu (cuminte după ce se ferește după copacii de mine!)",
     dateTime: "30.02.1999",
-    imageUrl:
+    // MODIFICAT: Acum este un array de URL-uri
+    imageUrls: [
       "https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg",
+      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // A doua imagine
+      "https://images.pexels.com/photos/1595476/pexels-photo-1595476.jpeg", // A treia imagine (pentru a testa scroll-ul)
+      "https://youtu.be/i5IdjJiCgj0?si=_tB3XwLhOeMUHyan",
+    ],
     status: "pending", // pending, accepted, rejected
     adminComment: "",
   },
@@ -17,8 +22,10 @@ const requests = [
     problemDescription:
       "Ecranul a început să pâlpâie intermitent, iar bateria se descarcă foarte repede. Am nevoie de el pentru facultate.",
     dateTime: "15.05.2025 10:30",
-    imageUrl:
-      "https://images.unsplash.com/photo-1625047509168-a7026f36de04?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder pentru altă imagine
+    // MODIFICAT: Acum este un array de URL-uri (unul singur pentru acest caz)
+    imageUrls: [
+      "https://images.unsplash.com/photo-1625047509168-a7026f36de04?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    ],
     status: "pending",
     adminComment: "",
   },
@@ -28,7 +35,13 @@ const requests = [
     problemDescription:
       "Camera frontală nu mai funcționează după ce mi-a căzut pe jos. De asemenea, sticla de pe spate este spartă.",
     dateTime: "01.06.2025 14:00",
-    imageUrl: "https://via.placeholder.com/400x300?text=Telefon+Samsung", // Placeholder pentru altă imagine
+    imageUrls: [
+      "https://via.placeholder.com/400x300?text=Telefon+Samsung",
+      "https://via.placeholder.com/400x300?text=Ecran+Spart",
+      "https://via.placeholder.com/400x300?text=Camera+Defecta", // Adaug o a treia imagine pentru a declanșa scroll-ul
+      "https://via.placeholder.com/400x300?text=Alta+poza+1",
+      "https://via.placeholder.com/400x300?text=Alta+poza+2",
+    ],
     status: "pending",
     adminComment: "",
   },
@@ -38,7 +51,10 @@ const requests = [
     problemDescription:
       "Nu mai răcește deloc, iar becul interior nu se mai aprinde. Alimentele din el s-au stricat.",
     dateTime: "20.06.2025 09:00",
-    imageUrl: "https://via.placeholder.com/400x300?text=Frigider+Arctic", // Placeholder
+    imageUrls: [
+      "https://via.placeholder.com/400x300?text=Frigider+Arctic",
+      "https://via.placeholder.com/400x300?text=Interior+Frigider",
+    ],
     status: "pending",
     adminComment: "",
   },
@@ -62,47 +78,51 @@ const occupiedAppointments = [
 // NOU: Simulează datele pentru cererile de la furnizori
 const supplierRequests = [
   {
-      id: 1,
-      supplierName: "Furnizor MotoPiese SRL",
-      partName: "Filtru Ulei Motocicletă",
-      description: "Necesită 5 bucăți, cod produs: FUMT-2023. Urgență medie. Livrare în 3 zile."
+    id: 1,
+    supplierName: "Furnizor MotoPiese SRL",
+    partName: "Filtru Ulei Motocicletă",
+    description:
+      "Necesită 5 bucăți, cod produs: FUMT-2023. Urgență medie. Livrare în 3 zile.",
   },
   {
-      id: 2,
-      supplierName: "CicluServicii SA",
-      partName: "Set Frâne Hidraulice Bicicletă",
-      description: "2 seturi, pentru biciclete de munte. Calitate superioară. Termen limită 5 zile."
+    id: 2,
+    supplierName: "CicluServicii SA",
+    partName: "Set Frâne Hidraulice Bicicletă",
+    description:
+      "2 seturi, pentru biciclete de munte. Calitate superioară. Termen limită 5 zile.",
   },
   {
-      id: 3,
-      supplierName: "ElectroMobility Distribuitor",
-      partName: "Baterie Trotinetă Electrică 36V",
-      description: "10 bucăți, model standard. Compatibil cu Xiaomi M365. Stoc limitat."
+    id: 3,
+    supplierName: "ElectroMobility Distribuitor",
+    partName: "Baterie Trotinetă Electrică 36V",
+    description:
+      "10 bucăți, model standard. Compatibil cu Xiaomi M365. Stoc limitat.",
   },
   {
-      id: 4,
-      supplierName: "AutoPro Componente",
-      partName: "Lanț Transmisie Moto",
-      description: "Diverse dimensiuni, pentru modele Honda și Yamaha. Cantitate mare necesară."
+    id: 4,
+    supplierName: "AutoPro Componente",
+    partName: "Lanț Transmisie Moto",
+    description:
+      "Diverse dimensiuni, pentru modele Honda și Yamaha. Cantitate mare necesară.",
   },
   {
-      id: 5,
-      supplierName: "Piese Rapid SRL",
-      partName: "Anvelopă Bicicletă 29 inch",
-      description: "Anvelope off-road, 15 bucăți. Așteptăm oferta de preț."
+    id: 5,
+    supplierName: "Piese Rapid SRL",
+    partName: "Anvelopă Bicicletă 29 inch",
+    description: "Anvelope off-road, 15 bucăți. Așteptăm oferta de preț.",
   },
   {
-      id: 6,
-      supplierName: "General Parts Inc.",
-      partName: "Amortizor Trotinetă Față",
-      description: "Model universal, 8 bucăți. Avem nevoie urgentă."
+    id: 6,
+    supplierName: "General Parts Inc.",
+    partName: "Amortizor Trotinetă Față",
+    description: "Model universal, 8 bucăți. Avem nevoie urgentă.",
   },
   {
-      id: 7,
-      supplierName: "MegaMoto Spares",
-      partName: "Set garnituri motor",
-      description: "Pentru motor Suzuki GSX-R, an 2018. 3 seturi."
-  }
+    id: 7,
+    supplierName: "MegaMoto Spares",
+    partName: "Set garnituri motor",
+    description: "Pentru motor Suzuki GSX-R, an 2018. 3 seturi.",
+  },
 ];
 
 let currentRequestIndex = 0; // Indexul cererii curente afișate
@@ -113,9 +133,8 @@ const productNameElem = document.getElementById("productName");
 const problemDescriptionElem = document.getElementById("problemDescription");
 const dateTimeElem = document.getElementById("dateTime");
 const adminCommentElem = document.getElementById("adminComment");
-const requestImageElem = document.getElementById("requestImage");
-const acceptBtn = document.getElementById("acceptBtn");
-const refuseBtn = document.getElementById("refuseBtn");
+// MODIFICAT: Reținem referința la noul container, nu la o singură imagine
+const requestImageContainer = document.getElementById("requestImageContainer");
 
 // Referințele existente (desktop):
 const prevButtonDesktop = document.querySelector(
@@ -138,9 +157,12 @@ const noAppointmentsMessageElem = document.getElementById(
 );
 
 // NOU: Referințe la elementele pentru cererile de la furnizori
-const supplierRequestsContainerElem = document.getElementById("supplierRequestsContainer");
-const noSupplierRequestsMessageElem = document.getElementById("noSupplierRequestsMessage");
-
+const supplierRequestsContainerElem = document.getElementById(
+  "supplierRequestsContainer"
+);
+const noSupplierRequestsMessageElem = document.getElementById(
+  "noSupplierRequestsMessage"
+);
 
 /**
  * Funcție pentru a afișa detaliile unei cereri specifice.
@@ -159,8 +181,27 @@ function displayRequest(index) {
   problemDescriptionElem.textContent = request.problemDescription;
   dateTimeElem.textContent = request.dateTime;
   adminCommentElem.value = request.adminComment; // Setează valoarea textarea-ului
-  requestImageElem.src = request.imageUrl;
-  requestImageElem.alt = `Imagine pentru cererea #${request.id}`;
+
+  // MODIFICARE AICI: Afișează imaginile
+  requestImageContainer.innerHTML = ""; // Golește containerul de imagini înainte de a adăuga altele noi
+
+  if (request.imageUrls && request.imageUrls.length > 0) {
+    request.imageUrls.forEach((url) => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = `Imagine pentru cererea #${request.id}`;
+      // Adaugă o clasă pentru stilizare, dacă e necesar
+      img.classList.add("request-item-image");
+      requestImageContainer.appendChild(img);
+    });
+  } else {
+    // Afișează un placeholder sau un mesaj dacă nu există imagini
+    const noImageText = document.createElement("p");
+    noImageText.textContent = "Nicio imagine disponibilă.";
+    noImageText.style.textAlign = "center";
+    noImageText.style.color = "#777";
+    requestImageContainer.appendChild(noImageText);
+  }
 
   // Gestionează vizibilitatea butoanelor Acceptă/Refuză și a textarea-ului
   if (request.status === "pending") {
@@ -276,26 +317,25 @@ async function sendDataToServer(data) {
 
 // NOU: Funcție pentru a afișa cererile de la furnizori
 function displaySupplierRequests(requests) {
-  supplierRequestsContainerElem.innerHTML = ''; // Golește containerul existent
+  supplierRequestsContainerElem.innerHTML = ""; // Golește containerul existent
 
   if (requests.length === 0) {
-      noSupplierRequestsMessageElem.style.display = 'block'; // Afișează mesajul "Nu există..."
+    noSupplierRequestsMessageElem.style.display = "block"; // Afișează mesajul "Nu există..."
   } else {
-      noSupplierRequestsMessageElem.style.display = 'none'; // Ascunde mesajul
-      
-      requests.forEach(request => {
-          const card = document.createElement('div');
-          card.classList.add('supplier-request-card');
-          card.innerHTML = `
+    noSupplierRequestsMessageElem.style.display = "none"; // Ascunde mesajul
+
+    requests.forEach((request) => {
+      const card = document.createElement("div");
+      card.classList.add("supplier-request-card");
+      card.innerHTML = `
               <h3>${request.supplierName}</h3>
               <p class="part-name">${request.partName}</p>
               <p class="part-description">${request.description}</p>
           `;
-          supplierRequestsContainerElem.appendChild(card);
-      });
+      supplierRequestsContainerElem.appendChild(card);
+    });
   }
 }
-
 
 // Adaugă event listeners
 document.addEventListener("DOMContentLoaded", () => {

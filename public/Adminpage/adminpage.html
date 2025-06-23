@@ -23,7 +23,6 @@
     <main class="main-content">
       <h1 class="main-title">CERERI CLIENȚI</h1>
 
-      <!-- LIST APPOINTMENTS SECTION -->
       <section class="requests-carousel-section">
         <div class="carousel-wrapper">
           <button class="button nav-button prev-button desktop-nav-button">
@@ -75,11 +74,8 @@
             </div>
 
             <div class="request-image">
-              <img
-                id="requestImage"
-                src="https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg"
-                alt="Bicicletă stricată"
-              />
+              <div id="requestImageContainer" class="image-gallery-container">
+                </div>
             </div>
           </div>
 
@@ -94,7 +90,6 @@
         </div>
       </section>
 
-      <!-- LIST APPROVED APPOINTMENTS SECTION-->
       <section class="occupied-appointments-section">
         <h2 class="section-title">CERERI APROBATE</h2>
         <div class="appointments-list-container">
@@ -103,32 +98,21 @@
         </div>
       </section>
 
-      <!-- SUPPLIES SECTION -->
       <section class="service-parts-banner">
-        <a href="/supplies.html" class="service-parts-link button">
+        <a href="/Supplies/supplies.html" class="service-parts-link button">
           <h2>PIESE SERVICE</h2>
         </a>
       </section>
 
-      <!-- APPOINTMENTS TO THE PROVIDERS SECTION -->
       <section class="supplier-requests-section">
         <h2 class="section-title">CERERI - FURNIZORI</h2>
         <div id="supplierRequestsContainer" class="supplier-requests-container">
-          <!-- Cardurile cu cereri de la furnizori vor fi generate dinamic aici de JS -->
-          <!-- Exemplu de structură pentru un card:
-          <div class="supplier-request-card">
-            <h3>Nume Furnizor</h3>
-            <p class="part-name">Nume Piesa</p>
-            <p class="part-description">Descrierea detaliată a cererii pentru piesa.</p>
-          </div>
-          -->
           <p id="noSupplierRequestsMessage" class="no-requests-message">
             Nu există cereri de la furnizori.
           </p>
         </div>
       </section>
 
-      <!-- ADMIN BOTTOM BANNER SECTION -->
       <section class="admin-bottom-banner">
         <img
           src="https://images.pexels.com/photos/31945005/pexels-photo-31945005.jpeg"
