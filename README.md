@@ -45,7 +45,6 @@
   - [Project Architecture](#project-architecture)
   - [Frontend](#frontend)
   - [Backend](#backend)
-  - [Screenshots](#camera-screenshots)
   - [Tech Stack](#space_invader-tech-stack)
   - [Features](#dart-features)
   - [Color Reference](#art-color-reference)
@@ -90,6 +89,14 @@
 ### Frontend
 
 To be added: Frontend description.
+
+<!-- Screenshots -->
+
+:camera: **Screenshots**
+
+<div align="center">
+  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+</div>
 
 ### Backend
 
@@ -561,14 +568,6 @@ General error codes:
 - 401 - Unauthorized: The token provided is invalid
 - 403 - Forbidden: You lack the necessary role for accessing the route
 - 500 - Internal server error
-
-<!-- Screenshots -->
-
-### :camera: Screenshots
-
-<div align="center">
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
-</div>
 
 <!-- TechStack -->
 
