@@ -1,22 +1,18 @@
-const requests = [
+let requests = [
   {
     id: 748,
     productName: "Bicicletă Calypso 1000",
     problemDescription:
       "Am intrat cu bicicleta în copacul din imagine și am stricat roata din spate. Mi-aș dori să o reparați și apoi să vopsesc bicicleta în roșu (cuminte după ce se ferește după copacii de mine!)",
     dateTime: "30.02.1999",
-    // MODIFICAT: Acum este un array de URL-uri care pot include și videoclipuri
     mediaUrls: [
       // Renumit de la 'imageUrls' la 'mediaUrls'
       "https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg", // Imagine
       "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // Imagine
       "https://images.pexels.com/photos/1595476/pexels-photo-1595476.jpeg", // Imagine (pentru a testa scroll-ul)
-      // EXEMPLU: Adăugăm un URL de videoclip (trebuie să simulezi un fișier video local)
-      // Să presupunem că ai un fișier 'video1.mp4' în directorul 'assets/videos/'
-      // path-ul real va depinde de unde stochezi videoclipurile pe server
       "/assets/videos/video1.mp4", // VIDEOCLIP
     ],
-    status: "pending", // pending, accepted, rejected
+    status: "pending", // pending, approved, rejected
     adminComment: "",
   },
   {
@@ -25,7 +21,6 @@ const requests = [
     problemDescription:
       "Ecranul a început să pâlpâie intermitent, iar bateria se descarcă foarte repede. Am nevoie de el pentru facultate.",
     dateTime: "15.05.2025 10:30",
-    // MODIFICAT: Acum este un array de URL-uri (unul singur pentru acest caz)
     mediaUrls: ["/assets/imgs/faq.png"],
     status: "pending",
     adminComment: "",
@@ -37,9 +32,8 @@ const requests = [
       "Camera frontală nu mai funcționează după ce mi-a căzut pe jos. De asemenea, sticla de pe spate este spartă.",
     dateTime: "01.06.2025 14:00",
     mediaUrls: [
-      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // Adaug o a treia imagine pentru a declanșa scroll-ul
-      // EXEMPLU: Adăugăm un alt URL de videoclip
-      "/assets/videos/video1.mp4", // VIDEOCLIP 
+      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg",
+      "/assets/videos/video1.mp4",
       "/assets/imgs/faq.png",
     ],
     status: "pending",
@@ -60,9 +54,8 @@ const requests = [
   },
 ];
 
-// NOU: Simulează datele pentru programările ocupate
-// Acum include și numele clientului
-const occupiedAppointments = [
+// Simulează datele pentru programările ocupate
+let occupiedAppointments = [
   { date: "22.06.2025", time: "10:00 - 11:00", clientName: "Ion Popescu" },
   { date: "22.06.2025", time: "14:00 - 15:00", clientName: "Maria Ionescu" },
   { date: "23.06.2025", time: "09:30 - 10:30", clientName: "Andrei Vasilescu" },
@@ -75,7 +68,7 @@ const occupiedAppointments = [
   { date: "26.06.2025", time: "15:00 - 16:00", clientName: "Laura Georgescu" },
 ];
 
-// NOU: Simulează datele pentru cererile de la furnizori
+//Simulează datele pentru cererile de la furnizori
 // let pt a putea fi modificat
 let supplierRequests = [
   {
@@ -136,10 +129,9 @@ const dateTimeElem = document.getElementById("dateTime");
 const adminCommentElem = document.getElementById("adminComment");
 const requestImageContainer = document.getElementById("requestImageContainer"); // Containerul pentru media
 
-const acceptBtn = document.getElementById("acceptBtn"); // Asigură-te că ai această referință
-const refuseBtn = document.getElementById("refuseBtn"); // Asigură-te că ai această referință
+const acceptBtn = document.getElementById("acceptBtn");
+const refuseBtn = document.getElementById("refuseBtn");
 
-// Referințele existente (desktop):
 const prevButtonDesktop = document.querySelector(
   ".prev-button.desktop-nav-button"
 );
@@ -151,7 +143,7 @@ const nextButtonDesktop = document.querySelector(
 const prevButtonMobile = document.querySelector(".prev-button-mobile");
 const nextButtonMobile = document.querySelector(".next-button-mobile");
 
-// NOU: Referințe la elementele pentru programări ocupate
+// Referințe la elementele pentru programări ocupate
 const occupiedAppointmentsListElem = document.getElementById(
   "occupiedAppointmentsList"
 );
@@ -159,7 +151,7 @@ const noAppointmentsMessageElem = document.getElementById(
   "noAppointmentsMessage"
 );
 
-// NOU: Referințe la elementele pentru cererile de la furnizori
+// Referințe la elementele pentru cererile de la furnizori
 const supplierRequestsContainerElem = document.getElementById(
   "supplierRequestsContainer"
 );
@@ -167,7 +159,7 @@ const noSupplierRequestsMessageElem = document.getElementById(
   "noSupplierRequestsMessage"
 );
 
-// NOU: Referințe pentru modalul de adăugare cerere
+// Referințe pentru modalul de adăugare cerere
 const addSupplierRequestBtn = document.getElementById("addSupplierRequestBtn");
 const addRequestModal = document.getElementById("addRequestModal");
 const addRequestForm = document.getElementById("addRequestForm");
@@ -177,16 +169,15 @@ const newDescriptionTextarea = document.getElementById("newDescription");
 const saveNewRequestBtn = document.getElementById("saveNewRequestBtn");
 const cancelNewRequestBtn = document.getElementById("cancelNewRequestBtn");
 
-
 /**
- * Funcție helper pentru a determina tipul de fișier pe baza extensiei URL-ului.
+ * Funcție helper pentru a determina tipul de fișier pe baza extensiei.
  * @param {string} url - URL-ul fișierului.
  * @returns {string} - 'image' sau 'video' sau 'unknown'.
  */
 function getMediaType(url) {
   const extension = url.split(".").pop().toLowerCase();
   const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp"];
-  const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "flv"]; // Adaugă aici toate extensiile video pe care le vei folosi
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "flv"];
 
   if (imageExtensions.includes(extension)) {
     return "image";
@@ -203,28 +194,14 @@ function getMediaType(url) {
  */
 function displayRequest(index) {
   if (index < 0 || index >= requests.length) {
-    console.warn("Index invalid pentru cerere.");
-    // Logica pentru a gestiona lipsa cererilor sau index invalid
-    if (requests.length === 0) {
-      document.querySelector(".request-card").style.display = "none";
-      document.querySelector(".requests-carousel-section h1").textContent =
-        "Nu există cereri în așteptare.";
-      // Ascunde butoanele de navigare dacă nu mai sunt cereri
-      if (prevButtonDesktop) prevButtonDesktop.style.display = "none";
-      if (nextButtonDesktop) nextButtonDesktop.style.display = "none";
-      if (prevButtonMobile) prevButtonMobile.style.display = "none";
-      if (nextButtonMobile) nextButtonMobile.style.display = "none";
-    } else {
-      // Dacă indexul este invalid, dar există cereri, ajustează indexul la o valoare validă
-      currentRequestIndex = Math.max(0, Math.min(index, requests.length - 1));
-      displayRequest(currentRequestIndex);
-    }
+    // Dacă indexul este invalid, dar există cereri, ajustează indexul la o valoare validă
+    currentRequestIndex = Math.max(0, Math.min(index, requests.length - 1));
+    displayRequest(currentRequestIndex);
     return;
   } else {
-    // Afișează cardul și butoanele de navigare dacă există cereri
+    // Afișează cardul și butoanele de navigare
     document.querySelector(".request-card").style.display = "flex";
-    document.querySelector(".main-title").textContent =
-      "CERERI CLIENȚI"; // Resetează titlul
+    document.querySelector(".main-title").textContent = "CERERI CLIENȚI"; // Resetează titlul
     if (prevButtonDesktop) prevButtonDesktop.style.display = "";
     if (nextButtonDesktop) nextButtonDesktop.style.display = "";
     if (prevButtonMobile) prevButtonMobile.style.display = "";
@@ -233,13 +210,13 @@ function displayRequest(index) {
 
   const request = requests[index];
 
-  requestIdElem.textContent = request.id;
+  requestIdElem.textContent = String(request.id);
   productNameElem.textContent = request.productName;
   problemDescriptionElem.textContent = request.problemDescription;
   dateTimeElem.textContent = request.dateTime;
   adminCommentElem.value = request.adminComment; // Setează valoarea textarea-ului
 
-  // MODIFICARE AICI: Afișează imaginile ȘI videoclipurile
+  // Afișează imaginile ȘI videoclipurile
   requestImageContainer.innerHTML = ""; // Golește containerul de media înainte de a adăuga altele noi
 
   if (request.mediaUrls && request.mediaUrls.length > 0) {
@@ -258,9 +235,6 @@ function displayRequest(index) {
         video.controls = true; // Adaugă controalele native (play, pauză, volum)
         video.preload = "metadata"; // Încarcă doar metadatele (dimensiune, durată)
         video.classList.add("request-item-video"); // Clasă nouă pentru stilizare
-        // Optional: video.autoplay = true; // Dacă vrei să pornească automat
-        // Optional: video.loop = true; // Dacă vrei să se repete
-        // Optional: video.muted = true; // Dacă vrei să fie mut implicit
         requestImageContainer.appendChild(video);
       } else {
         // Afișează un mesaj pentru tipuri de fișiere necunoscute
@@ -297,7 +271,7 @@ function displayRequest(index) {
   }
 }
 
-// NOU: Funcție pentru a afișa programările ocupate
+// Funcție pentru a afișa programările ocupate
 function displayOccupiedAppointments(appointments) {
   occupiedAppointmentsListElem.innerHTML = ""; // Golește lista existentă
 
@@ -305,24 +279,26 @@ function displayOccupiedAppointments(appointments) {
     noAppointmentsMessageElem.style.display = "block"; // Afișează mesajul "Nu există..."
   } else {
     noAppointmentsMessageElem.style.display = "none"; // Ascunde mesajul
-    // Sortează programările după dată și ora pentru o afișare ordonată
-    const sortedAppointments = [...appointments].sort((a, b) => {
-      const dateA = new Date(
-        a.date.split(".").reverse().join("-") + "T" + a.time.split(" ")[0]
-      ); // Parsează doar ora de început pentru sortare
-      const dateB = new Date(
-        b.date.split(".").reverse().join("-") + "T" + b.time.split(" ")[0]
-      );
-      return dateA - dateB;
-    });
 
-    sortedAppointments.forEach((appointment) => {
+    appointments.forEach((appointment) => {
       const listItem = document.createElement("li");
-      listItem.innerHTML = `
-                <span class="appointment-date">${appointment.date}</span>
-                <span class="appointment-time">${appointment.time}</span>
-                <span class="appointment-client">${appointment.clientName}</span>
-            `; // Am adăugat appointment-client
+
+      const dateSpan = document.createElement("span");
+      dateSpan.className = "appointment-date";
+      dateSpan.textContent = appointment.date;
+
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "appointment-time";
+      timeSpan.textContent = appointment.time;
+
+      const clientSpan = document.createElement("span");
+      clientSpan.className = "appointment-client";
+      clientSpan.textContent = appointment.clientName;
+
+      listItem.appendChild(dateSpan);
+      listItem.appendChild(timeSpan);
+      listItem.appendChild(clientSpan);
+
       occupiedAppointmentsListElem.appendChild(listItem);
     });
   }
@@ -350,58 +326,7 @@ function goToNextRequest() {
   displayRequest(currentRequestIndex);
 }
 
-/**
- * Simulează trimiterea datelor către un server/bază de date.
- * În realitate, ai folosi `fetch` sau `XMLHttpRequest` pentru a face un apel POST/PUT la un API backend.
- * @param {object} data - Obiectul cu datele de trimis (id, status, adminComment).
- */
-async function sendDataToServer(data) {
-  console.log("Simulez trimiterea datelor către server:", data);
-
-  // Aici ar veni codul real pentru un apel API, de exemplu:
-  /*
-    try {
-        const response = await fetch('/api/update-request', { // Exemplu de endpoint
-            method: 'POST', // Sau 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer YOUR_TOKEN' // Dacă ai nevoie de autentificare
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log('Răspuns de la server:', result);
-        alert('Cerearea a fost actualizată cu succes!');
-    } catch (error) {
-        console.error('Eroare la trimiterea datelor către server:', error);
-        alert('A apărut o eroare la actualizarea cererii. Te rugăm să încerci din nou.');
-    }
-    */
-
-  // Pentru acest exemplu, doar simulăm o întârziere și apoi actualizăm statusul local
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log('Datele au fost "salvate" (simulat).');
-      resolve({ success: true, message: "Status actualizat cu succes!" });
-    }, 500); // Simulează un delay de 0.5 secunde
-  });
-}
-
-// NOU: Funcție pentru a genera un ID unic pentru noile cereri
-function generateUniqueId(arr) {
-  if (arr.length === 0) {
-    return 1;
-  }
-  const maxId = Math.max(...arr.map((item) => item.id));
-  return maxId + 1;
-}
-
-// MODIFICAT: Funcție pentru a afișa cererile de la furnizori, cu buton de ștergere
+// Funcție pentru a afișa cererile de la furnizori, cu buton de ștergere
 function displaySupplierRequests(requests) {
   supplierRequestsContainerElem.innerHTML = ""; // Golește containerul existent
 
@@ -413,36 +338,79 @@ function displaySupplierRequests(requests) {
     requests.forEach((request) => {
       const card = document.createElement("div");
       card.classList.add("supplier-request-card");
-      card.innerHTML = `
-                <h3>${request.supplierName}</h3>
-                <p class="part-name">${request.partName}</p>
-                <p class="part-description">${request.description}</p>
-                <button class="delete-supplier-btn" data-id="${request.id}">
-                    <i class="uil uil-trash"></i> </button>
-            `;
+
+      const supplierNameH3 = document.createElement("h3");
+      supplierNameH3.textContent = request.supplierName;
+
+      const partNameText = document.createElement("p");
+      partNameText.className = "part-name";
+      partNameText.textContent = request.partName;
+
+      const partDescText = document.createElement("p");
+      partDescText.className = "part-description";
+      partDescText.textContent = request.description;
+
+      const deleteOrderButton = document.createElement("button");
+      deleteOrderButton.className = "delete-supplier-btn";
+      deleteOrderButton.dataset.id = request.id;
+
+      const icon = document.createElement("i");
+      icon.className = "uil uil-trash";
+
+      deleteOrderButton.appendChild(icon);
+
+      card.appendChild(supplierNameH3);
+      card.appendChild(partNameText);
+      card.appendChild(partDescText);
+      card.appendChild(deleteOrderButton);
+
       supplierRequestsContainerElem.appendChild(card);
     });
   }
 }
 
-// NOU: Funcție pentru a șterge o cerere de la furnizori
-function deleteSupplierRequest(idToDelete) {
+// Funcție pentru a șterge o cerere de la furnizori
+async function deleteSupplierRequest(idToDelete) {
   const confirmDelete = confirm(
     `Ești sigur că vrei să ștergi cererea cu ID #${idToDelete}?`
   );
   if (confirmDelete) {
-    // În realitate, ai face un apel API aici pentru a șterge din baza de date
-    // await sendDataToServer({ type: 'deleteSupplierRequest', id: idToDelete });
+    try {
+      const token = localStorage.getItem("jwt");
 
-    supplierRequests = supplierRequests.filter(
-      (request) => request.id !== idToDelete
-    );
-    displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
-    alert(`Cererea #${idToDelete} a fost ștearsă.`);
+      const response = await fetch(`/api/orders/${idToDelete}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const text = await response.text();
+      let data = {};
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch (error) {
+          console.warn("Invalid JSON: ", text);
+        }
+      }
+
+      if (!response.ok) {
+        alert(data.error || "Error deleting order");
+        return;
+      }
+
+      supplierRequests = supplierRequests.filter(
+        (request) => request.id !== idToDelete
+      );
+      displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
+      alert(`Cererea #${idToDelete} a fost ștearsă.`);
+    } catch (error) {
+      console.error("Error adding order: ", error);
+      alert("An error occured while adding order");
+    }
   }
 }
 
-// NOU: Funcție pentru a deschide modalul de adăugare cerere
+// Funcție pentru a deschide modalul de adăugare cerere
 function openAddRequestModal() {
   addRequestModal.classList.add("active");
   // Resetează câmpurile formularului de fiecare dată când se deschide modalul
@@ -451,59 +419,87 @@ function openAddRequestModal() {
   newSupplierNameInput.focus();
 }
 
-// NOU: Funcție pentru a închide modalul de adăugare cerere
+// Funcție pentru a închide modalul de adăugare cerere
 function closeAddRequestModal() {
   addRequestModal.classList.remove("active");
 }
 
-// NOU: Funcție pentru a salva o nouă cerere de la furnizori
-function saveNewSupplierRequest(event) {
+// Funcție pentru a salva o nouă cerere de la furnizori
+async function saveNewSupplierRequest(event) {
   event.preventDefault(); // Oprește reîncărcarea paginii la trimiterea formularului
 
   const supplierName = newSupplierNameInput.value.trim();
   const partName = newPartNameInput.value.trim();
   const description = newDescriptionTextarea.value.trim();
 
-  if (!supplierName || !partName || !description) {
-    alert("Te rog completează toate câmpurile pentru a adăuga cererea.");
+  if (!supplierName || !partName) {
+    alert("Trebuie completat un furnizor si numele piesei");
     return;
   }
 
-  const newRequest = {
-    id: generateUniqueId(supplierRequests), // Generează un ID unic
-    supplierName: supplierName,
-    partName: partName,
-    description: description,
+  const order = {
+    provider: supplierName,
+    supply_name: partName,
+    description: description || "",
   };
 
-  // În realitate, ai face un apel API aici pentru a adăuga în baza de date
-  // await sendDataToServer({ type: 'addSupplierRequest', data: newRequest });
+  try {
+    const token = localStorage.getItem("jwt");
 
-  supplierRequests.push(newRequest); // Adaugă noua cerere în array-ul local
-  displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
-  closeAddRequestModal(); // Închide modalul
-  alert(`Cererea de la "${supplierName}" pentru "${partName}" a fost adăugată.`);
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(order),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.error || "Error adding order");
+      return;
+    }
+
+    const newSuppReq = {
+      id: data.id,
+      supplierName: order.provider,
+      partName: order.supply_name,
+      description: order.description,
+    };
+
+    supplierRequests.push(newSuppReq); // Adaugă noua cerere în array-ul local
+    displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
+    closeAddRequestModal(); // Închide modalul
+    alert(
+      `Cererea de la "${supplierName}" pentru "${partName}" a fost adăugată.`
+    );
+  } catch (error) {
+    console.error("Error adding order: ", error);
+    alert("An error occured while adding order");
+  }
 }
 
 // Adaugă event listeners
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Afișează prima cerere la încărcarea paginii
+  await fetchAppointments();
+  await fetchOrders();
   if (requests.length > 0) {
-    // Adaugă această verificare
     displayRequest(currentRequestIndex);
   } else {
-    // Opțional: Ascunde elementele legate de cerere dacă nu există cereri
+    //Ascunde elementele legate de cerere dacă nu există cereri
     document.querySelector(".request-card").style.display = "none";
     document.querySelector(".requests-carousel-section h1").textContent =
       "Nu există cereri în așteptare.";
-    // Poți de asemenea ascunde butoanele de navigare etc.
     if (prevButtonDesktop) prevButtonDesktop.style.display = "none";
     if (nextButtonDesktop) nextButtonDesktop.style.display = "none";
     if (prevButtonMobile) prevButtonMobile.style.display = "none";
     if (nextButtonMobile) nextButtonMobile.style.display = "none";
   }
 
-  // NOU: Afișează programările ocupate la încărcarea paginii
+  //Afișează programările ocupate la încărcarea paginii
   displayOccupiedAppointments(occupiedAppointments);
 
   if (prevButtonDesktop) {
@@ -521,7 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nextButtonMobile.addEventListener("click", goToNextRequest);
   }
 
-  // Adaugă verificări pentru a te asigura că butoanele există înainte de a adăuga listeneri
+  // Verifica ca butoanele exista
   if (acceptBtn) {
     acceptBtn.addEventListener("click", async () => {
       const currentRequest = requests[currentRequestIndex];
@@ -532,22 +528,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      currentRequest.status = "accepted";
+      currentRequest.status = "approved";
       currentRequest.adminComment = adminComment;
 
-      acceptBtn.style.display = "none";
-      refuseBtn.style.display = "none";
-      adminCommentElem.readOnly = true;
-      adminCommentElem.style.backgroundColor = "#f0f0f0";
-      adminCommentElem.style.cursor = "not-allowed";
-
-      await sendDataToServer({
-        id: currentRequest.id,
-        status: "accepted",
-        adminComment: adminComment,
-      });
-
-      alert(`Cererea #${currentRequest.id} a fost acceptată!`);
+      await sendReviewToServer(currentRequest);
+      requests[currentRequestIndex] = currentRequest;
+      displayRequest(currentRequestIndex);
     });
   }
 
@@ -564,41 +550,31 @@ document.addEventListener("DOMContentLoaded", () => {
       currentRequest.status = "rejected";
       currentRequest.adminComment = adminComment;
 
-      acceptBtn.style.display = "none";
-      refuseBtn.style.display = "none";
-      adminCommentElem.readOnly = true;
-      adminCommentElem.style.backgroundColor = "#f0f0f0";
-      adminCommentElem.style.cursor = "not-allowed";
-
-      await sendDataToServer({
-        id: currentRequest.id,
-        status: "rejected",
-        adminComment: adminComment,
-      });
-
-      alert(`Cererea #${currentRequest.id} a fost refuzată!`);
+      await sendReviewToServer(currentRequest);
+      requests[currentRequestIndex] = currentRequest;
+      displayRequest(currentRequestIndex);
     });
   }
 
-  // NOU: Afișează cererile de la furnizori la încărcarea paginii
+  // Afișează cererile de la furnizori la încărcarea paginii
   displaySupplierRequests(supplierRequests);
 
-  // NOU: Adaugă event listener pentru butonul "Adaugă Cerere Nouă"
+  // Adaugă event listener pentru butonul "Adaugă Cerere Nouă"
   if (addSupplierRequestBtn) {
     addSupplierRequestBtn.addEventListener("click", openAddRequestModal);
   }
 
-  // NOU: Adaugă event listener pentru butonul "Salvează" din modal
+  // Adaugă event listener pentru butonul "Salvează" din modal
   if (addRequestForm) {
     addRequestForm.addEventListener("submit", saveNewSupplierRequest);
   }
 
-  // NOU: Adaugă event listener pentru butonul "Anulează" din modal
+  // Adaugă event listener pentru butonul "Anulează" din modal
   if (cancelNewRequestBtn) {
     cancelNewRequestBtn.addEventListener("click", closeAddRequestModal);
   }
 
-  // NOU: Adaugă event listener pentru a închide modalul la click în afara conținutului
+  // Adaugă event listener pentru a închide modalul la click în afara conținutului
   if (addRequestModal) {
     addRequestModal.addEventListener("click", (event) => {
       // Verifică dacă click-ul a fost direct pe overlay, nu pe conținutul modalului
@@ -608,17 +584,139 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // NOU: Deleagă evenimentul de click pentru butoanele de ștergere
+  // Deleagă evenimentul de click pentru butoanele de ștergere
   // Această abordare este necesară deoarece butoanele sunt adăugate dinamic
   if (supplierRequestsContainerElem) {
-    supplierRequestsContainerElem.addEventListener("click", (event) => {
+    supplierRequestsContainerElem.addEventListener("click", async (event) => {
       const target = event.target;
       // Verifică dacă elementul pe care s-a dat click este butonul de ștergere sau iconița din el
       const deleteButton = target.closest(".delete-supplier-btn");
       if (deleteButton) {
         const requestId = parseInt(deleteButton.dataset.id);
-        deleteSupplierRequest(requestId);
+        await deleteSupplierRequest(requestId);
       }
     });
   }
 });
+
+async function fetchAppointments() {
+  requests = [];
+  const token = localStorage.getItem("jwt");
+
+  let response = await fetch("/api/appointments?is_approved=pending", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  let data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to load appointments");
+  }
+
+  const appointments = data.appointments;
+
+  //adauga appointmenturile in array-ul cu cele pending din front
+  requests = appointments.map((appointment) => ({
+    id: appointment.id,
+    productName: appointment.title,
+    problemDescription: appointment.description,
+    dateTime: convertDateFormat(appointment.appointment_date),
+    mediaUrls: [...appointment.files],
+    status: appointment.is_approved.toLowerCase(),
+    adminComment: appointment.admin_review || "",
+  }));
+
+  response = await fetch("/api/appointments?is_approved=approved", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(date.error || "Error fetching appointments");
+  }
+
+  const approvedAppointments = data.appointments;
+
+  occupiedAppointments = approvedAppointments.map((appointment) => {
+    const completeDate = new Date(appointment.appointment_date);
+    return {
+      date: completeDate.toLocaleDateString("ro-RO"),
+      time: completeDate.toLocaleTimeString("ro-RO", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
+      clientName: appointment.title,
+    };
+  });
+}
+
+function convertDateFormat(date) {
+  return new Date(date).toLocaleString("ro-RO", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+async function sendReviewToServer(appointment) {
+  const review = {
+    is_approved: appointment.status,
+    admin_review: appointment.adminComment,
+  };
+  const token = localStorage.getItem("jwt");
+  const response = await fetch(`/api/appointments/${appointment.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      is_approved: review.is_approved,
+      admin_review: review.admin_review,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error(data.error || "Error adding review");
+    return;
+  }
+
+  alert("Review adaugat cu succes");
+}
+
+async function fetchOrders() {
+  supplierRequests = [];
+  const token = localStorage.getItem("jwt");
+
+  let response = await fetch("/api/orders", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Error on fetching orders");
+  }
+
+  const orders = data.orders;
+
+  supplierRequests = orders.map((order) => ({
+    id: order.id,
+    supplierName: order.provider,
+    partName: order.supply_name,
+    description: order.description,
+  }));
+}
