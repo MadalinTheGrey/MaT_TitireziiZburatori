@@ -64,8 +64,6 @@
 
 ## :star2: About the Project
 
-To be added: C4 diagrams and detailed design (database schema and details, frontend & backend description).
-
 ### Project architecture
 
 **C4 Level 1 Diagram**
@@ -83,8 +81,12 @@ To be added: C4 diagrams and detailed design (database schema and details, front
 **C4 Level 3 Diagram**
 
 <div align="center">
-  <img src="./public/assets/C2.png" alt="db schema" />
+  <img src="./public/assets/C3.png" alt="db schema" />
 </div>
+
+### Frontend
+
+To be added: Frontend description.
 
 ### Backend
 
@@ -708,3 +710,5 @@ Project Link: [https://github.com/MadalinTheGrey/MaT_TitireziiZburatori](https:/
 - [Awesome README Template](https://github.com/Louis3797/awesome-readme-template)
 - [Unicons](https://iconscout.com/unicons)
 - [Unsplash](https://unsplash.com/)
+- [app.diagrams.net](https://app.diagrams.net/)
+- [dbdiagram.io](https://dbdiagram.io)
