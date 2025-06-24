@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contul Meu</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/stylesheets/default.css" />
-    <link rel="stylesheet" href="adminpage.css" />
-    <link rel="stylesheet" href="../stylesheets/navbar.css" />
-    <link rel="stylesheet" href="../stylesheets/footer.css" />
-    <link
-      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
-      rel="stylesheet"
-    />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -37,9 +22,7 @@
     <header data-include="../html-components/navbar.html"></header>
 
     <!-- START MAIN SECTION -->
-    <!-- START MAIN SECTION -->
     <main class="main-content">
-      <!-- CLIENT REQUESTS SECTION -->
       <!-- CLIENT REQUESTS SECTION -->
       <h1 class="main-title">CERERI CLIENȚI</h1>
 
@@ -48,15 +31,9 @@
           <button class="button nav-button prev-button desktop-nav-button">
             &lt;
           </button>
-          <button class="button nav-button prev-button desktop-nav-button">
-            &lt;
-          </button>
 
           <div class="request-card">
             <div class="request-details">
-              <h2 class="request-id">
-                CERERE #<span id="requestId">748</span>
-              </h2>
               <h2 class="request-id">
                 CERERE #<span id="requestId">748</span>
               </h2>
@@ -70,7 +47,6 @@
                 <p id="problemDescription">
                   Am intrat cu bicicleta în copacul din imagine și am stricat
                   roata din spate. Mi-aș dori să o reparați și apoi să vopsesc
-                  bicicleta în roșu (cuminte după se feresc copacii de mine!)
                   bicicleta în roșu (cuminte după se feresc copacii de mine!)
                 </p>
               </div>
@@ -96,24 +72,17 @@
                 <button class="action-btn refuse-btn" id="refuseBtn">
                   REFUZĂ
                 </button>
-                <button class="action-btn accept-btn" id="acceptBtn">
-                  ACCEPTĂ
-                </button>
-                <button class="action-btn refuse-btn" id="refuseBtn">
-                  REFUZĂ
-                </button>
               </div>
             </div>
 
             <div class="request-image">
-              <div id="requestImageContainer" class="image-gallery-container"></div>
-              <div id="requestImageContainer" class="image-gallery-container"></div>
+              <div
+                id="requestImageContainer"
+                class="image-gallery-container"
+              ></div>
             </div>
           </div>
 
-          <button class="button nav-button next-button desktop-nav-button">
-            &gt;
-          </button>
           <button class="button nav-button next-button desktop-nav-button">
             &gt;
           </button>
@@ -126,7 +95,6 @@
       </section>
 
       <!-- OCCUPIED APPOINTMENTS SECTION -->
-      <!-- OCCUPIED APPOINTMENTS SECTION -->
       <section class="occupied-appointments-section">
         <h2 class="section-title">CERERI APROBATE</h2>
         <div class="appointments-list-container">
@@ -138,12 +106,10 @@
       <!-- SUPPLIES SECTION -->
       <section class="service-parts-banner">
         <a href="/Supplies/supplies.html" class="service-parts-link button">
-        <a href="/Supplies/supplies.html" class="service-parts-link button">
           <h2>PIESE SERVICE</h2>
         </a>
       </section>
 
-      <!-- PROVIDER REQUESTS SECTION -->
       <!-- PROVIDER REQUESTS SECTION -->
       <section class="supplier-requests-section">
         <h2 class="section-title">CERERI - FURNIZORI</h2>
@@ -151,12 +117,10 @@
           <p id="noSupplierRequestsMessage" class="no-requests-message">
             Nu există cereri de la furnizori.
           </p>
-          <p id="noSupplierRequestsMessage" class="no-requests-message">
-            Nu există cereri de la furnizori.
-          </p>
         </div>
-        <button id="addSupplierRequestBtn" class="button add-supplier-btn">ADAUGĂ CERERE NOUĂ</button>
-        <button id="addSupplierRequestBtn" class="button add-supplier-btn">ADAUGĂ CERERE NOUĂ</button>
+        <button id="addSupplierRequestBtn" class="button add-supplier-btn">
+          ADAUGĂ CERERE NOUĂ
+        </button>
       </section>
 
       <!-- POP-UP ADD PROVIDER APPOINTMENT SECTION -->
@@ -177,40 +141,18 @@
               <textarea id="newDescription" rows="4" required></textarea>
             </div>
             <div class="modal-actions">
-              <button type="submit" id="saveNewRequestBtn" class="action-btn accept-btn">
+              <button
+                type="submit"
+                id="saveNewRequestBtn"
+                class="action-btn accept-btn"
+              >
                 SALVEAZĂ
               </button>
-              <button type="button" id="cancelNewRequestBtn" class="action-btn refuse-btn">
-                ANULEAZĂ
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- BANNER SECTION -->
-      <!-- POP-UP ADD PROVIDER APPOINTMENT SECTION -->
-      <div id="addRequestModal" class="modal-overlay">
-        <div class="modal-content">
-          <h2>Adaugă Cerere Nouă de la Furnizor</h2>
-          <form id="addRequestForm">
-            <div class="form-group">
-              <label for="newSupplierName">Nume Furnizor:</label>
-              <input type="text" id="newSupplierName" required />
-            </div>
-            <div class="form-group">
-              <label for="newPartName">Nume Piesă:</label>
-              <input type="text" id="newPartName" required />
-            </div>
-            <div class="form-group">
-              <label for="newDescription">Descriere:</label>
-              <textarea id="newDescription" rows="4" required></textarea>
-            </div>
-            <div class="modal-actions">
-              <button type="submit" id="saveNewRequestBtn" class="action-btn accept-btn">
-                SALVEAZĂ
-              </button>
-              <button type="button" id="cancelNewRequestBtn" class="action-btn refuse-btn">
+              <button
+                type="button"
+                id="cancelNewRequestBtn"
+                class="action-btn refuse-btn"
+              >
                 ANULEAZĂ
               </button>
             </div>
@@ -229,10 +171,8 @@
     </main>
 
     <!-- FOOTER SECTION -->
-    <!-- FOOTER SECTION -->
     <footer data-include="../html-components/footer.html"></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <script src="../assets/includes.js"></script>
     <script src="adminpage.js"></script>
