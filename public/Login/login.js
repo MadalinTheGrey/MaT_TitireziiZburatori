@@ -16,16 +16,15 @@ document
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error || "login failed");
+        console.error(data.error || "login failed");
         return;
       }
 
       localStorage.setItem("jwt", data.jwt);
 
-      alert("Login succesful!");
       updateNavbarLink();
+      window.location.href = "/HomePage/homepage.html";
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occured during login");
     }
   });

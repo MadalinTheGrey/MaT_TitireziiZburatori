@@ -1,123 +1,10 @@
-let requests = [
-  {
-    id: 748,
-    productName: "Bicicletă Calypso 1000",
-    problemDescription:
-      "Am intrat cu bicicleta în copacul din imagine și am stricat roata din spate. Mi-aș dori să o reparați și apoi să vopsesc bicicleta în roșu (cuminte după ce se ferește după copacii de mine!)",
-    dateTime: "30.02.1999",
-    mediaUrls: [
-      // Renumit de la 'imageUrls' la 'mediaUrls'
-      "https://images.pexels.com/photos/15603043/pexels-photo-15603043.jpeg", // Imagine
-      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg", // Imagine
-      "https://images.pexels.com/photos/1595476/pexels-photo-1595476.jpeg", // Imagine (pentru a testa scroll-ul)
-      "/assets/videos/video1.mp4", // VIDEOCLIP
-    ],
-    status: "pending", // pending, approved, rejected
-    adminComment: "",
-  },
-  {
-    id: 749,
-    productName: "Laptop Dell XPS 15",
-    problemDescription:
-      "Ecranul a început să pâlpâie intermitent, iar bateria se descarcă foarte repede. Am nevoie de el pentru facultate.",
-    dateTime: "15.05.2025 10:30",
-    mediaUrls: ["/assets/imgs/faq.png"],
-    status: "pending",
-    adminComment: "",
-  },
-  {
-    id: 750,
-    productName: "Telefon Samsung Galaxy S23",
-    problemDescription:
-      "Camera frontală nu mai funcționează după ce mi-a căzut pe jos. De asemenea, sticla de pe spate este spartă.",
-    dateTime: "01.06.2025 14:00",
-    mediaUrls: [
-      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg",
-      "/assets/videos/video1.mp4",
-      "/assets/imgs/faq.png",
-    ],
-    status: "pending",
-    adminComment: "",
-  },
-  {
-    id: 751,
-    productName: "Frigider Arctic",
-    problemDescription:
-      "Nu mai răcește deloc, iar becul interior nu se mai aprinde. Alimentele din el s-au stricat.",
-    dateTime: "20.06.2025 09:00",
-    mediaUrls: [
-      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg",
-      "https://images.pexels.com/photos/5446297/pexels-photo-5446297.jpeg",
-    ],
-    status: "pending",
-    adminComment: "",
-  },
-];
+let requests = [];
 
-// Simulează datele pentru programările ocupate
-let occupiedAppointments = [
-  { date: "22.06.2025", time: "10:00 - 11:00", clientName: "Ion Popescu" },
-  { date: "22.06.2025", time: "14:00 - 15:00", clientName: "Maria Ionescu" },
-  { date: "23.06.2025", time: "09:30 - 10:30", clientName: "Andrei Vasilescu" },
-  { date: "23.06.2025", time: "16:00 - 17:00", clientName: "Elena Dumitrescu" },
-  { date: "24.06.2025", time: "11:00 - 12:00", clientName: "George Enescu" },
-  { date: "24.06.2025", time: "15:00 - 16:00", clientName: "Ana Maria Popa" },
-  { date: "25.06.2025", time: "09:00 - 10:00", clientName: "Victor Stancu" },
-  { date: "25.06.2025", time: "13:00 - 14:00", clientName: "Diana Munteanu" },
-  { date: "26.06.2025", time: "10:00 - 11:00", clientName: "Cristian Avram" },
-  { date: "26.06.2025", time: "15:00 - 16:00", clientName: "Laura Georgescu" },
-];
+// programările ocupate
+let occupiedAppointments = [];
 
-//Simulează datele pentru cererile de la furnizori
-// let pt a putea fi modificat
-let supplierRequests = [
-  {
-    id: 1,
-    supplierName: "Furnizor MotoPiese SRL",
-    partName: "Filtru Ulei Motocicletă",
-    description:
-      "Necesită 5 bucăți, cod produs: FUMT-2023. Urgență medie. Livrare în 3 zile.",
-  },
-  {
-    id: 2,
-    supplierName: "CicluServicii SA",
-    partName: "Set Frâne Hidraulice Bicicletă",
-    description:
-      "2 seturi, pentru biciclete de munte. Calitate superioară. Termen limită 5 zile.",
-  },
-  {
-    id: 3,
-    supplierName: "ElectroMobility Distribuitor",
-    partName: "Baterie Trotinetă Electrică 36V",
-    description:
-      "10 bucăți, model standard. Compatibil cu Xiaomi M365. Stoc limitat.",
-  },
-  {
-    id: 4,
-    supplierName: "AutoPro Componente",
-    partName: "Lanț Transmisie Moto",
-    description:
-      "Diverse dimensiuni, pentru modele Honda și Yamaha. Cantitate mare necesară.",
-  },
-  {
-    id: 5,
-    supplierName: "Piese Rapid SRL",
-    partName: "Anvelopă Bicicletă 29 inch",
-    description: "Anvelope off-road, 15 bucăți. Așteptăm oferta de preț.",
-  },
-  {
-    id: 6,
-    supplierName: "General Parts Inc.",
-    partName: "Amortizor Trotinetă Față",
-    description: "Model universal, 8 bucăți. Avem nevoie urgentă.",
-  },
-  {
-    id: 7,
-    supplierName: "MegaMoto Spares",
-    partName: "Set garnituri motor",
-    description: "Pentru motor Suzuki GSX-R, an 2018. 3 seturi.",
-  },
-];
+// cererile de la furnizori
+let supplierRequests = [];
 
 let currentRequestIndex = 0; // Indexul cererii curente afișate
 
@@ -394,7 +281,7 @@ async function deleteSupplierRequest(idToDelete) {
       }
 
       if (!response.ok) {
-        alert(data.error || "Error deleting order");
+        console.error(data.error || "Error deleting order");
         return;
       }
 
@@ -402,10 +289,8 @@ async function deleteSupplierRequest(idToDelete) {
         (request) => request.id !== idToDelete
       );
       displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
-      alert(`Cererea #${idToDelete} a fost ștearsă.`);
     } catch (error) {
       console.error("Error adding order: ", error);
-      alert("An error occured while adding order");
     }
   }
 }
@@ -458,7 +343,7 @@ async function saveNewSupplierRequest(event) {
     const data = await response.json();
 
     if (!response.ok) {
-      alert(data.error || "Error adding order");
+      console.error(data.error || "Error adding order");
       return;
     }
 
@@ -472,12 +357,23 @@ async function saveNewSupplierRequest(event) {
     supplierRequests.push(newSuppReq); // Adaugă noua cerere în array-ul local
     displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
     closeAddRequestModal(); // Închide modalul
-    alert(
-      `Cererea de la "${supplierName}" pentru "${partName}" a fost adăugată.`
-    );
   } catch (error) {
     console.error("Error adding order: ", error);
-    alert("An error occured while adding order");
+  }
+}
+
+function displayClientRequests() {
+  if (requests.length > 0) {
+    displayRequest(currentRequestIndex);
+  } else {
+    //Ascunde elementele legate de cerere dacă nu există cereri
+    document.querySelector(".request-card").style.display = "none";
+    document.querySelector(".main-title").textContent =
+      "Nu există cereri în așteptare.";
+    if (prevButtonDesktop) prevButtonDesktop.style.display = "none";
+    if (nextButtonDesktop) nextButtonDesktop.style.display = "none";
+    if (prevButtonMobile) prevButtonMobile.style.display = "none";
+    if (nextButtonMobile) nextButtonMobile.style.display = "none";
   }
 }
 
@@ -486,19 +382,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Afișează prima cerere la încărcarea paginii
   await fetchAppointments();
   await fetchOrders();
-  if (requests.length > 0) {
-    displayRequest(currentRequestIndex);
-  } else {
-    //Ascunde elementele legate de cerere dacă nu există cereri
-    document.querySelector(".request-card").style.display = "none";
-    document.querySelector(".requests-carousel-section h1").textContent =
-      "Nu există cereri în așteptare.";
-    if (prevButtonDesktop) prevButtonDesktop.style.display = "none";
-    if (nextButtonDesktop) nextButtonDesktop.style.display = "none";
-    if (prevButtonMobile) prevButtonMobile.style.display = "none";
-    if (nextButtonMobile) nextButtonMobile.style.display = "none";
-  }
 
+  displayClientRequests();
   //Afișează programările ocupate la încărcarea paginii
   displayOccupiedAppointments(occupiedAppointments);
 
@@ -533,7 +418,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       await sendReviewToServer(currentRequest);
       requests[currentRequestIndex] = currentRequest;
-      displayRequest(currentRequestIndex);
+      await fetchAppointments();
+      displayClientRequests();
+      displayOccupiedAppointments(occupiedAppointments);
     });
   }
 
@@ -552,7 +439,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       await sendReviewToServer(currentRequest);
       requests[currentRequestIndex] = currentRequest;
-      displayRequest(currentRequestIndex);
+      await fetchAppointments();
+      displayClientRequests();
+      displayOccupiedAppointments(occupiedAppointments);
     });
   }
 
@@ -624,7 +513,7 @@ async function fetchAppointments() {
     productName: appointment.title,
     problemDescription: appointment.description,
     dateTime: convertDateFormat(appointment.appointment_date),
-    mediaUrls: [...appointment.files],
+    mediaUrls: appointment.files.map((file) => `/${file}`),
     status: appointment.is_approved.toLowerCase(),
     adminComment: appointment.admin_review || "",
   }));
@@ -692,8 +581,6 @@ async function sendReviewToServer(appointment) {
     console.error(data.error || "Error adding review");
     return;
   }
-
-  alert("Review adaugat cu succes");
 }
 
 async function fetchOrders() {

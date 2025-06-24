@@ -76,7 +76,6 @@ function verifyAuth() {
       window.location.pathname === "/Adminpage/adminpage.html" ||
       window.location.pathname === "/Supplies/supplies.html")
   ) {
-    alert("Nu ești logat! Ieși afară!!");
     window.location.pathname = "/Login/login.html";
   } else {
     const decoded = jwt_decode(token);
@@ -85,7 +84,6 @@ function verifyAuth() {
       (window.location.pathname === "/Adminpage/adminpage.html" ||
         window.location.pathname === "/Supplies/supplies.html")
     ) {
-      alert("Nu ai permisiunea de a accesa această pagină!");
       window.location.pathname = "/HomePage/homepage.html";
     }
 
@@ -93,7 +91,6 @@ function verifyAuth() {
       !decoded.roles.includes("client") &&
       window.location.pathname === "/ContulMeuClient/ContulMeuClient.html"
     ) {
-      alert("Nu ai permisiunea de a accesa această pagină!");
       window.location.pathname = "/HomePage/homepage.html";
     }
   }
