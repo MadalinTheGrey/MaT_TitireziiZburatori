@@ -344,6 +344,8 @@ async function saveNewSupplierRequest(event) {
 
     if (!response.ok) {
       console.error(data.error || "Error adding order");
+      if (response.status === 404)
+        alert("Please insert an existing supply name");
       return;
     }
 
