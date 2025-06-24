@@ -66,6 +66,26 @@
 
 To be added: C4 diagrams and detailed design (database schema and details, frontend & backend description).
 
+### Project architecture
+
+**C4 Level 1 Diagram**
+
+<div align="center">
+  <img src="./public/assets/C1.png" alt="db schema" />
+</div>
+
+**C4 Level 2 Diagram**
+
+<div align="center">
+  <img src="./public/assets/C2.png" alt="db schema" />
+</div>
+
+**C4 Level 3 Diagram**
+
+<div align="center">
+  <img src="./public/assets/C2.png" alt="db schema" />
+</div>
+
 ### Backend
 
 **General info**
@@ -77,6 +97,10 @@ The backend server is created in Node.js and uses the built in http module to ha
 Made using postgresql because of its full ACID compliance and great performance for frequent write operations. The database contains 7 tables related to users, roles, appointments, supplies and orders.
 
 The app includes a database initialization script that creates the mentioned tables, inserts default data and adds basic constraints.
+
+<div align="center">
+  <img src="./public/assets/Database schema.png" alt="db schema" />
+</div>
 
 **Login and authorization**:
 
@@ -642,7 +666,7 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 ## :compass: Roadmap
 
 - [ ] Write a comprehensive readme detailing the project (in progress)
-- [ ] Define project architecture (C4 diagrams) (in progress)
+- [x] Define project architecture (C4 diagrams)
 - [x] Decide on a design for the website
 - [x] Implement design using HTML & CSS
 - [x] Complete database schema
