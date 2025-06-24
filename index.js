@@ -71,17 +71,30 @@ async function startApp() {
 
       next();
     } else {
-      //ensure the path stays in the public folder
-      const safePath = path.normalize(path.join(__dirname, "public", req.url));
-      if (!safePath.startsWith(path.join(__dirname, "public"))) {
-        res.writeHead(403);
-        res.end("Forbidden");
-        return;
+      filePath = "";
+      if (req.url.startsWith("/uploads")) {
+        const safePathUpload = path.normalize(path.join(__dirname, req.url));
+        if (!safePathUpload.startsWith(path.join(__dirname, "uploads"))) {
+          res.writeHead(403);
+          res.end("Forbidden");
+          return;
+        }
+        filePath = req.url;
+      } else {
+        //ensure the path stays in the public folder
+        const safePath = path.normalize(
+          path.join(__dirname, "public", req.url)
+        );
+        if (!safePath.startsWith(path.join(__dirname, "public"))) {
+          res.writeHead(403);
+          res.end("Forbidden");
+          return;
+        }
+        filePath =
+          req.url === "/"
+            ? "/public/HomePage/homepage.html"
+            : `/public${req.url}`;
       }
-      const filePath =
-        req.url === "/"
-          ? "/public/HomePage/homepage.html"
-          : `/public${req.url}`;
       const extname = path.extname(filePath);
       const contentType =
         {
@@ -91,15 +104,18 @@ async function startApp() {
           ".png": "image/png",
         }[extname] || "text/plain";
 
-      fs.readFile(path.join(__dirname, filePath), (error, content) => {
-        if (error) {
-          res.writeHead(404);
-          res.end("Not found");
-        } else {
-          res.writeHead(200, { "Content-Type": contentType });
-          res.end(content);
+      fs.readFile(
+        path.join(__dirname, decodeURI(filePath)),
+        (error, content) => {
+          if (error) {
+            res.writeHead(404);
+            res.end("Not found");
+          } else {
+            res.writeHead(200, { "Content-Type": contentType });
+            res.end(content);
+          }
         }
-      });
+      );
     }
   });
 

@@ -35,13 +35,12 @@ form.addEventListener("submit", async (eventObject) => {
     let data = await response.json();
 
     if (!response.ok) {
-      alert(data.error || "error adding appointment");
+      console.error(data.error || "error adding appointment");
       return;
     }
 
     const files = document.getElementById("add-file").files;
     if (files.length <= 0) {
-      alert("Appointment added successfully");
       loadAppointments();
       return;
     }
@@ -59,14 +58,12 @@ form.addEventListener("submit", async (eventObject) => {
     data = await response.json();
 
     if (!response.ok) {
-      alert(data.error || "Failed adding appointment");
+      console.error(data.error || "Failed adding appointment");
     }
 
-    alert("Appointment and files added successfully");
     await loadAppointments();
   } catch (error) {
     console.error("Error adding appointment: ", error);
-    alert("An error occured while adding appointment");
   }
 });
 

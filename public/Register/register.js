@@ -17,14 +17,11 @@ document
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error || "register failed");
+        console.error(data.error || "register failed");
         return;
       }
-
-      alert("register successful");
       window.location.href = "/Login/login.html";
     } catch (error) {
       console.error("Register error: ", error);
-      alert("An error occured during register");
     }
   });
