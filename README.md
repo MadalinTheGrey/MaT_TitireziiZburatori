@@ -253,38 +253,34 @@ The frontend communicates with the Node.js backend (which in turn interacts with
 
 :camera: **Screenshots**
 
+**Homepage**
 
 ![image](https://github.com/user-attachments/assets/b547f808-9157-4e73-969a-ca4487428f66)
-![image](https://github.com/user-attachments/assets/cf6d399c-27f4-4824-a277-4f333c27afe7)
 ![image](https://github.com/user-attachments/assets/2047744d-3570-4f58-be18-2876febf9343)
-![image](https://github.com/user-attachments/assets/0fd50367-2e06-45fc-af8a-8ae86711f2fe)
+
+**Login**
+
 ![image](https://github.com/user-attachments/assets/90a31e4e-d9e9-4355-89d6-e57b9e16338a)
+
+**Register**
+
 ![image](https://github.com/user-attachments/assets/3ddcf9d2-fe77-46b0-9cf3-d3e01db28a98)
+
+**My Account - Client**
+
 ![image](https://github.com/user-attachments/assets/18ff0cb5-05c3-4357-a69e-3106872b3874)
 ![image](https://github.com/user-attachments/assets/d4d000e8-f4e2-4c29-81fd-c57ce5d160ee)
-![image](https://github.com/user-attachments/assets/0eb57fc2-cbbf-41d3-8d6c-1c077a83c657)
+
+**My Account - Admin**
+
 ![image](https://github.com/user-attachments/assets/61234166-7e7c-4704-ba53-153726da0464)
-![image](https://github.com/user-attachments/assets/3dcb491f-827f-44f3-b49d-a6b0b49614d3)
 ![image](https://github.com/user-attachments/assets/5ff9a256-9a02-48fa-ad26-4af147e9a394)
 
-<!-- for mobile -->
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/d4759502-b74d-4a7d-8516-63ed44b32cf8" alt="homepage1.png" />
-  <img src="https://github.com/user-attachments/assets/1e9a6324-747a-4fe5-93d4-bac19c85bdc9" alt="homepage2.png" />
-  <img src="https://github.com/user-attachments/assets/e45ac9da-eb40-4950-807a-53a4b5ec0ee4" alt="homepage3.png" />
-  <img src="https://github.com/user-attachments/assets/ad2395ed-a397-49e0-bba1-61fb1590b133" alt="homepage4.png" />
-  <img src="https://github.com/user-attachments/assets/af457794-bfcf-4e94-8897-c84290c5289e" alt="homepage5.png" />
-  <img src="https://github.com/user-attachments/assets/2fea72ad-36b4-4da8-9237-536861b54c66" alt="homepage6.png" />
-  <img src="https://github.com/user-attachments/assets/43341114-c5f1-4d05-9ed3-9a06cd48c050" alt="homepage7.png" />
-  <img src="https://github.com/user-attachments/assets/c917360f-7d16-488d-abde-dc0b39cc9462" alt="homepage9.png" />
-  <img src="https://github.com/user-attachments/assets/e71c2f17-2d94-40fe-b366-8ef45dd30ee3" alt="homepage10.png" />
-  <img src="https://github.com/user-attachments/assets/2316e4c7-2900-45fb-9d2d-be71aa3c0da8" alt="homepage11.png" />
-  <img src="https://github.com/user-attachments/assets/13cbc94c-dd60-4196-89d0-c03333a82828" alt="homepage12.png" />
-  <img src="https://github.com/user-attachments/assets/4a1b35c4-a9e4-42be-baf2-672787d326d5" alt="homepage13.png" />
-  <img src="https://github.com/user-attachments/assets/f5c06558-fb1b-44c9-8aab-0554a70873a6" alt="homepage14.png" />
-  <img src="https://github.com/user-attachments/assets/bfeb3a78-69a5-4dff-83ab-879f39faf5e0" alt="homepage15.png" />
-  <img src="https://github.com/user-attachments/assets/d4b12d7e-267a-4f7f-b1ff-3c2a271c3d11" alt="homepage16.png" />
-</div>
+**Supplies page**
+
+![image](https://github.com/user-attachments/assets/0eb57fc2-cbbf-41d3-8d6c-1c077a83c657)
+
+
 
 ### Backend
 
