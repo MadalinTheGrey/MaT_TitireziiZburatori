@@ -10,10 +10,6 @@ async function includeHTML() {
       if (file.includes("navbar.html")) {
         updateNavbarLink();
       }
-
-      if (file.includes("navbar.html")) {
-        updateNavbarLink();
-      }
     } catch (err) {
       console.error(`Error loading ${file}`, err);
     }
@@ -48,7 +44,7 @@ function updateNavbarLink() {
     }
   } catch (error) {
     console.error("Eroare la decodificarea token-ului JWT:", error);
-    localStorage.removeItem("jwt"); 
+    localStorage.removeItem("jwt");
   }
 
   const logoutLink = document.getElementById("Logout");
@@ -87,7 +83,7 @@ function verifyAuth() {
     if (
       !decoded.roles.includes("admin") &&
       (window.location.pathname === "/Adminpage/adminpage.html" ||
-      window.location.pathname === "/Supplies/supplies.html")
+        window.location.pathname === "/Supplies/supplies.html")
     ) {
       alert("Nu ai permisiunea de a accesa această pagină!");
       window.location.pathname = "/HomePage/homepage.html";

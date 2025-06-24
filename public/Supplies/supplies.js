@@ -1,140 +1,343 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const stockTableBody = document.getElementById("stockTableBody");
-  const searchByNameInput = document.getElementById("searchByName");
-  const searchByQuantityInput = document.getElementById("searchByQuantity");
+let supplies = [];
 
-  const noStockMessage = document.getElementById("noStockMessage");
+const stockTableBody = document.getElementById("stockTableBody");
+const searchByNameInput = document.getElementById("searchByName");
+const searchByQuantityInput = document.getElementById("searchByQuantity");
 
-  /**
-   * Funcție pentru filtrarea pieselor după nume, număr sau ambele.
-   */
-  const filterTable = async () => {
-    const searchText = searchByNameInput.value.toLowerCase().trim();
-    const searchQuantity = searchByQuantityInput.value.trim();
+const noStockMessage = document.getElementById("noStockMessage");
+const addNewPieceBtn = document.getElementById("addNewPieceBtn");
+const addPieceModal = document.getElementById("addPieceModal");
+const addPieceForm = document.getElementById("addPieceForm");
+const cancelNewPieceBtn = document.getElementById("cancelNewPieceBtn");
+const saveNewPieceBtn = document.getElementById("saveNewPieceBtn");
+const importBtn = document.getElementById("importBtn");
+const exportBtn = document.getElementById("exportBtn");
 
-    let anyRowVisible = false;
+// Câmpurile din formularul pop-up
+const newPieceNameInput = document.getElementById("newPieceName");
+const newPieceDescriptionInput = document.getElementById("newPieceDescription");
+const newPieceStockInput = document.getElementById("newPieceStock");
 
-    Array.from(stockTableBody.children).forEach((row) => {
-      const partName = row.children[0].textContent.toLowerCase();
-      const quantityText = row.children[2].textContent.trim();
-      const quantity = parseInt(quantityText);
+function renderSupplies() {
+  stockTableBody.innerHTML = "";
 
-      const matchesName = partName.includes(searchText);
-      const matchesQuantity =
-        searchQuantity === "" || quantity === parseInt(searchQuantity);
+  if (supplies.length === 0) {
+    noStockMessage.style.display = "block";
+    return;
+  }
 
-      if (matchesName && matchesQuantity) {
-        row.style.display = "";
-        anyRowVisible = true;
-      } else {
-        row.style.display = "none";
-      }
+  noStockMessage.style.display = "none";
+
+  supplies.forEach((supply) => {
+    const row = document.createElement("tr");
+    row.classList.add("stock-item");
+    row.dataset.id = supply.id;
+
+    const escapeHTML = (str) => {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    };
+
+    row.innerHTML = `
+      <td>${escapeHTML(supply.name)}</td>
+      <td>${escapeHTML(supply.description)}</td>
+      <td class = "stock-quantity">${supply.in_stock}</td>
+      <td class = "stock-actions">
+        <button class = "edit-stock-btn" title = "Editează stock">
+          <i class="uil uil-pen"></i>
+        </button>
+      </td>
+    `;
+
+    stockTableBody.appendChild(row);
+  });
+}
+
+async function fetchSupplies(name, in_stock) {
+  const token = localStorage.getItem("jwt");
+
+  try {
+    let fetchLink = "/api/supplies";
+    let addedFilter = false;
+    if (name) {
+      fetchLink += `?name=${encodeURIComponent(name)}`;
+      addedFilter = true;
+    }
+    if (in_stock) {
+      if (!addedFilter) fetchLink += "?";
+      else fetchLink += "&";
+      fetchLink += `in_stock=${encodeURIComponent(in_stock)}`;
+      addedFilter = true;
+    }
+    const response = await fetch(fetchLink, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
     });
 
-    if (anyRowVisible) {
-      noStockMessage.style.display = "none";
-    } else {
-      noStockMessage.style.display = "block";
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Error fetching supplies");
     }
+
+    supplies = data.supplies;
+    renderSupplies();
+  } catch (error) {
+    console.error("Error fetching supplies: ", error);
+  }
+}
+
+/**
+ * functie pt deschiderea pop-up
+ */
+const openAddPieceModal = () => {
+  if (addPieceModal) {
+    addPieceModal.classList.add("active");
+    addPieceForm.reset();
+    newPieceNameInput.focus();
+  }
+};
+
+const closeAddPieceModal = () => {
+  if (addPieceModal) {
+    addPieceModal.classList.remove("active");
+    addPieceForm.reset(); // Resetează formularul la valorile inițiale și la închidere
+  }
+};
+
+/**
+ * Funcție pentru filtrarea pieselor după nume, număr sau ambele.
+ */
+const filterTable = async () => {
+  const searchText = searchByNameInput.value.toLowerCase().trim();
+  const searchQuantity = searchByQuantityInput.value.trim();
+
+  fetchSupplies(searchText, searchQuantity);
+
+  let anyRowVisible = true;
+
+  if (supplies.length === 0) anyRowVisible = false;
+
+  if (anyRowVisible) {
+    noStockMessage.style.display = "none";
+  } else {
+    noStockMessage.style.display = "block";
+  }
+};
+
+/**
+ * functie pt a "adauga" o noua piesa(trebuie integrarea)
+ * @param {*} event
+ * @returns
+ */
+const saveNewPiece = async (event) => {
+  event.preventDefault(); // Oprește comportamentul implicit de trimitere a formularului (reîncărcarea paginii)
+
+  const pieceName = newPieceNameInput.value.trim();
+  const pieceDescription = newPieceDescriptionInput.value.trim();
+  const pieceStock = parseInt(newPieceStockInput.value);
+  const newPieceData = {
+    name: pieceName,
+    description: pieceDescription,
+    in_stock: pieceStock,
   };
 
+  try {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch("/api/supplies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newPieceData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data.error || "Error adding supply");
+      return;
+    }
+    supplies.push(newPieceData);
+    renderSupplies();
+  } catch (error) {
+    console.error("Error adding supply: ", error);
+  }
+  closeAddPieceModal();
+};
+
+/**
+ * Funcție pentru a intra în modul de editare pentru o celulă de stoc.
+ * @param {HTMLElement} cell - Celula <td> care conține cantitatea în stoc.
+ * @param {string} pieceId - ID-ul piesei asociate cu rândul.
+ */
+function enterEditMode(cell, pieceId) {
+  const currentStock = parseInt(cell.textContent.trim());
+
+  const inputField = document.createElement("input");
+  inputField.type = "number";
+  inputField.value = currentStock;
+  inputField.min = "0";
+
+  cell.classList.add("editing");
+  cell.innerHTML = "";
+  cell.appendChild(inputField);
+
+  // Focalizăm input-ul și selectăm conținutul
+  inputField.focus();
+  inputField.select();
+
+  let originalStock = currentStock;
+
+  /**
+   * Funcție pentru a ieși din modul de editare și a salva/anula.
+   * @param {boolean} save - True dacă trebuie să salvăm, False dacă anulăm.
+   */
+  const exitEditMode = async (save) => {
+    cell.classList.remove("editing");
+    if (save) {
+      const newStock = parseInt(inputField.value);
+
+      if (isNaN(newStock) || newStock < 0) {
+        alert("Valoare stoc invalidă. Te rugăm să introduci un număr pozitiv.");
+        cell.textContent = originalStock;
+        return;
+      }
+
+      if (newStock === originalStock) {
+        cell.textContent = originalStock;
+        return;
+      }
+
+      try {
+        const token = localStorage.getItem("jwt");
+        const response = await fetch(`/api/supplies/${pieceId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ in_stock: newStock }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          cell.textContent = originalStock;
+          console.error(data.error || "Error modifying supply_stock");
+          return;
+        }
+
+        cell.textContent = newStock;
+      } catch (error) {
+        console.error("Error modifying supply stock: ", error);
+      }
+    } else {
+      cell.textContent = originalStock;
+    }
+
+    // prevenim multiple executii
+    inputField.removeEventListener("blur", blurHandler);
+    inputField.removeEventListener("keydown", keydownHandler);
+  };
+
+  const blurHandler = () => exitEditMode(true);
+  inputField.addEventListener("blur", blurHandler);
+
+  const keydownHandler = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      inputField.blur();
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      exitEditMode(false);
+    }
+  };
+  inputField.addEventListener("keydown", keydownHandler);
+}
+
+async function importSupplies() {
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".json,.csv";
+  fileInput.display = "none";
+
+  document.body.appendChild(fileInput);
+
+  fileInput.addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      console.warn("No file selected for import");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("files", file);
+
+    try {
+      const token = localStorage.getItem("jwt");
+      const response = await fetch("/api/supplies/import", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.error || "Error importing supplies");
+        return;
+      }
+
+      fetchSupplies(null, null);
+    } catch (error) {
+      console.error("Error importing supplies");
+    }
+  });
+  fileInput.click();
+  fileInput.remove();
+}
+
+async function exportSupplies() {
+  try {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch("/api/supplies/export", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(data.error || "Error on export");
+      return;
+    }
+
+    const exportBlob = await response.blob();
+
+    const url = window.URL.createObjectURL(exportBlob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "supplies-export.json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error during export", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
   //add event listenere
   searchByNameInput.addEventListener("input", filterTable);
   searchByQuantityInput.addEventListener("input", filterTable);
 
-  filterTable();
-
-  const addNewPieceBtn = document.getElementById("addNewPieceBtn");
-  const addPieceModal = document.getElementById("addPieceModal");
-  const addPieceForm = document.getElementById("addPieceForm");
-  const cancelNewPieceBtn = document.getElementById("cancelNewPieceBtn");
-  const saveNewPieceBtn = document.getElementById("saveNewPieceBtn"); // Acum îl folosim direct pentru clarity
-
-  // Câmpurile din formularul pop-up
-  const newPieceNameInput = document.getElementById("newPieceName");
-  const newPieceDescriptionInput = document.getElementById(
-    "newPieceDescription"
-  );
-  const newPieceStockInput = document.getElementById("newPieceStock");
-
-  /**
-   * functie pt deschiderea pop-up
-   */
-  const openAddPieceModal = () => {
-    if (addPieceModal) {
-      addPieceModal.classList.add("active");
-      addPieceForm.reset();
-      newPieceNameInput.focus();
-    }
-  };
-
-  const closeAddPieceModal = () => {
-    if (addPieceModal) {
-      addPieceModal.classList.remove("active");
-      addPieceForm.reset(); // Resetează formularul la valorile inițiale și la închidere
-    }
-  };
-
-  /**
-   * functie pt a "adauga" o noua piesa(trebuie integrarea)
-   * @param {*} event
-   * @returns
-   */
-  const saveNewPiece = async (event) => {
-    event.preventDefault(); // Oprește comportamentul implicit de trimitere a formularului (reîncărcarea paginii)
-
-    const pieceName = newPieceNameInput.value.trim();
-    const pieceDescription = newPieceDescriptionInput.value.trim();
-    const pieceStock = parseInt(newPieceStockInput.value);
-    const newPieceData = {
-      name: pieceName,
-      description: pieceDescription,
-      stock: pieceStock,
-    };
-
-    console.log("Datele noi pentru piesă:", newPieceData);
-
-    // TODO: AICI VEI FACE APELUL CĂTRE BACKEND PENTRU A SALVA NOUA PIESĂ
-    // Exemplu de apel `fetch` (necesită un endpoint de API pe serverul tău)
-    /*
-        try {
-            const response = await fetch('/api/pieces', { // Exemplu de endpoint API
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Poate fi necesar un token de autentificare aici
-                    // 'Authorization': 'Bearer YOUR_AUTH_TOKEN'
-                },
-                body: JSON.stringify(newPieceData)
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Eroare la adăugarea piesei.');
-            }
-
-            const result = await response.json();
-            console.log('Piesa adăugată cu succes:', result);
-
-            // După adăugarea cu succes, închide modalul
-            closeAddPieceModal();
-            alert('Piesa a fost adăugată cu succes!');
-
-            // Aici ar trebui să reîncarci tabelul sau să adaugi rândul nou dinamic
-            // filterTable(); // Re-filtrează (nu va adăuga rândul nou dacă nu e în DOM)
-            // Sau: loadPiecesIntoTable(); // Funcție care ar prelua toate piesele din nou de la server și ar re-popula tabelul
-            // Sau: location.reload(); // Simplu, dar nu cel mai bun UX
-
-        } catch (error) {
-            console.error('Eroare la adăugarea piesei:', error);
-            alert('Eroare la adăugarea piesei: ' + error.message);
-        }
-        */
-
-    // Pentru moment, doar logăm datele și închidem modalul pentru a testa UI-ul
-    closeAddPieceModal();
-    alert("Piesa a fost simulată adăugată. Acum trebuie integrat cu backend!");
-  };
+  await fetchSupplies(null, null);
 
   //add event listeners
   addNewPieceBtn.addEventListener("click", openAddPieceModal);
@@ -146,7 +349,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   addPieceForm.addEventListener("submit", saveNewPiece);
-
+  importBtn.addEventListener("click", importSupplies);
+  exportBtn.addEventListener("click", exportSupplies);
   /**
    * functionalitati pt butonul de editare a nr stoc
    */
@@ -187,110 +391,5 @@ document.addEventListener("DOMContentLoaded", () => {
         enterEditMode(stockQuantityCell, pieceId);
       }
     });
-  }
-
-  /**
-   * Funcție pentru a intra în modul de editare pentru o celulă de stoc.
-   * @param {HTMLElement} cell - Celula <td> care conține cantitatea în stoc.
-   * @param {string} pieceId - ID-ul piesei asociate cu rândul.
-   */
-  function enterEditMode(cell, pieceId) {
-    const currentStock = parseInt(cell.textContent.trim());
-
-    const inputField = document.createElement("input");
-    inputField.type = "number";
-    inputField.value = currentStock;
-    inputField.min = "0";
-
-    cell.classList.add("editing");
-    cell.innerHTML = "";
-    cell.appendChild(inputField);
-
-    // Focalizăm input-ul și selectăm conținutul
-    inputField.focus();
-    inputField.select();
-
-    let originalStock = currentStock;
-
-    /**
-     * Funcție pentru a ieși din modul de editare și a salva/anula.
-     * @param {boolean} save - True dacă trebuie să salvăm, False dacă anulăm.
-     */
-    const exitEditMode = async (save) => {
-      cell.classList.remove("editing"); 
-      if (save) {
-        const newStock = parseInt(inputField.value);
-
-        if (isNaN(newStock) || newStock < 0) {
-          alert(
-            "Valoare stoc invalidă. Te rugăm să introduci un număr pozitiv."
-          );
-          cell.textContent = originalStock; 
-          return;
-        }
-
-        if (newStock === originalStock) {
-          cell.textContent = originalStock;
-          return;
-        }
-
-        console.log(
-          `Încercare de actualizare stoc pentru piesa ID: ${pieceId} de la ${originalStock} la ${newStock}`
-        );
-
-        // TODO: AICI VEI FACE APELUL CĂTRE BACKEND PENTRU A ACTUALIZA STOCUL
-        /*
-                try {
-                    const response = await fetch(`/api/pieces/${pieceId}/stock`, { // Exemplu de endpoint PUT/PATCH
-                        method: 'PATCH', // PATCH este mai potrivit pentru actualizarea parțială a unei resurse
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // 'Authorization': 'Bearer YOUR_AUTH_TOKEN' // Dacă e necesar
-                        },
-                        body: JSON.stringify({ stock: newStock })
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || 'Eroare la actualizarea stocului.');
-                    }
-
-                    // Dacă salvarea pe backend a avut succes, actualizăm textul în celulă
-                    cell.textContent = newStock;
-                    alert(`Stoc actualizat pentru piesa ID ${pieceId} la ${newStock}`);
-
-                } catch (error) {
-                    console.error('Eroare la actualizarea stocului:', error);
-                    alert('Eroare la actualizarea stocului: ' + error.message + '\nValoarea nu a fost salvată.');
-                    cell.textContent = originalStock; // Restaurează valoarea originală în caz de eroare
-                }
-                */
-        // Pentru testare: actualizăm doar local și afișăm alertă
-        cell.textContent = newStock;
-        alert(
-          `Stoc actualizat local pentru piesa ID ${pieceId} la ${newStock}. Acum trebuie integrat cu backend!`
-        );
-      } else {
-        cell.textContent = originalStock;
-      }
-
-      // prevenim multiple executii
-      inputField.removeEventListener("blur", blurHandler);
-      inputField.removeEventListener("keydown", keydownHandler);
-    };
-
-    const blurHandler = () => exitEditMode(true);
-    inputField.addEventListener("blur", blurHandler);
-
-    const keydownHandler = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault(); 
-        inputField.blur(); 
-      } else if (e.key === "Escape") {
-        e.preventDefault();
-        exitEditMode(false); 
-      }
-    };
-    inputField.addEventListener("keydown", keydownHandler);
   }
 });
