@@ -43,10 +43,11 @@ function updateNavbarLink() {
       }
     }
   } catch (error) {
-    console.error("Eroare la decodificarea token-ului JWT:", error); //eroare la decodificare => tratez utilizatorul ca neautentificat
-    localStorage.removeItem("jwt"); //sterg tokenul invalid
+    console.error("Eroare la decodificarea token-ului JWT:", error);
+    localStorage.removeItem("jwt"); 
   }
 
+  const logoutLink = document.getElementById("Logout");
   if (isLoggedIn) {
     contulMeuLink.textContent = "Contul Meu";
     if (userRole === "client") {
@@ -54,10 +55,48 @@ function updateNavbarLink() {
     } else if (userRole === "admin") {
       contulMeuLink.href = "/Adminpage/adminpage.html";
     }
+    logoutLink.style.display = "block";
   } else {
     contulMeuLink.textContent = "Login";
     contulMeuLink.href = "/Login/login.html";
+    logoutLink.style.display = "none";
+  }
+
+  logoutLink.addEventListener("click", () => {
+    localStorage.removeItem("jwt");
+  });
+}
+
+function verifyAuth() {
+  const token = localStorage.getItem("jwt");
+  if (
+    !token &&
+    (window.location.pathname === "/ContulMeuClient/ContulMeuClient.html" ||
+      window.location.pathname === "/Adminpage/adminpage.html" ||
+      window.location.pathname === "/Supplies/supplies.html")
+  ) {
+    alert("Nu ești logat! Ieși afară!!");
+    window.location.pathname = "/Login/login.html";
+  } else {
+    const decoded = jwt_decode(token);
+    if (
+      !decoded.roles.includes("admin") &&
+      (window.location.pathname === "/Adminpage/adminpage.html" ||
+      window.location.pathname === "/Supplies/supplies.html")
+    ) {
+      alert("Nu ai permisiunea de a accesa această pagină!");
+      window.location.pathname = "/HomePage/homepage.html";
+    }
+
+    if (
+      !decoded.roles.includes("client") &&
+      window.location.pathname === "/ContulMeuClient/ContulMeuClient.html"
+    ) {
+      alert("Nu ai permisiunea de a accesa această pagină!");
+      window.location.pathname = "/HomePage/homepage.html";
+    }
   }
 }
 
+document.addEventListener("DOMContentLoaded", verifyAuth);
 document.addEventListener("DOMContentLoaded", includeHTML);
