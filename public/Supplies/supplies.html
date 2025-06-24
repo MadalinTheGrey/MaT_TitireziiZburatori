@@ -16,11 +16,14 @@
       href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
       rel="stylesheet"
     />
-    </head>
+  </head>
   <body>
+    <!-- NAVBAR SECTION -->
     <header data-include="../html-components/navbar.html"></header>
 
+    <!-- START MAIN SECTION -->
     <main class="main-content">
+      <!-- SUPPLIES CONTROL SECTION -->
       <h1 class="main-title">STOCUL PIESELOR SERVICE</h1>
 
       <section class="stock-controls-section">
@@ -42,22 +45,64 @@
               min="0"
             />
           </div>
-
-          </div>
+        </div>
 
         <div class="action-buttons-container">
           <button class="action-btn import-btn" id="importBtn">
-            <i class="uil uil-import"></i> Import
+            <i class="uil uil-import"></i> IMPORT
           </button>
           <button class="action-btn export-btn" id="exportBtn">
-            <i class="uil uil-export"></i> Export
+            <i class="uil uil-export"></i> EXPORT
           </button>
-          <button class="action-btn add-item-btn" id="addItemBtn">
-            <i class="uil uil-plus"></i> Adaugă piesă
+          <button
+            type="button"
+            id="addNewPieceBtn"
+            class="action-btn add-item-btn"
+          >
+            <i class="uil uil-plus-circle"></i>
+            ADAUGĂ PIESĂ
           </button>
         </div>
       </section>
 
+      <!-- POP-UP ADD SUPPLY SECTION -->
+      <div id="addPieceModal" class="modal-overlay">
+        <div class="modal-content">
+          <h2>Adaugă Piesă Nouă în Stoc</h2>
+          <form id="addPieceForm">
+            <div class="form-group">
+              <label for="newPieceName">Nume Piesă:</label>
+              <input type="text" id="newPieceName" required />
+            </div>
+            <div class="form-group">
+              <label for="newPieceDescription">Descriere:</label>
+              <textarea id="newPieceDescription" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="newPieceStock">Nr. în stoc:</label>
+              <input type="number" id="newPieceStock" min="0" required />
+            </div>
+            <div class="modal-actions">
+              <button
+                type="submit"
+                id="saveNewPieceBtn"
+                class="action-btn accept-btn"
+              >
+                SALVEAZĂ
+              </button>
+              <button
+                type="button"
+                id="cancelNewPieceBtn"
+                class="action-btn refuse-btn"
+              >
+                ANULEAZĂ
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- SUPPLIES LIST SECTION -->
       <section class="stock-list-section">
         <div class="stock-table-container">
           <table class="stock-table">
@@ -66,50 +111,68 @@
                 <th>Nume Piesă</th>
                 <th>Descriere</th>
                 <th>Nr. în stoc</th>
-                </tr>
+                <th></th>
+              </tr>
             </thead>
             <tbody id="stockTableBody">
               <tr class="stock-item" data-id="1">
                 <td>Roată Față Bicicletă Standard</td>
-                <td>Roată față universală pentru biciclete de oraș, 26 inch.</td>
-                <td>15</td>
-                </tr>
+                <td>
+                  Roată față universală pentru biciclete de oraș, 26 inch.
+                </td>
+                <td class="stock-quantity">15</td>
+                <td class="stock-actions">
+                  <button class="edit-stock-btn" title="Editează stoc">
+                    <i class="uil uil-pen"></i>
+                  </button>
+                </td>
+              </tr>
               <tr class="stock-item" data-id="2">
                 <td>Set Plăcuțe Frână Disc</td>
-                <td>Set de 2 plăcuțe de frână, compatibile cu etriere Shimano.</td>
-                <td>5</td>
-                </tr>
+                <td>
+                  Set de 2 plăcuțe de frână, compatibile cu etriere Shimano.
+                </td>
+                <td class="stock-quantity">5</td>
+                <td class="stock-actions">
+                  <button class="edit-stock-btn" title="Editează stoc">
+                    <i class="uil uil-pen"></i>
+                  </button>
+                </td>
+              </tr>
               <tr class="stock-item" data-id="3">
                 <td>Lanț Moto Heavy Duty</td>
                 <td>Lanț de transmisie ranforsat pentru motociclete sport.</td>
-                <td>2</td>
-                </tr>
+                <td class="stock-quantity">2</td>
+                <td class="stock-actions">
+                  <button class="edit-stock-btn" title="Editează stoc">
+                    <i class="uil uil-pen"></i>
+                  </button>
+                </td>
+              </tr>
               <tr class="stock-item" data-id="4">
                 <td>Ulei Motor 10W-40 (1L)</td>
                 <td>Ulei semisintetic pentru motoare în 4 timpi.</td>
-                <td>30</td>
-                </tr>
-              </tbody>
+                <td class="stock-quantity">30</td>
+                <td class="stock-actions">
+                  <button class="edit-stock-btn" title="Editează stoc">
+                    <i class="uil uil-pen"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <p
           id="noStockMessage"
-          class="no-requests-message"
+          class="no-stock-message"
           style="display: none"
         >
           Nu există piese în stoc conform filtrelor aplicate.
         </p>
       </section>
-
-      <!-- <section class="admin-bottom-banner">
-        <img
-          src="https://images.pexels.com/photos/31945005/pexels-photo-31945005.jpeg"
-          alt="Imagine-fundal-administrative"
-          class="admin-banner-background"
-        />
-      </section> -->
     </main>
 
+    <!-- FOOTER SECTION -->
     <footer data-include="../html-components/footer.html"></footer>
 
     <script src="../assets/includes.js"></script>
