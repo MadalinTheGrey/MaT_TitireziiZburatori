@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,9 +18,12 @@
     />
   </head>
   <body>
+    <!-- NAVBAR SECTION -->
     <header data-include="../html-components/navbar.html"></header>
 
+    <!-- START MAIN SECTION -->
     <main class="main-content">
+      <!-- CLIENT REQUESTS SECTION -->
       <h1 class="main-title">CERERI CLIENȚI</h1>
 
       <section class="requests-carousel-section">
@@ -44,8 +47,7 @@
                 <p id="problemDescription">
                   Am intrat cu bicicleta în copacul din imagine și am stricat
                   roata din spate. Mi-aș dori să o reparați și apoi să vopsesc
-                  bicicleta în roșu (cuminte după ce se ferește după copacii de
-                  mine!)
+                  bicicleta în roșu (cuminte după se feresc copacii de mine!)
                 </p>
               </div>
 
@@ -65,17 +67,16 @@
 
               <div class="action-buttons">
                 <button class="action-btn accept-btn" id="acceptBtn">
-                  Acceptă
+                  ACCEPTĂ
                 </button>
                 <button class="action-btn refuse-btn" id="refuseBtn">
-                  Refuză
+                  REFUZĂ
                 </button>
               </div>
             </div>
 
             <div class="request-image">
-              <div id="requestImageContainer" class="image-gallery-container">
-                </div>
+              <div id="requestImageContainer" class="image-gallery-container"></div>
             </div>
           </div>
 
@@ -90,6 +91,7 @@
         </div>
       </section>
 
+      <!-- OCCUPIED APPOINTMENTS SECTION -->
       <section class="occupied-appointments-section">
         <h2 class="section-title">CERERI APROBATE</h2>
         <div class="appointments-list-container">
@@ -98,24 +100,25 @@
         </div>
       </section>
 
+      <!-- SUPPLIES SECTION -->
       <section class="service-parts-banner">
         <a href="/Supplies/supplies.html" class="service-parts-link button">
           <h2>PIESE SERVICE</h2>
         </a>
       </section>
 
+      <!-- PROVIDER REQUESTS SECTION -->
       <section class="supplier-requests-section">
         <h2 class="section-title">CERERI - FURNIZORI</h2>
         <div id="supplierRequestsContainer" class="supplier-requests-container">
           <p id="noSupplierRequestsMessage" class="no-requests-message">
             Nu există cereri de la furnizori.
           </p>
-          </div>
-        <button id="addSupplierRequestBtn" class="button add-supplier-btn">
-          ADAUGĂ CERERE NOUĂ
-        </button>
+        </div>
+        <button id="addSupplierRequestBtn" class="button add-supplier-btn">ADAUGĂ CERERE NOUĂ</button>
       </section>
-      
+
+      <!-- POP-UP ADD PROVIDER APPOINTMENT SECTION -->
       <div id="addRequestModal" class="modal-overlay">
         <div class="modal-content">
           <h2>Adaugă Cerere Nouă de la Furnizor</h2>
@@ -133,13 +136,18 @@
               <textarea id="newDescription" rows="4" required></textarea>
             </div>
             <div class="modal-actions">
-              <button type="submit" id="saveNewRequestBtn" class="action-btn accept-btn">Salvează</button>
-              <button type="button" id="cancelNewRequestBtn" class="action-btn refuse-btn">Anulează</button>
+              <button type="submit" id="saveNewRequestBtn" class="action-btn accept-btn">
+                SALVEAZĂ
+              </button>
+              <button type="button" id="cancelNewRequestBtn" class="action-btn refuse-btn">
+                ANULEAZĂ
+              </button>
             </div>
           </form>
         </div>
       </div>
 
+      <!-- BANNER SECTION -->
       <section class="admin-bottom-banner">
         <img
           src="https://images.pexels.com/photos/31945005/pexels-photo-31945005.jpeg"
@@ -149,6 +157,7 @@
       </section>
     </main>
 
+    <!-- FOOTER SECTION -->
     <footer data-include="../html-components/footer.html"></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>

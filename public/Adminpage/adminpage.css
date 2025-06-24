@@ -1,83 +1,56 @@
 body {
-  background-color: #fff; 
-  color: #121568; 
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  box-sizing: border-box;
 }
 
 .main-content {
   flex-grow: 1;
-  padding-top: 80px; 
-  padding-bottom: 0; 
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.main-title {
-  text-align: center;
-  color: #121568;
+h1, h2{
   font-size: 2.5em;
-  margin-bottom: 40px;
-  margin-top: 50px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 700;
 }
 
-/* Stiluri pentru sectiunea de carusel a cererilor */
-.requests-carousel-section {
+.main-title {
+  margin-bottom: 40px;
+  margin-top: 50px;
+}
+
+/* cereri client + cereri furnizori */
+.requests-carousel-section,
+.supplier-requests-section {
   width: 100%;
-  max-width: 1200px; /* Latime maxima consistenta cu carousel-wrapper */
+  max-width: 1200px; 
   margin-bottom: 40px;
   display: flex;
   padding: 20px;
-  flex-direction: column; /* Organizeaza carousel-wrapper si butoanele mobile wrapper */
+  flex-direction: column; 
   align-items: center;
 }
 
 .carousel-wrapper {
   display: flex; 
   align-items: center; /* Centreaza vertical butoanele cu cardul pe desktop */
-  justify-content: center; /* Centreaza orizontal continutul pe desktop */
-  gap: 30px; /* Spatiu intre elemente (butoane si card) pe desktop */
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 30px; /* Spatiu intre butoane si card pe desktop */
 }
 
-/* Nav Buttons - Stiluri generale */
 .nav-button {
-  background-color: #121568;
-  color: white;
   width: 55px;
   height: 55px;
   font-size: 2em;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  flex-shrink: 0; /* Nu permite butoanelor sa se micsoreze */
   padding: 0;
 }
 
-/* Ascunde wrapper-ul pentru butoanele mobile pe desktop */
 .nav-buttons-mobile-wrapper {
   display: none;
 }
 
 .request-card {
-  display: flex;
-  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
   flex-grow: 1;
   max-width: 900px; /* Latime maxima pentru card pe desktop */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -92,38 +65,26 @@ body {
 }
 
 .request-id {
-  color: #121568;
-  font-size: 2rem;
   margin-bottom: 20px;
   border-bottom: 2px solid #eee;
   padding-bottom: 10px;
-  font-weight: bold;
-}
-
-.detail-item {
-  display: flex;
-  flex-direction: column;
 }
 
 .detail-item .label {
   font-weight: 600;
-  color: #121568;
   margin-bottom: 5px;
   font-size: 0.95em;
 }
 
 .detail-item p {
-  margin: 0;
-  color: #121568;
-  line-height: 1.6;
   font-size: 1em;
 }
 
 .detail-item.description p {
   background-color: #eee;
   padding: 10px;
-  border-radius: 5px;
   border: 1px solid #e0e0e0;
+  border-radius: 5px;
 }
 
 .detail-item.textarea-item {
@@ -139,91 +100,59 @@ body {
   font-size: 0.95em;
   resize: vertical;
   min-height: 80px;
-  box-sizing: border-box;
   color: #333;
 }
 
-#adminComment:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* ************************Stiluri pentru containerul principal de imagine */
 .request-image {
   flex: 1;
   display: flex;
-  justify-content: center; /* Centrează orizontal continutul */
-  align-items: center; /* Centreaza vertical continutul*/
+  justify-content: center;
+  align-items: center;
   background-color: #e2eaf2;
   padding: 15px;
-  min-height: 250px; /* Asigura o inaltime minima pentru zona de imagine */
+  min-height: 250px;
 }
 
-/* Stiluri pentru containerul de imagini */
+/* Stiluri Comune pentru Scrollbar-uri */
+.image-gallery-container,
+.appointments-list,
+.supplier-requests-container {
+  scrollbar-width: thin;
+  scrollbar-color: #121568 #f1f1f1;
+
+  &::-webkit-scrollbar {
+      background: #f1f1f1;
+      border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+      background-color: #121568;
+      border-radius: 10px;
+      border: 2px solid #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+      background-color: #0d1052;
+  }
+}
+
 .image-gallery-container {
-  width: 100%; /* Ocupa latimea disponibila in request-image */
-  max-width: 100%; /* Asigura ca nu depaseste latimea parinteasca */
-  max-height: 400px; /* inaltimea maxima care va declansa scroll-ul. Ajusteaza pentru a vedea 2 imagini. */
-  overflow-y: auto; /* Activeaza scroll-ul vertical daca continutul depaseste max-height */
+  width: 100%;
+  max-width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
   display: flex;
-  flex-direction: column; /* Imaginile se asează una sub alta */
-  gap: 10px; /* Spatiu intre imagini */
-  padding: 5px; /* Un pic de padding pentru a vizualiza mai bine scrollbarul */
-  box-sizing: border-box; /* Include padding-ul in latime/inaltime */
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px;
   border-radius: 5px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05); /* Umbra interna subtila */
-
-  /* Stiluri personalizate pentru bara de scroll (Webkit - Chrome, Safari, Edge) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #121568 #f1f1f1; /* Thumb si Track */
+  &::-webkit-scrollbar { width: 8px; }
 }
 
-.image-gallery-container::-webkit-scrollbar {
-  width: 8px; /* Latimea barei de scroll */
-}
-
-.image-gallery-container::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Culoarea fundalului barei de scroll */
-  border-radius: 10px;
-}
-
-.image-gallery-container::-webkit-scrollbar-thumb {
-  background-color: #121568; /* Culoarea "degetului" barei de scroll */
-  border-radius: 10px;
-  border: 2px solid #f1f1f1; /* Marginile "degetului" */
-}
-
-.image-gallery-container::-webkit-scrollbar-thumb:hover {
-  background-color: #0d1052; /* Culoarea la hover */
-}
-
-/* NOU: Stiluri pentru imaginile individuale din galerie */
-.request-item-image {
-  max-width: 100%; /* Asigură că imaginea nu depășește lățimea containerului */
-  height: auto; /* Păstrează raportul de aspect */
-  display: block; /* Elimină spațiul suplimentar de sub imagini */
-  border-radius: 5px; /* Colțuri rotunjite pentru imagini */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Umbră pentru imagini */
-}
-
-/* NOU: Stiluri pentru elementele video din galerie */
+.request-item-image,
 .request-item-video {
-  max-width: 100%; /* Asigură că videoclipul nu depășește lățimea containerului */
-  height: auto; /* Păstrează raportul de aspect */
-  display: block; /* Elimină spațiul suplimentar de sub videoclipuri */
-  border-radius: 5px; /* Colțuri rotunjite pentru videoclipuri */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Umbră pentru videoclipuri */
-  background-color: #000; /* Un fundal negru pentru videoclipuri */
-}
-
-/* Stiluri existente pentru imagini - asigură-te că le ai */
-.request-item-image {
   max-width: 100%;
   height: auto;
   display: block;
   border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .action-buttons {
@@ -232,16 +161,13 @@ body {
   margin-top: 25px;
 }
 
-/* Action Buttons */
 .action-btn {
   padding: 12px 25px;
   border: none;
   border-radius: 5px;
   font-size: 1.1em;
-  cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   font-weight: bold;
-  text-transform: uppercase;
   font-family: "Poppins", sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex-grow: 1;
@@ -268,71 +194,33 @@ body {
   transform: scale(1.05);
 }
 
-/* NOU: Stiluri pentru secțiunea de programări ocupate */
 .occupied-appointments-section {
-  /* Nu mai are border, shadow, background-color, padding aici */
-  margin-top: 40px; /* Spațiu deasupra față de carousel */
+  margin-top: 40px;
   width: 100%;
-  max-width: 900px; /* Aceeași lățime maximă ca și cardul de cerere */
-  box-sizing: border-box;
-  display: flex; /* Folosim flexbox pentru a centra conținutul */
-  flex-direction: column; /* Elementele se așează pe verticală */
-  align-items: center; /* Centrează orizontal conținutul */
+  max-width: 900px;
 }
 
-.occupied-appointments-section .section-title {
-  color: #121568;
-  font-size: 1.8em;
-  margin-bottom: 20px; /* Spațiu sub titlu și deasupra chenarului listei */
+/* Consolidează stiluri pentru titlurile secțiunilor */
+.occupied-appointments-section .section-title,
+.supplier-requests-section .section-title {
+  margin-bottom: 20px;
   text-align: center;
-  /* Am eliminat border-bottom și padding-bottom, deoarece titlul nu mai este în chenar */
-  font-weight: 700;
-  width: 100%; /* Titlul ocupă toată lățimea disponibilă */
 }
 
-/* NOU: Stiluri pentru containerul listei de programări */
 .appointments-list-container {
-  background-color: #fff; /* Fundal alb */
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  padding: 25px; /* Padding interior pentru conținutul listei */
-  width: 100%;
-  box-sizing: border-box; /* Include padding și border în lățime */
+  padding: 25px;
 }
 
 .appointments-list {
-  list-style: none; /* Elimină bulinele listei */
-  padding: 0;
-  margin: 0;
-  width: 100%; /* Lista ocupă toată lățimea containerului */
-  max-height: 300px; /* Înălțime maximă pentru a permite scroll */
-  overflow-y: auto; /* Activează scroll-ul vertical dacă conținutul depășește înălțimea */
-  scroll-behavior: smooth; /* Adaugă un scroll mai lin */
-  -webkit-overflow-scrolling: touch; /* Îmbunătățește scroll-ul pe iOS */
-  /* Stiluri pentru bara de scroll (personalizare) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #121568 #f1f1f1; /* Thumb și Track */
-}
-
-/* Personalizarea scrollbar-ului pentru Webkit (Chrome, Safari, Edge) */
-.appointments-list::-webkit-scrollbar {
-  width: 8px; /* Lățimea barei de scroll */
-}
-
-.appointments-list::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Culoarea fundalului barei de scroll */
-  border-radius: 10px;
-}
-
-.appointments-list::-webkit-scrollbar-thumb {
-  background-color: #121568; /* Culoarea "degetului" barei de scroll */
-  border-radius: 10px;
-  border: 2px solid #f1f1f1; /* Marginile "degetului" */
-}
-
-.appointments-list::-webkit-scrollbar-thumb:hover {
-  background-color: #0d1052; /* Culoarea la hover */
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar { width: 8px; }
 }
 
 .appointments-list li {
@@ -342,47 +230,45 @@ body {
   padding: 12px 15px;
   margin-bottom: 10px;
   display: flex;
-  /* NOU: Setări Flexbox pentru a distribui spațiul între elemente */
-  justify-content: space-between; /* Distribuie spațiu egal între elemente */
-  align-items: center; /* Centrează vertical elementele */
-  flex-wrap: wrap; /* Permite elementelor să treacă pe rândul următor pe ecrane mici */
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   font-size: 0.95em;
   color: #333;
-  /* Am eliminat `gap` direct pe `li` pentru o flexibilitate mai mare cu `space-between` */
 }
 
 .appointments-list li:last-child {
-  margin-bottom: 0; /* Fără margine sub ultimul element */
+  margin-bottom: 0;
 }
 
-.appointment-date {
-  font-weight: 600;
-  color: #121568; /* Culoarea albastru #121568 */
-  flex-basis: 25%; /* Aproximativ 25% din lățime */
-  min-width: 90px; /* Asigură un spațiu minim */
-  text-align: left;
-  flex-shrink: 0; /* Nu permite să se micșoreze */
-}
-
+.appointment-date,
 .appointment-time {
   font-weight: 600;
-  color: #007bff; /* Culoare diferită pentru oră */
-  flex-basis: 25%; /* Aproximativ 25% din lățime */
-  min-width: 90px; /* Asigură un spațiu minim */
-  text-align: center; /* Centrează ora */
-  flex-shrink: 0; /* Nu permite să se micșoreze */
+  flex-basis: 25%;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+.appointment-date {
+  color: #121568;
+  text-align: left;
+}
+.appointment-time {
+  color: #007bff;
+  text-align: center;
 }
 
 .appointment-client {
   color: #555;
   font-style: italic;
-  flex-basis: 45%; /* Restul lățimii, aproximativ */
-  text-align: right; /* Aliniază numele clientului la dreapta */
-  flex-grow: 1; /* Permite să ocupe spațiul rămas */
+  flex-basis: 45%;
+  text-align: right;
+  flex-grow: 1;
 }
 
-#noAppointmentsMessage {
+/* Consolidează mesaje "no data" */
+#noAppointmentsMessage,
+.no-requests-message {
   text-align: center;
   color: #777;
   font-style: italic;
@@ -390,60 +276,80 @@ body {
   width: 100%;
 }
 
-
-/* Stiluri pentru butonul Adaugă Cerere Nouă */
-.supplier-requests-section .add-supplier-btn { /* Specificăm selectorul pentru a asigura centratul */
-  background-color: #121568; /* Un albastru vibrant */
+.add-supplier-btn {
+  background-color: #121568;
   color: white;
   padding: 12px 25px;
   border-radius: 5px;
   font-size: 1.1em;
-  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 30px; /* Spațiu deasupra butonului, după carduri/mesaj */
-  margin-bottom: 20px; /* Spațiu sub buton */
-  display: block; /* Face butonul un element de tip bloc pentru a permite centrarea */
-  margin-left: auto; /* Centrează butonul */
-  margin-right: auto; /* Centrează butonul */
+  margin: 30px auto 20px;
+  display: block;
 }
 
-.supplier-requests-section .add-supplier-btn:hover {
+.add-supplier-btn:hover {
   background-color: orangered;
   transform: scale(1.03);
 }
 
-/* Stiluri pentru butoanele de ștergere pe carduri */
 .supplier-request-card {
-  position: relative; /* Esențial pentru a poziționa butonul "x" relativ la card */
-  /* ... stilurile existente ... */
-  /* Asigură că padding-ul este suficient pentru a nu acoperi butonul de delete */
-  padding-right: 45px; /* Adaugă spațiu pe dreapta pentru butonul de delete */
+  position: relative;
+  min-width: 300px;
+  flex-shrink: 0;
+  height: auto;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 1.5rem;
+  scroll-snap-align: start;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.supplier-request-card h3 {
+  font-size: 1.2rem;
+  color: #121568;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.supplier-request-card .part-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.supplier-request-card .part-description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  flex-grow: 1;
 }
 
 .delete-supplier-btn {
   position: absolute;
-  top: 10px; /* Poziție față de sus */
-  right: 10px; /* Poziție față de dreapta */
-  background-color: #dc3545; /* Roșu pentru ștergere */
+  top: 10px;
+  right: 10px;
+  background-color: #dc3545;
   color: white;
-  border: none;
-  border-radius: 50%; /* Buton rotund */
+  border-radius: 50%;
+  border-color: #dc3545;
   width: 30px;
   height: 30px;
   font-size: 1.2em;
-  display: flex; /* Pentru a centra iconița */
+  display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease; /* Adaugă opacity pentru tranziție la hover */
+  transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.supplier-request-card:hover .delete-supplier-btn {
-  opacity: 1; /* Vizibil la hover pe card */
-  pointer-events: auto; /* Permite interacțiuni când este vizibil */
 }
 
 .delete-supplier-btn:hover {
@@ -451,27 +357,23 @@ body {
   transform: scale(1.1);
 }
 
-/* Stiluri pentru Modal (Pop-up) */
 .modal-overlay {
-  display: none; /* Ascuns implicit, va fi gestionat de JS */
-  position: fixed; /* Peste tot conținutul */
-  z-index: 1000; /* Asigură că este deasupra celorlalte elemente */
-  left: 0;
+  display: flex;
+  position: fixed;
+  z-index: 1000;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fundal semi-transparent */
-  /* Folosim flexbox pentru a centra conținutul modalului */
-  display: flex;
+  background-color: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
-  /* Acestea vor fi activate/dezactivate de JS pentru animație */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.modal-overlay.active { /* Clasa adăugată de JS */
+.modal-overlay.active {
   opacity: 1;
   visibility: visible;
 }
@@ -483,20 +385,18 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   max-width: 500px;
   width: 90%;
-  transform: scale(0.95); /* Începe puțin micșorat */
-  transition: transform 0.3s ease-out; /* Tranziție pentru scalare */
+  transform: scale(0.95);
+  transition: transform 0.3s ease-out;
 }
 
-.modal-overlay.active .modal-content { /* Animație la apariție */
+.modal-overlay.active .modal-content {
   transform: scale(1);
 }
-
 
 .modal-content h2 {
   color: #121568;
   text-align: center;
   margin-bottom: 25px;
-  font-size: 1.8em;
 }
 
 .form-group {
@@ -512,23 +412,23 @@ body {
 
 .form-group input[type="text"],
 .form-group textarea {
-  width: calc(100% - 20px); /* Ajustăm pentru padding */
+  width: calc(100% - 20px);
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-family: "Poppins", sans-serif;
   font-size: 1em;
-  box-sizing: border-box; /* Include padding și border în lățime */
-}
-
-.form-group textarea {
   resize: vertical;
   min-height: 100px;
+  color: #333;
+}
+
+.form-group input[type="text"] {
+  min-height: auto;
 }
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end; /* Butoanele la dreapta */
+  justify-content: flex-end;
   gap: 15px;
   margin-top: 25px;
 }
@@ -538,180 +438,75 @@ body {
   min-width: 100px;
 }
 
-
-/* NOUA SECȚIUNE: PIESE SERVICE BANNER */
 .service-parts-banner {
-  background-color: #121568; /* Fundal albastru închis */
-  width: 100%; /* Se întinde pe toată lățimea viewport-ului */
-  margin-top: 100px; /* Spațiu deasupra */
-  margin-bottom: 40px; /* Spațiu dedesubt */
-  padding: 60px 20px; /* Padding vertical și orizontal interior */
-  display: flex; /* Folosim flexbox pentru centrare verticală */
-  align-items: center; /* Centrează conținutul vertical */
-  justify-content: center; /* Centrează conținutul orizontal */
-  min-height: 120px; /* O înălțime minimă pentru banner */
-  /* Eliminăm border-radius și box-shadow de pe banner-ul exterior */
-  /* Eliminăm transition și hover de pe banner-ul exterior */
+  background-color: #121568;
+  width: 100%;
+  margin: 100px 0 40px;
+  padding: 60px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
 }
 
-/* Stiluri pentru link-ul/butonul PIESE SERVICE */
 .service-parts-link.button {
-  /* Selectorul acum include și clasa .button */
-  background: white; /* Fundal alb pentru buton */
-  border: 2px solid white; /* Bordură albă */
-  color: #121568; /* Culoare albastră pentru text */
-  padding: 15px 30px; /* Padding consistent cu butoanele globale */
-  border-radius: 6px; /* Colțuri rotunjite */
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  text-decoration: none;
-  display: inline-block; /* Pentru a permite marginile și padding-ul */
-  text-align: center;
-  font-size: 2.8em; /* Mărimea fontului, similară cu ce aveam înainte */
+  background: white;
+  border: 2px solid white;
+  color: #121568;
+  font-size: 2.8em;
+  padding: 15px 30px;
   letter-spacing: 2px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Umbră pentru a-l scoate în evidență */
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease, transform 0.2s ease; /* Păstrăm tranzițiile pentru hover */
-  max-width: 800px; /* Lățime maximă pentru butonul PIESE SERVICE */
-  width: 100%; /* Ocupă 100% din spațiul disponibil în containerul său (max-width îl limitează) */
-  box-sizing: border-box; /* Adăugat: Asigură că padding-ul și border-ul sunt incluse în lățime */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  max-width: 800px;
+  width: 100%;
 }
 
-/* Stiluri pentru textul din interiorul link-ului/butonului (nu mai are fundal propriu) */
 .service-parts-link.button h2 {
-  color: inherit; /* Moștenește culoarea textului de la părinte (.service-parts-link.button) */
-  font-size: inherit; /* Moștenește mărimea fontului */
-  font-weight: inherit; /* Moștenește greutatea fontului */
-  margin: 0; /* Elimină marginile implicite */
-  letter-spacing: inherit; /* Moștenește spațierea literelor */
-  text-transform: inherit; /* Moștenește transformarea textului */
-  padding: 0; /* Elimină padding-ul de pe h2, deoarece link-ul are deja padding */
-  background-color: transparent; /* Nu mai are fundal propriu */
-  border-radius: 0; /* Nu mai are border-radius propriu */
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  background-color: transparent;
+  border-radius: 0;
 }
 
 .service-parts-banner h2:hover {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* Face fundalul ușor mai opac la hover */
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* NOUA SECȚIUNE: CERERI DE LA FURNIZORI */
 .supplier-requests-section {
   width: 100%;
-  max-width: 1200px; /* Lățime maximă consistentă */
-  margin: 40px auto; /* Spațiu deasupra și dedesubt, centrat orizontal */
-  padding: 0 20px; /* Padding lateral pentru a alinia conținutul cu restul paginii */
-  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.supplier-requests-section .section-title {
-  color: #121568;
-  font-size: 2em; /* Dimensiune consistentă cu alte titluri de secțiune */
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: 700;
-  width: 100%;
-}
-
 .supplier-requests-container {
-  display: flex; /* Activează Flexbox pentru aranjare orizontală */
-  gap: 1rem; /* Spațiu între carduri */
-  overflow-x: auto; /* Activează scroll-ul orizontal */
-  scroll-snap-type: x mandatory; /* Asigură un scroll lin la carduri */
-  width: 100%; /* Ocupă toată lățimea disponibilă */
-  max-width: 900px; /* Similar cu request-card pentru a limita lățimea vizibilă */
-  padding-bottom: 10px; /* Spațiu pentru scrollbar */
-
-  /* Stiluri pentru bara de scroll (Webkit) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #121568 #f1f1f1; /* Thumb și Track */
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  max-width: 900px;
+  padding-bottom: 10px;
+  &::-webkit-scrollbar { height: 8px; }
 }
 
-/* Personalizarea scrollbar-ului pentru Webkit (Chrome, Safari, Edge) */
-.supplier-requests-container::-webkit-scrollbar {
-  height: 8px; /* Înălțimea barei de scroll orizontale */
-}
-
-.supplier-requests-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-.supplier-requests-container::-webkit-scrollbar-thumb {
-  background-color: #121568;
-  border-radius: 10px;
-  border: 2px solid #f1f1f1;
-}
-
-.supplier-requests-container::-webkit-scrollbar-thumb:hover {
-  background-color: #0d1052;
-}
-
-.supplier-request-card {
-  min-width: 300px; /* Lățime minimă a cardului (important pentru scroll) */
-  flex-shrink: 0; /* Nu permite cardurilor să se micșoreze */
-  height: auto;
-  background-color: #f1f1f1; /* Fundal gri deschis */
-  border-radius: 10px;
-  padding: 1.5rem;
-  scroll-snap-align: start; /* Aliniere la începutul cardului la scroll */
-  text-align: left;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Umbră similară */
-  display: flex; /* Activează flexbox pentru conținutul intern */
-  flex-direction: column; /* Stivuiește elementele intern */
-  gap: 0.5rem; /* Spațiu între elementele din card */
-}
-
-.supplier-request-card h3 {
-  margin: 0; /* Elimină marginile implicite */
-  font-size: 1.2rem;
-  color: #121568; /* Culoare albastră pentru titlu (nume furnizor) */
-  border-bottom: 1px solid #eee; /* O linie sub numele furnizorului */
-  padding-bottom: 0.5rem; /* Spațiu sub linie */
-  margin-bottom: 0.5rem; /* Spațiu sub linie și titlu */
-  font-weight: 600;
-}
-
-.supplier-request-card .part-name {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 0.5rem;
-}
-
-.supplier-request-card .part-description {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
-  flex-grow: 1; /* Permite descrierii să ocupe spațiul rămas */
-}
-
-.no-requests-message {
-  text-align: center;
-  color: #777;
-  font-style: italic;
-  padding: 20px;
-  width: 100%; /* Asigură că mesajul se centrează pe toată lățimea */
-}
-
-/* NOUA SECȚIUNE: BANNER IMAGINE FUNDAL (inspirată din .final de pe homepage) */
 .admin-bottom-banner {
   position: relative;
   width: 100%;
-  height: 250px; /* O înălțime fixă pentru banner (poți ajusta) */
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 60px; /* Păstrăm spațiul deasupra față de secțiunea anterioară */
-  margin-bottom: 0; /* MODIFICAT: Eliminăm marginea de jos pentru a se lipi de footer */
-  overflow: hidden; /* Ascunde părțile din imagine care depășesc containerul */
+  margin-top: 60px;
+  margin-bottom: 0;
+  overflow: hidden;
 }
 
 .admin-banner-background {
@@ -723,282 +518,190 @@ body {
   filter: brightness(0.6);
 }
 
-/* Nu este nevoie de .admin-banner-overlay sau .admin-banner-text, deoarece nu vrem text */
+/* Media Queries */
 
-/* Stiluri specifice pentru desktop (ecrane mai mari) unde hover-ul este disponibil */
-@media (min-width: 769px) { /* Sau o altă valoare de breakpoint care se potrivește designului tău */
+@media (min-width: 769px) {
   .delete-supplier-btn {
-      opacity: 0; /* Ascuns implicit pe desktop */
-      pointer-events: none; /* Inactiv implicit pe desktop */
-      transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.2s ease; /* Adaugă tranziția pentru opacitate */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
   }
-
   .supplier-request-card:hover .delete-supplier-btn {
-      opacity: 1; /* Vizibil la hover pe card, pe desktop */
-      pointer-events: auto; /* Activ la hover pe card, pe desktop */
+      opacity: 1;
+      pointer-events: auto;
   }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
-  /* Ascunde butoanele de desktop pe mobil */
-  .desktop-nav-button {
-    display: none;
-  }
-
-  /* Afișează containerul pentru butoanele mobile și stilizează-l */
+  .desktop-nav-button { display: none; }
   .nav-buttons-mobile-wrapper {
-    display: flex; /* Le face să stea unul lângă celălalt */
-    justify-content: center; /* Centrează butoanele orizontal */
-    gap: 20px; /* Spațiu între ele */
-    width: 100%; /* Ocupă toată lățimea disponibilă */
-    margin-top: 20px; /* Spațiu deasupra butoanelor (sub card) */
-    margin-bottom: 20px; /* Poți adăuga spațiu și sub ele, dacă e cazul */
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 20px;
   }
-
-  /* Stiluri specifice pentru butoanele din wrapper-ul mobil */
   .nav-buttons-mobile-wrapper .nav-button {
-    width: 40px; /* Butoane mai mici pe mobil */
-    height: 40px;
-    font-size: 1.5em;
-    margin: 0; /* Elimină marginile individuale */
+      width: 40px;
+      height: 40px;
+      font-size: 1.5em;
   }
-
   .carousel-wrapper {
-    flex-direction: column; /* Stivuiește elementele: cardul */
-    align-items: center; /* Centrează cardul */
-    gap: 15px; /* Spațiu sub card (dacă ar mai fi elemente în el, dar acum nu) */
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
   }
-
   .request-card {
-    flex-direction: column;
-    width: 100%; /* Ocupă toată lățimea disponibilă */
-    max-width: none; /* Nu mai are lățime maximă fixă pe mobil */
+      flex-direction: column;
+      width: 100%;
+      max-width: none;
   }
-
-  .request-details,
+  .request-details, .request-image {
+      flex: none;
+      width: 100%;
+      padding: 20px;
+  }
   .request-image {
-    flex: none;
-    width: 100%;
-    padding: 20px;
+      order: -1;
+      min-height: 200px;
   }
-
-  .request-image {
-    order: -1; /* Asigură că imaginea este deasupra detaliilor în card */
-    min-height: 200px; /* Ajustăm înălțimea minimă pe mobil */
-  }
-
   .image-gallery-container {
-    max-height: 300px; /* Înălțime maximă mai mică pe mobil */
-    gap: 8px;
+      max-height: 300px;
+      gap: 8px;
   }
-
-  .action-buttons {
-    flex-direction: column;
-  }
-  .action-btn {
-    max-width: 100%;
-  }
-
-  /* NOU: Stiluri responsive pentru secțiunea de programări ocupate */
-  .occupied-appointments-section {
-    padding: 0; /* Nu mai este nevoie de padding aici, îl mutăm pe containerul listei */
-    margin-top: 30px; /* Spațiu mai mic pe mobil */
-  }
-
+  .action-buttons { flex-direction: column; }
+  .action-btn { max-width: 100%; }
+  .occupied-appointments-section { margin-top: 30px; }
   .occupied-appointments-section .section-title {
-    font-size: 1.5em; /* Titlu mai mic pe mobil */
-    margin-bottom: 15px; /* Ajustăm spațiul sub titlu pe mobil */
+      font-size: 1.5em;
+      margin-bottom: 15px;
   }
-
-  .appointments-list-container {
-    padding: 15px; /* Padding mai mic pe mobil pentru containerul listei */
-  }
-
+  .appointments-list-container { padding: 15px; }
   .appointments-list li {
-    flex-direction: column; /* Pe mobil, elementele se stivuiesc vertical */
-    align-items: flex-start; /* Aliniază-le la stânga */
-    padding: 10px;
-    gap: 5px; /* Spațiu mic între elemente stivuite */
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+      gap: 5px;
   }
-
-  .appointment-date,
-  .appointment-time,
-  .appointment-client {
-    flex-basis: auto; /* Revine la comportamentul implicit */
-    min-width: auto; /* Revine la comportamentul implicit */
-    width: 100%; /* Ocupă toată lățimea disponibilă */
-    text-align: left; /* Aliniază totul la stânga */
+  .appointment-date, .appointment-time, .appointment-client {
+      flex-basis: auto;
+      min-width: auto;
+      width: 100%;
+      text-align: left;
   }
-
   .service-parts-banner {
-    margin: 100px 0;
-    padding: 40px 0; /* Ajustăm padding-ul, lăsăm link-ul să aibă padding orizontal */
-    min-height: 100px;
+      margin: 100px 0;
+      padding: 40px 0;
+      min-height: 100px;
   }
-
   .service-parts-link.button {
-    font-size: 2em; /* Reducem dimensiunea fontului pe mobil */
-    padding: 10px 25px; /* Ajustăm padding-ul butonului */
-    max-width: 500px;
+      font-size: 2em;
+      padding: 10px 25px;
+      max-width: 500px;
   }
-
   .supplier-requests-section {
-    margin: 30px auto; /* Reducem marginile pe mobil */
-    padding: 0 15px; /* Reducem padding-ul */
+      margin: 30px auto;
+      padding: 0 15px;
   }
-
   .supplier-requests-section .section-title {
-    font-size: 1.5em; /* Titlu mai mic pe mobil */
-    margin-bottom: 15px;
+      font-size: 1.5em;
+      margin-bottom: 15px;
   }
-
   .supplier-requests-container {
-    padding-bottom: 8px; /* Ajustăm padding-ul scrollbar-ului pe mobil */
-    gap: 0.8rem; /* Reducem spațiul dintre carduri */
+      padding-bottom: 8px;
+      gap: 0.8rem;
   }
-
   .supplier-request-card {
-    min-width: 250px; /* Lățime minimă mai mică pe mobil */
-    padding: 1rem;
+      min-width: 250px;
+      padding: 1rem;
   }
-
-  .supplier-request-card h3 {
-    font-size: 1.1rem;
+  .supplier-request-card h3 { font-size: 1.1rem; }
+  .supplier-request-card .part-name, .supplier-request-card .part-description {
+      font-size: 0.9em;
   }
-
-  .supplier-request-card .part-name,
-  .supplier-request-card .part-description {
-    font-size: 0.9em;
+  .add-supplier-btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin: 20px auto 15px;
   }
-
-  .supplier-requests-section .add-supplier-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    margin-top: 20px;
-    margin-bottom: 15px;
-  }
-
-  .supplier-request-card {
-    padding-right: 40px; /* Ajustăm padding-ul pentru mobil */
-  }
-
   .delete-supplier-btn {
-    width: 26px; /* Buton mai mic pe mobil */
-    height: 26px;
-    font-size: 1em;
-    top: 8px;
-    right: 8px;
+      width: 26px;
+      height: 26px;
+      font-size: 1em;
+      top: 8px;
+      right: 8px;
   }
-
   .modal-content {
-    padding: 20px;
-    width: 95%; /* Lățime mai mare pe mobil */
+      padding: 20px;
+      width: 95%;
   }
-
   .modal-content h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
+      font-size: 1.5em;
+      margin-bottom: 20px;
   }
-
-  .form-group label {
-    font-size: 0.9em;
+  .form-group label { font-size: 0.9em; }
+  .form-group input[type="text"], .form-group textarea {
+      padding: 8px;
+      font-size: 0.9em;
   }
-
-  .form-group input[type="text"],
-  .form-group textarea {
-    padding: 8px;
-    font-size: 0.9em;
-  }
-
   .modal-actions {
-    flex-direction: column; /* Stivuim butoanele pe mobil */
-    gap: 10px;
+      flex-direction: column;
+      gap: 10px;
   }
-
   .modal-actions .action-btn {
-    width: 100%;
-    max-width: none; /* Nu limităm lățimea pe mobil */
+      width: 100%;
+      max-width: none;
   }
-
   .admin-bottom-banner {
-    height: 200px; /* Înălțime mai mică pe mobil */
-    margin-top: 40px;
-    margin-bottom: 0; /* Asigurăm și aici că e 0 */
+      height: 200px;
+      margin-top: 40px;
+      margin-bottom: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .main-title {
-    font-size: 1.8em;
-  }
-  .request-details {
-    padding: 15px;
-  }
-  .request-id {
-    font-size: 1.4em;
-  }
-  .detail-item .label {
-    font-size: 0.9em;
-  }
-  .detail-item p,
-  #adminComment {
-    font-size: 0.9em;
-  }
+  .main-title { font-size: 1.8em; }
+  .request-details { padding: 15px; }
+  .request-id { font-size: 1.4em; }
+  .detail-item .label { font-size: 0.9em; }
+  .detail-item p, #adminComment { font-size: 0.9em; }
   .action-btn {
-    padding: 10px 20px;
-    font-size: 1em;
+      padding: 10px 20px;
+      font-size: 1em;
   }
-  .occupied-appointments-section .section-title {
-    font-size: 1.3em;
-  }
-  .appointments-list li {
-    font-size: 0.85em;
-  }
-
+  .occupied-appointments-section .section-title { font-size: 1.3em; }
+  .appointments-list li { font-size: 0.85em; }
   .service-parts-banner {
-    margin-top: 100px 0;
-    padding: 40px 0;
-    min-height: 80px;
+      margin-top: 100px;
+      padding: 40px 0;
+      min-height: 80px;
   }
-
   .service-parts-link.button {
-    font-size: 1.5em; /* Reducem și mai mult pe telefoane foarte mici */
-    letter-spacing: 1px;
-    padding: 10px 20px;
-    max-width: 250px;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      padding: 10px 20px;
+      max-width: 250px;
   }
-
   .supplier-requests-section {
-    margin: 20px auto;
-    padding: 0 10px;
+      margin: 20px auto;
+      padding: 0 10px;
   }
-
-  .supplier-requests-section .section-title {
-    font-size: 1.3em;
-  }
-
+  .supplier-requests-section .section-title { font-size: 1.3em; }
   .supplier-request-card {
-    min-width: 220px;
-    padding: 0.8rem;
+      min-width: 220px;
+      padding: 0.8rem;
   }
-
-  .supplier-request-card {
-    min-width: 220px;
-    padding-right: 35px; /* Ajustăm și mai mult pe ecrane mici */
-  }
-
   .delete-supplier-btn {
-    width: 24px;
-    height: 24px;
-    font-size: 0.9em;
-    top: 6px;
-    right: 6px;
+      width: 24px;
+      height: 24px;
+      font-size: 0.9em;
+      top: 6px;
+      right: 6px;
   }
-
   .admin-bottom-banner {
-    height: 150px; /* Și mai mică pe ecrane foarte mici */
-    margin-top: 30px;
-    margin-bottom: 0; /* Asigurăm și aici că e 0 */
+      height: 150px;
+      margin-top: 30px;
+      margin-bottom: 0;
   }
 }
