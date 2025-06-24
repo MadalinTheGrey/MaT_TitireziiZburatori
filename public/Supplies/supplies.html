@@ -41,7 +41,7 @@
             <input
               type="number"
               id="searchByQuantity"
-              placeholder="Nr. piese în stoc..."
+              placeholder="Nr. maxim piese în stoc..."
               min="0"
             />
           </div>
@@ -76,7 +76,7 @@
             </div>
             <div class="form-group">
               <label for="newPieceDescription">Descriere:</label>
-              <textarea id="newPieceDescription" rows="4" required></textarea>
+              <textarea id="newPieceDescription" rows="4"></textarea>
             </div>
             <div class="form-group">
               <label for="newPieceStock">Nr. în stoc:</label>
@@ -162,11 +162,7 @@
             </tbody>
           </table>
         </div>
-        <p
-          id="noStockMessage"
-          class="no-stock-message"
-          style="display: none"
-        >
+        <p id="noStockMessage" class="no-stock-message" style="display: none">
           Nu există piese în stoc conform filtrelor aplicate.
         </p>
       </section>
@@ -175,6 +171,7 @@
     <!-- FOOTER SECTION -->
     <footer data-include="../html-components/footer.html"></footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <script src="../assets/includes.js"></script>
     <script src="supplies.js"></script>
   </body>

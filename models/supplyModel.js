@@ -43,8 +43,8 @@ exports.getSupplies = async (filters) => {
   const values = [];
 
   if (filters.name) {
-    query += ` WHERE name = $1`;
-    values.push(filters.name);
+    query += ` WHERE name ILIKE $1`;
+    values.push(`%${filters.name}%`);
   }
   if (filters.in_stock != null) {
     if (!values.length) {
