@@ -1,411 +1,570 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Asigură că nu există scrollbar orizontal general */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Asigură că nu există scrollbar orizontal general */
 }
 
 html {
-    overflow-x: hidden; /* Și pe html pentru siguranță */
+  overflow-x: hidden; /* Și pe html pentru siguranță */
 }
 
 .main-content {
-    flex-grow: 1;
-    padding-top: 80px; /* Ajustează padding-ul de sus pentru a lăsa loc navbar-ului */
-    padding-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrează elementele flex pe axa transversală (orizontal) */
-    width: 100%;
-    max-width: 100vw; /* Asigură că nu depășește viewport-ul */
-    margin: 0 auto;
-    box-sizing: border-box; /* Reconfirmă box-sizing */
+  flex-grow: 1;
+  padding-top: 80px; /* Ajustează padding-ul de sus pentru a lăsa loc navbar-ului */
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrează elementele flex pe axa transversală (orizontal) */
+  width: 100%;
+  max-width: 100vw; /* Asigură că nu depășește viewport-ul */
+  margin: 0 auto;
+  box-sizing: border-box; /* Reconfirmă box-sizing */
 }
 
 .main-title {
-    color: #121568; /* Asigură că are o culoare vizibilă */
-    font-size: 2.5em; /* Poți ajusta dimensiunea */
-    font-weight: 700;
-    margin-top: 40px; /* Spațiu deasupra titlului (între navbar și titlu) */
-    margin-bottom: 40px; /* Spațiu sub titlu și deasupra secțiunii de controale */
-    text-align: center; /* Centrează textul titlului */
-    width: 100%; /* Asigură că ocupă toată lățimea disponibilă pentru a fi centrat */
-    padding: 0 20px;
+  color: #121568; /* Asigură că are o culoare vizibilă */
+  font-size: 2.5em; /* Poți ajusta dimensiunea */
+  font-weight: 700;
+  margin-top: 40px; /* Spațiu deasupra titlului (între navbar și titlu) */
+  margin-bottom: 40px; /* Spațiu sub titlu și deasupra secțiunii de controale */
+  text-align: center; /* Centrează textul titlului */
+  width: 100%; /* Asigură că ocupă toată lățimea disponibilă pentru a fi centrat */
+  padding: 0 20px;
 }
 
 /* Ajustări pentru secțiunile interioare pentru a fi centrate */
-/* Acestea ar trebui să aibă `margin: 0 auto;` sau să fie gestionate de `align-items: center;` al părintelui lor */
 .stock-controls-section,
 .stock-list-section {
-    width: 100%; /* Important: se va raporta la parent-ul său, care este .main-content */
-    max-width: 1000px; /* Păstrează lățimea maximă pentru conținut */
-    margin-left: auto; /* Centrează aceste blocuri în cadrul main-content */
-    margin-right: auto; /* Centrează aceste blocuri în cadrul main-content */
-    padding: 20px; /*<- Aici e bine să ai padding, nu pe main-content direct. */
+  width: 100%; /* Important: se va raporta la parent-ul său, care este .main-content */
+  max-width: 1000px; /* Păstrează lățimea maximă pentru conținut */
+  margin-left: auto; /* Centrează aceste blocuri în cadrul main-content */
+  margin-right: auto; /* Centrează aceste blocuri în cadrul main-content */
+  padding: 20px; /*<- Aici e bine să ai padding, nu pe main-content direct. */
 }
 
 .stock-controls-section {
-    width: 100%;
-    max-width: 1000px; /* Lățime maximă pentru această secțiune */
-    margin-top: 40px; /* Spațiu sub titlu */
-    margin-bottom: 40px; /* Spațiu deasupra tabelului */
-    padding: 20px;
-    background-color: #f8f8f8; /* Fundal ușor gri */
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Spațiu între containerul de search-uri și butoane */
-    align-items: center;
+  width: 100%;
+  max-width: 1000px; /* Lățime maximă pentru această secțiune */
+  margin-top: 40px; /* Spațiu sub titlu */
+  margin-bottom: 40px; /* Spațiu deasupra tabelului */
+  padding: 20px;
+  background-color: #f8f8f8; /* Fundal ușor gri */
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Spațiu între containerul de search-uri și butoane */
+  align-items: center;
 }
 
 .search-filters-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite elementelor să treacă pe rândul următor */
-    gap: 15px; /* Spațiu între search bar-uri și dropdown-uri */
-    justify-content: center; /* Centrează elementele */
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap; /* Permite elementelor să treacă pe rândul următor */
+  gap: 15px; /* Spațiu între search bar-uri și dropdown-uri */
+  justify-content: center; /* Centrează elementele */
+  width: 100%;
 }
 
 .search-bar {
-    position: relative;
-    flex-grow: 1; /* Permite search bar-urilor să ocupe spațiu */
-    max-width: 450px; /* Lățime maximă pentru un search bar individual */
+  position: relative;
+  flex-grow: 1; /* Permite search bar-urilor să ocupe spațiu */
+  max-width: 450px; /* Lățime maximă pentru un search bar individual */
 }
 
 .search-bar i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-    font-size: 1.2em;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1.2em;
 }
 
 .search-bar input[type="text"],
 .search-bar input[type="number"] {
-    width: 100%;
-    padding: 12px 15px 12px 45px; /* Padding la stânga pentru iconiță */
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-family: "Poppins", sans-serif;
-    font-size: 1em;
-    color: #333;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 12px 15px 12px 45px; /* Padding la stânga pentru iconiță */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .search-bar input[type="text"]:focus,
 .search-bar input[type="number"]:focus {
-    outline: none;
-    border-color: #121568;
-    box-shadow: 0 0 0 3px rgba(18, 21, 104, 0.2);
-}
-
-.dropbtn {
-    background-color: #fff;
-    color: #333;
-    padding: 12px 20px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.dropbtn:hover {
-    background-color: #f0f0f0;
-    border-color: #bbb;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 0.95em;
-}
-
-.dropdown-content a:hover {
-    background-color: #e2eaf2;
-    color: #121568;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+  outline: none;
+  border-color: #121568;
+  box-shadow: 0 0 0 3px rgba(18, 21, 104, 0.2);
 }
 
 /* Container pentru butoanele de acțiune */
 .action-buttons-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px; /* Spațiu între butoane */
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Spațiu între butoane */
+  justify-content: center;
+  width: 100%;
 }
 
 .action-btn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.accept-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.refuse-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.refuse-btn:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
 }
 
 .import-btn {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 .import-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .export-btn {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: white;
 }
 .export-btn:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
+  background-color: #218838;
+  transform: scale(1.05);
 }
 
 .add-item-btn {
-    background-color: #6f42c1; /* O nuanță de mov */
-    color: white;
+  background-color: #6f42c1; /* O nuanță de mov */
+  color: white;
 }
 .add-item-btn:hover {
-    background-color: #5a2e9e;
-    transform: translateY(-2px);
+  background-color: #5a2e9e;
+  transform: scale(1.05);
+}
+
+/* stiluri pt pop-up adauga piesa */
+.modal-overlay {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  transform: scale(0.95);
+  transition: transform 0.3s ease-out;
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-content h2 {
+  color: #121568;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  resize: vertical;
+  min-height: 100px;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  min-height: auto;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.modal-actions .action-btn {
+  flex-grow: 0;
+  min-width: 100px;
 }
 
 /* Stiluri pentru tabelul de stoc */
 .stock-list-section {
-    width: 100%;
-    max-width: 1000px; /* Aceeași lățime maximă ca secțiunea de controale */
-    margin-bottom: 60px; /* Spațiu înainte de banner-ul de jos */
+  width: 100%;
+  max-width: 1000px; /* Aceeași lățime maximă ca secțiunea de controale */
+  margin-bottom: 60px; /* Spațiu înainte de banner-ul de jos */
 }
 
 .stock-table-container {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    overflow-x: auto; /* Permite scroll orizontal pe tabel dacă este prea lat */
-   /* NOU: Stiluri pentru scrollbar-ul vertical */
-   max-height: 400px; /* Setează o înălțime maximă fixă pentru containerul tabelului */
-   overflow-y: auto; /* Adaugă scrollbar vertical când conținutul depășește max-height */
-   -webkit-overflow-scrolling: touch; /* Îmbunătățește scroll-ul pe iOS */
-
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow-x: auto; /* Permite scroll orizontal pe tabel dacă este prea lat */
+  /* NOU: Stiluri pentru scrollbar-ul vertical */
+  max-height: 400px; /* Setează o înălțime maximă fixă pentru containerul tabelului */
+  overflow-y: auto; /* Adaugă scrollbar vertical când conținutul depășește max-height */
+  -webkit-overflow-scrolling: touch; /* Îmbunătățește scroll-ul pe iOS */
 }
 
 .stock-table-container::-webkit-scrollbar {
-    width: 8px;
-    height: 8px; /* Pentru scrollbar orizontal, dacă rămâne */
+  width: 8px;
+  height: 8px; /* Pentru scrollbar orizontal, dacă rămâne */
 }
 
 .stock-table-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
 .stock-table-container::-webkit-scrollbar-thumb {
-    background: #121568;
-    border-radius: 10px;
+  background: #121568;
+  border-radius: 10px;
 }
 
 .stock-table-container::-webkit-scrollbar-thumb:hover {
-    background: #0d105c;
+  background: #0d105c;
 }
 
 .stock-table {
-    width: 100%;
-    border-collapse: collapse; /* Elimină spațiul dintre celule */
-    min-width: 600px; /* Asigură că tabelul nu devine prea îngust pe mobil, forțând scroll */
+  width: 100%;
+  border-collapse: collapse; /* Elimină spațiul dintre celule */
+  min-width: 600px; /* Asigură că tabelul nu devine prea îngust pe mobil, forțând scroll */
 }
 
 .stock-table th,
 .stock-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
 .stock-table th {
-    background-color: #e2eaf2; /* Fundal pentru headere */
-    color: #121568;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    position: sticky; /* Face headerele să rămână vizibile la scroll */
-    top: 0; /* Important pentru sticky */
-    z-index: 1; /* Asigură că headerele sunt deasupra conținutului la scroll */
+  background-color: #e2eaf2; /* Fundal pentru headere */
+  color: #121568;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  position: sticky; /* Face headerele să rămână vizibile la scroll */
+  top: 0; /* Important pentru sticky */
+  z-index: 1; /* Asigură că headerele sunt deasupra conținutului la scroll */
 }
 
 .stock-table tbody tr.stock-item {
-    cursor: pointer; /* Indică faptul că rândul este clicabil */
-    transition: background-color 0.2s ease;
+  cursor: pointer; /* Indică faptul că rândul este clicabil */
+  transition: background-color 0.2s ease;
 }
 
 .stock-table tbody tr.stock-item:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .stock-table tbody tr.stock-item:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-/* Stiluri pentru coloanele specifice */
-/* Ajustează stilurile pentru coloanele rămase (pentru a compensa eliminarea) */
-/* Am eliminat td:nth-child(1) și td:nth-child(5) */
-.stock-table td:nth-child(1) { /* Nume Piesă (acum e prima coloană) */
-    font-weight: 600;
-    color: #121568;
-    width: 30%; /* Ajustează lățimea după preferință */
+/* NOU: Stiluri pentru coloana de acțiuni */
+.stock-table th.actions-header,
+.stock-table td.stock-actions {
+  text-align: center; /* Centrează iconița/butonul */
+  width: 10%; /* Lățime rezonabilă pentru coloana de acțiuni */
 }
-.stock-table td:nth-child(2) { /* Descriere (acum e a doua coloană) */
-    color: #555;
-    font-size: 0.95em;
-    width: 45%;
+
+.edit-stock-btn {
+  background: none;
+  border: none;
+  color: #121568; /* Culoarea iconiței de creion */
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex; /* Asigură că iconița se centrează corect dacă e cazul */
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* Centrează butonul în celulă */
 }
-.stock-table td:nth-child(3) { /* Nr. în stoc (acum e a treia coloană) */
-    font-weight: 600;
-    color: #333;
-    text-align: center;
-    width: 25%;
+
+.edit-stock-btn:hover {
+  background-color: #e2eaf2; /* Fundal ușor la hover */
+  color: #0d105c;
 }
+
+/* Ascunde butonul de editare implicit pe desktop (va fi afișat la hover prin JS) */
+/* Pe mobil vom forța afișarea */
+.stock-actions .edit-stock-btn {
+  opacity: 0; /* Folosim opacity pentru o tranziție mai lină */
+  visibility: hidden;
+  pointer-events: none; /* Asigură că nu este interacționabil când e ascuns */
+}
+
+/* Afișează butonul de editare la hover pe rândul tabelului (doar pe dispozitive cu suport hover) */
+@media (hover: hover) and (pointer: fine) {
+  .stock-item:hover .stock-actions .edit-stock-btn {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+/* Forțează afișarea butonului de editare pe dispozitive tactile (sau fără hover precis) */
+@media (hover: none) or (pointer: coarse) {
+  .stock-actions .edit-stock-btn {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+/* Stil pentru câmpul de input când este în modul editare */
+.stock-quantity.editing input[type="number"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #121568;
+  border-radius: 4px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+  text-align: center; /* Aliniat ca și numărul */
+  box-sizing: border-box; /* Asigură că padding-ul nu mărește lățimea */
+}
+
+/* Stiluri pentru coloanele specifice - AJUSTATE PENTRU NOUA COLOANĂ DE ACȚIUNI */
+.stock-table td:nth-child(1) {
+  /* Nume Piesă */
+  font-weight: 600;
+  color: #121568;
+  width: 25%; /* Ajustat pentru a face loc noii coloane */
+}
+.stock-table td:nth-child(2) {
+  /* Descriere */
+  color: #555;
+  font-size: 0.95em;
+  width: 45%; /* Rămâne la fel sau ajustat minim */
+}
+.stock-table td:nth-child(3) {
+  /* Nr. în stoc */
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  width: 20%; /* Ajustat pentru a face loc noii coloane */
+}
+/* A 4-a coloana este acum `stock-actions` cu `width: 10%;` definită mai sus */
 
 .no-stock-message {
-    text-align: center;
-    color: #777;
-    font-style: italic;
-    padding: 20px;
-    width: 100%;
-}
-
-.admin-bottom-banner {
-    width: 100%;
-    /* margin-top: auto; /* Push footer to bottom */ 
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 20px;
+  width: 100%;
 }
 
 /* Responsive design pentru stoc-piese.html */
 @media (max-width: 768px) {
-    .stock-controls-section {
-        margin-top: 30px;
-        margin-bottom: 30px;
-        padding: 15px;
-    }
+  .stock-controls-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+  }
 
-    .search-filters-container {
-        flex-direction: column; /* Stivuiește search-urile și dropdown-urile */
-        gap: 10px;
-    }
+  .search-filters-container {
+    flex-direction: column; /* Stivuiește search-urile și dropdown-urile */
+    gap: 10px;
+  }
 
-    .search-bar {
-        max-width: 100%; /* Ocupă toată lățimea disponibilă */
-    }
+  .search-bar {
+    max-width: 100%; /* Ocupă toată lățimea disponibilă */
+  }
 
-    .dropbtn {
-        width: 100%; /* Face dropdown-urile să ocupe toată lățimea */
-        justify-content: center;
-    }
+  .action-buttons-container {
+    flex-direction: column; /* Stivuiește butoanele */
+    gap: 10px;
+  }
 
-    .action-buttons-container {
-        flex-direction: column; /* Stivuiește butoanele */
-        gap: 10px;
-    }
+  .action-btn {
+    width: 100%; /* Butoanele ocupă toată lățimea */
+  }
 
-    .action-btn {
-        width: 100%; /* Butoanele ocupă toată lățimea */
-    }
+  .stock-list-section {
+    margin-bottom: 40px;
+  }
 
-    .stock-list-section {
-        margin-bottom: 40px;
-    }
+  .stock-table-container {
+    overflow-x: auto; /*- deja setat, permite scroll pe tabel */
+  }
 
-    .stock-table-container {
-         overflow-x: auto; /*- deja setat, permite scroll pe tabel */
-    }
+  .stock-table th,
+  .stock-table td {
+    padding: 10px;
+    font-size: 0.9em;
+  }
 
-    .stock-table th,
-    .stock-table td {
-        padding: 10px;
-        font-size: 0.9em;
-    }
+  /* Asigură că min-width-ul tabelului este rezonabil pentru mobile */
+  .stock-table {
+    min-width: 500px; /* Poate fi mai mic acum */
+  }
 
-    /* Asigură că min-width-ul tabelului este rezonabil pentru mobile */
-    .stock-table {
-        min-width: 500px; /* Poate fi mai mic acum */
-    }
+  /* Ajustează lățimile coloanelor pentru mobile */
+  .stock-table td:nth-child(1) {
+    width: 30%;
+  } /* Nume Piesă */
+  .stock-table td:nth-child(2) {
+    width: 35%;
+  } /* Descriere */
+  .stock-table td:nth-child(3) {
+    width: 20%;
+  } /* Nr. în stoc */
+  .stock-table td:nth-child(4) {
+    width: 15%;
+  } /* Acțiuni */
 
-    /* Ajustează lățimile coloanelor pentru mobile dacă e necesar */
-    .stock-table td:nth-child(1) { width: 35%; }
-    .stock-table td:nth-child(2) { width: 40%; }
-    .stock-table td:nth-child(3) { width: 25%; }
+  .modal-content {
+    padding: 20px;
+    width: 95%;
+  }
+  .modal-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    font-size: 0.9em;
+  }
+  .form-group input[type="text"],
+  .form-group textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .modal-actions .action-btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .add-item-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 20px auto 15px;
+  }
 }
 
 @media (max-width: 480px) {
-    .main-title {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
+  .main-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
 
-    .stock-controls-section {
-        padding: 10px;
-        gap: 10px;
-    }
+  .stock-controls-section {
+    padding: 10px;
+    gap: 10px;
+  }
 
-    .search-bar input[type="text"],
-    .search-bar input[type="number"] {
-        padding: 10px 10px 10px 40px;
-        font-size: 0.9em;
-    }
+  .search-bar input[type="text"],
+  .search-bar input[type="number"] {
+    padding: 10px 10px 10px 40px;
+    font-size: 0.9em;
+  }
 
-    .search-bar i {
-        left: 10px;
-        font-size: 1.1em;
-    }
+  .search-bar i {
+    left: 10px;
+    font-size: 1.1em;
+  }
 
-    .dropbtn {
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
+  .action-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
 
-    .action-btn {
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
+  .stock-table th,
+  .stock-table td {
+    padding: 8px;
+    font-size: 0.8em;
+  }
 
-    .stock-table th,
-    .stock-table td {
-        padding: 8px;
-        font-size: 0.8em;
-    }
-
-    .stock-table {
-        min-width: 400px; /* Ajustează și mai mult pentru telefoane mici */
-    }
+  .stock-table {
+    min-width: 400px; /* Ajustează și mai mult pentru telefoane mici */
+  }
+  /* Ajustează lățimile coloanelor pentru telefoane mici */
+  .stock-table td:nth-child(1) {
+    width: 30%;
+  } /* Nume Piesă */
+  .stock-table td:nth-child(2) {
+    width: 35%;
+  } /* Descriere */
+  .stock-table td:nth-child(3) {
+    width: 20%;
+  } /* Nr. în stoc */
+  .stock-table td:nth-child(4) {
+    width: 15%;
+  } /* Acțiuni */
 }
