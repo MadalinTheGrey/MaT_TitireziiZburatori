@@ -201,8 +201,7 @@ h1, h2{
 }
 
 /* Consolidează stiluri pentru titlurile secțiunilor */
-.occupied-appointments-section .section-title,
-.supplier-requests-section .section-title {
+.section-title {
   margin-bottom: 20px;
   text-align: center;
 }
