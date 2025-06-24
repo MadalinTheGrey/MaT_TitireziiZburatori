@@ -76,7 +76,8 @@ const occupiedAppointments = [
 ];
 
 // NOU: Simulează datele pentru cererile de la furnizori
-const supplierRequests = [
+// let pt a putea fi modificat
+let supplierRequests = [
   {
     id: 1,
     supplierName: "Furnizor MotoPiese SRL",
@@ -166,6 +167,17 @@ const noSupplierRequestsMessageElem = document.getElementById(
   "noSupplierRequestsMessage"
 );
 
+// NOU: Referințe pentru modalul de adăugare cerere
+const addSupplierRequestBtn = document.getElementById("addSupplierRequestBtn");
+const addRequestModal = document.getElementById("addRequestModal");
+const addRequestForm = document.getElementById("addRequestForm");
+const newSupplierNameInput = document.getElementById("newSupplierName");
+const newPartNameInput = document.getElementById("newPartName");
+const newDescriptionTextarea = document.getElementById("newDescription");
+const saveNewRequestBtn = document.getElementById("saveNewRequestBtn");
+const cancelNewRequestBtn = document.getElementById("cancelNewRequestBtn");
+
+
 /**
  * Funcție helper pentru a determina tipul de fișier pe baza extensiei URL-ului.
  * @param {string} url - URL-ul fișierului.
@@ -192,12 +204,31 @@ function getMediaType(url) {
 function displayRequest(index) {
   if (index < 0 || index >= requests.length) {
     console.warn("Index invalid pentru cerere.");
-    // Opțional: poți afișa un mesaj "Nu mai sunt cereri" sau ascunde cardul
-    // if (requests.length === 0) {
-    //   document.querySelector('.request-card').style.display = 'none';
-    //   document.querySelector('.requests-carousel-section h1').textContent = 'Nu există cereri în așteptare.';
-    // }
+    // Logica pentru a gestiona lipsa cererilor sau index invalid
+    if (requests.length === 0) {
+      document.querySelector(".request-card").style.display = "none";
+      document.querySelector(".requests-carousel-section h1").textContent =
+        "Nu există cereri în așteptare.";
+      // Ascunde butoanele de navigare dacă nu mai sunt cereri
+      if (prevButtonDesktop) prevButtonDesktop.style.display = "none";
+      if (nextButtonDesktop) nextButtonDesktop.style.display = "none";
+      if (prevButtonMobile) prevButtonMobile.style.display = "none";
+      if (nextButtonMobile) nextButtonMobile.style.display = "none";
+    } else {
+      // Dacă indexul este invalid, dar există cereri, ajustează indexul la o valoare validă
+      currentRequestIndex = Math.max(0, Math.min(index, requests.length - 1));
+      displayRequest(currentRequestIndex);
+    }
     return;
+  } else {
+    // Afișează cardul și butoanele de navigare dacă există cereri
+    document.querySelector(".request-card").style.display = "flex";
+    document.querySelector(".main-title").textContent =
+      "CERERI CLIENȚI"; // Resetează titlul
+    if (prevButtonDesktop) prevButtonDesktop.style.display = "";
+    if (nextButtonDesktop) nextButtonDesktop.style.display = "";
+    if (prevButtonMobile) prevButtonMobile.style.display = "";
+    if (nextButtonMobile) nextButtonMobile.style.display = "";
   }
 
   const request = requests[index];
@@ -361,14 +392,23 @@ async function sendDataToServer(data) {
   });
 }
 
-// NOU: Funcție pentru a afișa cererile de la furnizori
+// NOU: Funcție pentru a genera un ID unic pentru noile cereri
+function generateUniqueId(arr) {
+  if (arr.length === 0) {
+    return 1;
+  }
+  const maxId = Math.max(...arr.map((item) => item.id));
+  return maxId + 1;
+}
+
+// MODIFICAT: Funcție pentru a afișa cererile de la furnizori, cu buton de ștergere
 function displaySupplierRequests(requests) {
   supplierRequestsContainerElem.innerHTML = ""; // Golește containerul existent
 
   if (requests.length === 0) {
-    noSupplierRequestsMessageElem.style.display = "block"; // Afișează mesajul "Nu există..."
+    noSupplierRequestsMessageElem.style.display = "block";
   } else {
-    noSupplierRequestsMessageElem.style.display = "none"; // Ascunde mesajul
+    noSupplierRequestsMessageElem.style.display = "none";
 
     requests.forEach((request) => {
       const card = document.createElement("div");
@@ -377,10 +417,72 @@ function displaySupplierRequests(requests) {
                 <h3>${request.supplierName}</h3>
                 <p class="part-name">${request.partName}</p>
                 <p class="part-description">${request.description}</p>
+                <button class="delete-supplier-btn" data-id="${request.id}">
+                    <i class="uil uil-trash"></i> </button>
             `;
       supplierRequestsContainerElem.appendChild(card);
     });
   }
+}
+
+// NOU: Funcție pentru a șterge o cerere de la furnizori
+function deleteSupplierRequest(idToDelete) {
+  const confirmDelete = confirm(
+    `Ești sigur că vrei să ștergi cererea cu ID #${idToDelete}?`
+  );
+  if (confirmDelete) {
+    // În realitate, ai face un apel API aici pentru a șterge din baza de date
+    // await sendDataToServer({ type: 'deleteSupplierRequest', id: idToDelete });
+
+    supplierRequests = supplierRequests.filter(
+      (request) => request.id !== idToDelete
+    );
+    displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
+    alert(`Cererea #${idToDelete} a fost ștearsă.`);
+  }
+}
+
+// NOU: Funcție pentru a deschide modalul de adăugare cerere
+function openAddRequestModal() {
+  addRequestModal.classList.add("active");
+  // Resetează câmpurile formularului de fiecare dată când se deschide modalul
+  addRequestForm.reset();
+  // Focus pe primul câmp pentru o experiență mai bună
+  newSupplierNameInput.focus();
+}
+
+// NOU: Funcție pentru a închide modalul de adăugare cerere
+function closeAddRequestModal() {
+  addRequestModal.classList.remove("active");
+}
+
+// NOU: Funcție pentru a salva o nouă cerere de la furnizori
+function saveNewSupplierRequest(event) {
+  event.preventDefault(); // Oprește reîncărcarea paginii la trimiterea formularului
+
+  const supplierName = newSupplierNameInput.value.trim();
+  const partName = newPartNameInput.value.trim();
+  const description = newDescriptionTextarea.value.trim();
+
+  if (!supplierName || !partName || !description) {
+    alert("Te rog completează toate câmpurile pentru a adăuga cererea.");
+    return;
+  }
+
+  const newRequest = {
+    id: generateUniqueId(supplierRequests), // Generează un ID unic
+    supplierName: supplierName,
+    partName: partName,
+    description: description,
+  };
+
+  // În realitate, ai face un apel API aici pentru a adăuga în baza de date
+  // await sendDataToServer({ type: 'addSupplierRequest', data: newRequest });
+
+  supplierRequests.push(newRequest); // Adaugă noua cerere în array-ul local
+  displaySupplierRequests(supplierRequests); // Re-afișează lista actualizată
+  closeAddRequestModal(); // Închide modalul
+  alert(`Cererea de la "${supplierName}" pentru "${partName}" a fost adăugată.`);
 }
 
 // Adaugă event listeners
@@ -395,6 +497,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".requests-carousel-section h1").textContent =
       "Nu există cereri în așteptare.";
     // Poți de asemenea ascunde butoanele de navigare etc.
+    if (prevButtonDesktop) prevButtonDesktop.style.display = "none";
+    if (nextButtonDesktop) nextButtonDesktop.style.display = "none";
+    if (prevButtonMobile) prevButtonMobile.style.display = "none";
+    if (nextButtonMobile) nextButtonMobile.style.display = "none";
   }
 
   // NOU: Afișează programările ocupate la încărcarea paginii
@@ -476,4 +582,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // NOU: Afișează cererile de la furnizori la încărcarea paginii
   displaySupplierRequests(supplierRequests);
+
+  // NOU: Adaugă event listener pentru butonul "Adaugă Cerere Nouă"
+  if (addSupplierRequestBtn) {
+    addSupplierRequestBtn.addEventListener("click", openAddRequestModal);
+  }
+
+  // NOU: Adaugă event listener pentru butonul "Salvează" din modal
+  if (addRequestForm) {
+    addRequestForm.addEventListener("submit", saveNewSupplierRequest);
+  }
+
+  // NOU: Adaugă event listener pentru butonul "Anulează" din modal
+  if (cancelNewRequestBtn) {
+    cancelNewRequestBtn.addEventListener("click", closeAddRequestModal);
+  }
+
+  // NOU: Adaugă event listener pentru a închide modalul la click în afara conținutului
+  if (addRequestModal) {
+    addRequestModal.addEventListener("click", (event) => {
+      // Verifică dacă click-ul a fost direct pe overlay, nu pe conținutul modalului
+      if (event.target === addRequestModal) {
+        closeAddRequestModal();
+      }
+    });
+  }
+
+  // NOU: Deleagă evenimentul de click pentru butoanele de ștergere
+  // Această abordare este necesară deoarece butoanele sunt adăugate dinamic
+  if (supplierRequestsContainerElem) {
+    supplierRequestsContainerElem.addEventListener("click", (event) => {
+      const target = event.target;
+      // Verifică dacă elementul pe care s-a dat click este butonul de ștergere sau iconița din el
+      const deleteButton = target.closest(".delete-supplier-btn");
+      if (deleteButton) {
+        const requestId = parseInt(deleteButton.dataset.id);
+        deleteSupplierRequest(requestId);
+      }
+    });
+  }
 });

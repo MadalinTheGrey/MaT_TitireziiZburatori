@@ -110,8 +110,35 @@
           <p id="noSupplierRequestsMessage" class="no-requests-message">
             Nu există cereri de la furnizori.
           </p>
-        </div>
+          </div>
+        <button id="addSupplierRequestBtn" class="button add-supplier-btn">
+          ADAUGĂ CERERE NOUĂ
+        </button>
       </section>
+      
+      <div id="addRequestModal" class="modal-overlay">
+        <div class="modal-content">
+          <h2>Adaugă Cerere Nouă de la Furnizor</h2>
+          <form id="addRequestForm">
+            <div class="form-group">
+              <label for="newSupplierName">Nume Furnizor:</label>
+              <input type="text" id="newSupplierName" required />
+            </div>
+            <div class="form-group">
+              <label for="newPartName">Nume Piesă:</label>
+              <input type="text" id="newPartName" required />
+            </div>
+            <div class="form-group">
+              <label for="newDescription">Descriere:</label>
+              <textarea id="newDescription" rows="4" required></textarea>
+            </div>
+            <div class="modal-actions">
+              <button type="submit" id="saveNewRequestBtn" class="action-btn accept-btn">Salvează</button>
+              <button type="button" id="cancelNewRequestBtn" class="action-btn refuse-btn">Anulează</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <section class="admin-bottom-banner">
         <img
