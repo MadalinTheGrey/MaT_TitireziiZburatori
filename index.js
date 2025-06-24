@@ -6,7 +6,6 @@ const path = require("path");
 const db = require("./db");
 const matchRoute = require("./utils/matchRoute");
 const { routes } = require("./routes/apiRoutes");
-const { file } = require("zod/v4");
 
 const PORT = process.env.PORT || 8021;
 
