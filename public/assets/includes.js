@@ -10,6 +10,10 @@ async function includeHTML() {
       if (file.includes("navbar.html")) {
         updateNavbarLink();
       }
+
+      if (file.includes("navbar.html")) {
+        updateNavbarLink();
+      }
     } catch (err) {
       console.error(`Error loading ${file}`, err);
     }

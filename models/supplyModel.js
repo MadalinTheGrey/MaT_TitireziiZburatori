@@ -66,17 +66,29 @@ exports.getSupplies = async (filters) => {
   }
 };
 
-exports.existsSupply = async (id) => {
+exports.existsSupply = async (name) => {
   const query = `
               SELECT EXISTS (
-                SELECT 1 FROM supplies WHERE id = $1
+                SELECT 1 FROM supplies WHERE name ILIKE $1
               ) AS "exists";
               `;
-  const values = [id];
+  const values = [name];
 
   try {
     const result = await pool.query(query, values);
     return result.rows[0].exists;
+  } catch (error) {
+    console.error("Error checking supply existence: ", error);
+    throw error;
+  }
+};
+
+exports.getSupplyId = async (name) => {
+  const query = `SELECT id from supplies WHERE name ILIKE $1`;
+  const values = [name];
+  try {
+    const result = await pool.query(query, values);
+    return result.rows[0].id;
   } catch (error) {
     console.error("Error checking supply existence: ", error);
     throw error;

@@ -25,7 +25,6 @@ main {
   padding: 2rem;
 }
 
-
 .image-content img {
   max-width: 100%;
   height: auto;
@@ -82,7 +81,7 @@ main {
   width: 9rem;
   height: 2.5rem;
   padding: 10px 30px;
-} 
+}
 
 #form-message {
   display: none;
@@ -141,12 +140,16 @@ main {
   color: white;
 }
 
-.accepted {
+.approved {
   background-color: #28a745;
 }
 
-.refuzed {
+.rejected {
   background-color: #dc3545;
+}
+
+.pending {
+  background-color: #ffd800;
 }
 
 @media (max-width: 768px) {
