@@ -86,21 +86,206 @@
   <img src="./public/assets/C3.png" alt="db schema" />
 </div>
 
-### Frontend
+### Front-end
 
-To be added: Frontend description.
+**General info**
 
+
+The front-end represets an implementation of the MaT(Maintenance Web Tool) web application, a platform dedicated to maintenance and repair services for motorcycles, bicycles and scooters.
+The primary goal of the front-end is to provide an intuitive and aesthetically pleasing interface for users, showcasing the services offered, facilitating contact, and subsequently, managing user accounts. 
+
+*Technologies Used*:
+ - HTML5: Semantic structure for web pages.
+ - CSS3: Visual styles, responsive layout.
+ - JavaScript: Client-side interactivity, DOM manipulation, API calls.
+
+
+**Project Structure**
+
+The frontend project is organized in a modular fashion, separating files by their functionality on page (homepage, admin, client, login, register) for improved readability and maintainability.
+
+*Naming conventions:*
+ - CSS/JS Files: kebab-case (e.g., login.js, default.css)
+ - CSS Classes: kebab-case (e.g., .hero-section, .service-card)
+ - HTML IDs: camelCase or kebab-case (e.g., #searchByName, #contact-footer)
+ - JavaScript Variables: camelCase (e.g., isLoggedIn, userRole)
+
+Every folder is composed from several files, each serving a part of the functionality of each page that can be found in the web application. Every page is built from several semantic sections, each serving a specific role in presenting information.
+
+The structure can be seen right there:
+```
+/public/
+    /Adminpage/
+        /adminpage.html
+        /adminpage.css
+        /adminpage.js
+    /ContulMeuClient/
+        /ContulMeuClient.html
+        /styles.css
+        /ContulMeuClient.js
+    /HomePage/
+        /homepage.html
+        /homepage.css
+    /Login/
+        /login.html
+        /login.css
+        /login.js
+    /Register/
+        /register.html
+        /register.css
+        /register.js
+    /Supplies/
+        /supplies.html
+        /supplies.css
+        /supplies.js
+    /html-components/
+        /footer.html
+        /navbar.html
+    /stylesheets/
+        /navbar.css
+        /footer.css
+        /default.css
+    /assets/
+        /imgs
+        /videos
+        /auth.js
+        /includes.js
+        /Logo.png
+        /C1.png
+        /C2.png
+        /C3.png
+        /Database Schema.png
+```
+
+**Homepage Structure**
+
+The main page is built from several semantic sections(like the others pages), each serving a specific role in presenting information.
+```
+<body>
+    <!-- NAVBAR SECTION -->
+    <header data-include="../html-components/navbar.html"></header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+    ...
+    </section>
+
+    <main>
+      <!-- FEATURES SECTION -->
+      <section class="benefits">
+        <div class="benefit">
+        ...
+        </div>
+      ...
+      </section>
+
+      <!-- SPECIAL OFFER SECTION -->
+      <section class="special-offer">
+      ...
+      </section>
+
+      <!-- GALLERY SECTION -->
+      <section class="gallery-section">
+      ...
+      </section>
+
+      <!-- FAQ SECTION-->
+      <section class="faq-section">
+        <div class="faq-content">
+          <h2 class="faq-title">FAQ</h2>
+          <div class="faq-item">
+          ...
+          </div>
+        ...
+        </div>
+      </section>
+
+      <!-- FINAL SECTION -->
+      <section class="final">
+      ...
+      </section>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer
+      id="contact-footer"
+      data-include="../html-components/footer.html"
+    ></footer>
+</body>
+```
+
+
+**CSS Styling**
+
+CSS files are organized to maintain a clear separation of concerns:
+- `default.css`
+  - Definition of CSS resets (e.g., `margin: 0; padding: 0; box-sizing: border-box;`).
+  - CSS variables for colors (e.g., `background: #121568; color: #fff;`), fonts, text sizes.
+  - Base styles for `html, body, h1-h3, buttons`.
+  - Definitions for utility classes (e.g., `.button, .button:hover`).
+- for each page are specified styles (e.g., `adminpage.css, login.css, homepage.css`).
+
+
+**JavaScript Logic**
+
+JavaScript files handle interactivity and communication with the backend.
+
+- `includes.js`
+   -  Global Initialization: Code that runs when the page loads (DOMContentLoaded, navbar, footer).
+   -  Event Handling: Event listeners for buttons (e.g., click on "CONTACTAȚI" to scroll to the contact section).
+   -  Verified Authentification: allows user to access only the pages they have roles for.
+   -  General UI Functionality: E.g., implementing a responsive design - showing some buttons on hover for laptops and for mobile they're showed up by default(check the admin page).
+- `ContulMeuClient.js`, `login.js`, `register.js`, `supplies.js`
+   -  Uses the `fetch()` API to make HTTP requests to the server. Handles JSON responses and errors.
+   -  Gallery Functionality: Logic for a lightbox/pop-up, image carousel, or other specific photo gallery interactions.
+   -  API Call Functions (e.g., for login sends credentials to the Node.js backend authentication endpoint (`/api/login`). Expects a JWT token.)
+
+
+**Interaction with the Back-end**
+
+The frontend communicates with the Node.js backend (which in turn interacts with the PostgreSQL database) for the following functionalities:
+- Authentication: The `"Login"` button directs to a page where users can authenticate. Credentials are sent to a Node.js endpoint (e.g., `POST /api/login` and `POST /api/register`), which validates the user against the PostgreSQL database and, upon success, returns a session token (JWT) or an alert is the user doesn't exist.
+- Appointment Form: the data entered by the user is sent to a Node.js endpoint (e.g., `POST /api/appointments`-> see back-end description), which processes it (saves to the database, sends a confirmation).
+- Adding/modifying supplies: The `"Adaugă piesă"` button directs to a pop-up where the admin can add a supply. On the previsualized table of the supplies in the database the admin can update the numbers of the supplies(`POST /api/supplies`).
+- (it is suitable to also check the back-end description - thank you!)
+  
 <!-- Screenshots -->
 
 :camera: **Screenshots**
 
-<div align="center">
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
-</div>
+**Homepage**
+
+![image](https://github.com/user-attachments/assets/b547f808-9157-4e73-969a-ca4487428f66)
+![image](https://github.com/user-attachments/assets/2047744d-3570-4f58-be18-2876febf9343)
+
+**Login**
+
+![image](https://github.com/user-attachments/assets/90a31e4e-d9e9-4355-89d6-e57b9e16338a)
+
+**Register**
+
+![image](https://github.com/user-attachments/assets/3ddcf9d2-fe77-46b0-9cf3-d3e01db28a98)
+
+**My Account - Client**
+
+![image](https://github.com/user-attachments/assets/18ff0cb5-05c3-4357-a69e-3106872b3874)
+![image](https://github.com/user-attachments/assets/d4d000e8-f4e2-4c29-81fd-c57ce5d160ee)
+
+**My Account - Admin**
+
+![image](https://github.com/user-attachments/assets/61234166-7e7c-4704-ba53-153726da0464)
+![image](https://github.com/user-attachments/assets/5ff9a256-9a02-48fa-ad26-4af147e9a394)
+
+**Supplies page**
+
+![image](https://github.com/user-attachments/assets/0eb57fc2-cbbf-41d3-8d6c-1c077a83c657)
+
+
 
 ### Backend
 
 **General info**
+
 
 The backend server is created in Node.js and uses the built in http module to handle communication with clients. It follows the REST arhitectural style, organizing interactions around resources, identified by URLs and uses the standard HTTP verbs to perform operations. In regards to this, the server also provides a stateless API that ensures a clear separation between the server and the client.
 
@@ -578,6 +763,7 @@ General error codes:
   <ul>
     <li><a href="https://html.spec.whatwg.org/multipage/">HTML</a></li>
     <li><a href="https://www.w3.org/Style/CSS/">CSS</a></li>
+    <li><a href="[https://www.w3.org/Style/CSS/](https://developer.mozilla.org/en-US/docs/Web/JavaScript)">JAVASCRIPT</a></li>
   </ul>
 </details>
 
