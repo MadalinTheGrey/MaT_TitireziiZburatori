@@ -68,6 +68,7 @@ function updateNavbarLink() {
 
   logoutLink.addEventListener("click", () => {
     localStorage.removeItem("jwt");
+    window.location.href = "/HomePage/homepage.html";
   });
 }
 
