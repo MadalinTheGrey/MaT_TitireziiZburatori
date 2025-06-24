@@ -80,7 +80,7 @@ async function startApp() {
       }
       const filePath =
         req.url === "/"
-          ? "/public/ContulMeuClient/ContulMeuClient.html"
+          ? "/public/HomePage/homepage.html"
           : `/public${req.url}`;
       const extname = path.extname(filePath);
       const contentType =

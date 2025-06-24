@@ -3,7 +3,7 @@ const supplyModel = require("../models/supplyModel");
 const orderModel = require("../models/orderModel");
 
 const orderSchema = z.object({
-  supply_id: z.number().int().min(1),
+  supply_name: z.string().min(1),
   provider: z.string().min(1),
   description: z.string().nullable().optional(),
 });
@@ -18,13 +18,13 @@ exports.addOrder = async (req, res) => {
   const order = schemaResult.data;
 
   try {
-    const existsSupply = await supplyModel.existsSupply(order.supply_id);
+    const existsSupply = await supplyModel.existsSupply(order.supply_name);
     if (!existsSupply) {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Associated supply not found" }));
       return;
     }
-
+    order.supply_id = await supplyModel.getSupplyId(order.supply_name);
     const orderId = await orderModel.addOrder(order);
     res.writeHead(201, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ id: orderId }));
