@@ -42,6 +42,9 @@
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
+  - [Project Architecture](#project-architecture)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
   - [Screenshots](#camera-screenshots)
   - [Tech Stack](#space_invader-tech-stack)
   - [Features](#dart-features)
