@@ -90,29 +90,30 @@
 
 **General info**
 
-
 The front-end represets an implementation of the MaT(Maintenance Web Tool) web application, a platform dedicated to maintenance and repair services for motorcycles, bicycles and scooters.
-The primary goal of the front-end is to provide an intuitive and aesthetically pleasing interface for users, showcasing the services offered, facilitating contact, and subsequently, managing user accounts. 
+The primary goal of the front-end is to provide an intuitive and aesthetically pleasing interface for users, showcasing the services offered, facilitating contact, and subsequently, managing user accounts.
 
-*Technologies Used*:
- - HTML5: Semantic structure for web pages.
- - CSS3: Visual styles, responsive layout.
- - JavaScript: Client-side interactivity, DOM manipulation, API calls.
+_Technologies Used_:
 
+- HTML5: Semantic structure for web pages.
+- CSS3: Visual styles, responsive layout.
+- JavaScript: Client-side interactivity, DOM manipulation, API calls.
 
 **Project Structure**
 
 The frontend project is organized in a modular fashion, separating files by their functionality on page (homepage, admin, client, login, register) for improved readability and maintainability.
 
-*Naming conventions:*
- - CSS/JS Files: kebab-case (e.g., login.js, default.css)
- - CSS Classes: kebab-case (e.g., .hero-section, .service-card)
- - HTML IDs: camelCase or kebab-case (e.g., #searchByName, #contact-footer)
- - JavaScript Variables: camelCase (e.g., isLoggedIn, userRole)
+_Naming conventions:_
+
+- CSS/JS Files: kebab-case (e.g., login.js, default.css)
+- CSS Classes: kebab-case (e.g., .hero-section, .service-card)
+- HTML IDs: camelCase or kebab-case (e.g., #searchByName, #contact-footer)
+- JavaScript Variables: camelCase (e.g., isLoggedIn, userRole)
 
 Every folder is composed from several files, each serving a part of the functionality of each page that can be found in the web application. Every page is built from several semantic sections, each serving a specific role in presenting information.
 
 The structure can be seen right there:
+
 ```
 /public/
     /Adminpage/
@@ -155,11 +156,13 @@ The structure can be seen right there:
         /C2.png
         /C3.png
         /Database Schema.png
+        /SystemRequirementsSpecification.html
 ```
 
 **Homepage Structure**
 
 The main page is built from several semantic sections(like the others pages), each serving a specific role in presenting information.
+
 ```
 <body>
     <!-- NAVBAR SECTION -->
@@ -214,10 +217,10 @@ The main page is built from several semantic sections(like the others pages), ea
 </body>
 ```
 
-
 **CSS Styling**
 
 CSS files are organized to maintain a clear separation of concerns:
+
 - `default.css`
   - Definition of CSS resets (e.g., `margin: 0; padding: 0; box-sizing: border-box;`).
   - CSS variables for colors (e.g., `background: #121568; color: #fff;`), fonts, text sizes.
@@ -225,30 +228,29 @@ CSS files are organized to maintain a clear separation of concerns:
   - Definitions for utility classes (e.g., `.button, .button:hover`).
 - for each page are specified styles (e.g., `adminpage.css, login.css, homepage.css`).
 
-
 **JavaScript Logic**
 
 JavaScript files handle interactivity and communication with the backend.
 
 - `includes.js`
-   -  Global Initialization: Code that runs when the page loads (DOMContentLoaded, navbar, footer).
-   -  Event Handling: Event listeners for buttons (e.g., click on "CONTACTAȚI" to scroll to the contact section).
-   -  Verified Authentification: allows user to access only the pages they have roles for.
-   -  General UI Functionality: E.g., implementing a responsive design - showing some buttons on hover for laptops and for mobile they're showed up by default(check the admin page).
+  - Global Initialization: Code that runs when the page loads (DOMContentLoaded, navbar, footer).
+  - Event Handling: Event listeners for buttons (e.g., click on "CONTACTAȚI" to scroll to the contact section).
+  - Verified Authentification: allows user to access only the pages they have roles for.
+  - General UI Functionality: E.g., implementing a responsive design - showing some buttons on hover for laptops and for mobile they're showed up by default(check the admin page).
 - `ContulMeuClient.js`, `login.js`, `register.js`, `supplies.js`
-   -  Uses the `fetch()` API to make HTTP requests to the server. Handles JSON responses and errors.
-   -  Gallery Functionality: Logic for a lightbox/pop-up, image carousel, or other specific photo gallery interactions.
-   -  API Call Functions (e.g., for login sends credentials to the Node.js backend authentication endpoint (`/api/login`). Expects a JWT token.)
-
+  - Uses the `fetch()` API to make HTTP requests to the server. Handles JSON responses and errors.
+  - Gallery Functionality: Logic for a lightbox/pop-up, image carousel, or other specific photo gallery interactions.
+  - API Call Functions (e.g., for login sends credentials to the Node.js backend authentication endpoint (`/api/login`). Expects a JWT token.)
 
 **Interaction with the Back-end**
 
 The frontend communicates with the Node.js backend (which in turn interacts with the PostgreSQL database) for the following functionalities:
+
 - Authentication: The `"Login"` button directs to a page where users can authenticate. Credentials are sent to a Node.js endpoint (e.g., `POST /api/login` and `POST /api/register`), which validates the user against the PostgreSQL database and, upon success, returns a session token (JWT) or an alert is the user doesn't exist.
 - Appointment Form: the data entered by the user is sent to a Node.js endpoint (e.g., `POST /api/appointments`-> see back-end description), which processes it (saves to the database, sends a confirmation).
 - Adding/modifying supplies: The `"Adaugă piesă"` button directs to a pop-up where the admin can add a supply. On the previsualized table of the supplies in the database the admin can update the numbers of the supplies(`POST /api/supplies`).
 - (it is suitable to also check the back-end description - thank you!)
-  
+
 <!-- Screenshots -->
 
 :camera: **Screenshots**
@@ -280,12 +282,9 @@ The frontend communicates with the Node.js backend (which in turn interacts with
 
 ![image](https://github.com/user-attachments/assets/0eb57fc2-cbbf-41d3-8d6c-1c077a83c657)
 
-
-
 ### Backend
 
 **General info**
-
 
 The backend server is created in Node.js and uses the built in http module to handle communication with clients. It follows the REST arhitectural style, organizing interactions around resources, identified by URLs and uses the standard HTTP verbs to perform operations. In regards to this, the server also provides a stateless API that ensures a clear separation between the server and the client.
 
@@ -786,7 +785,7 @@ General error codes:
 
 ### :dart: Features
 
-The user is required to make an account before using the features mentioned here.
+The user is required to make an account before using the features mentioned here, which is done using the login and register pages.
 
 - The client can fill out a form with desired date and hour for his appointment. The form will also include details about the problem. The client can attach images/videos if he thinks it is necessary.
 - The client can view his appointments and their status in his account page
@@ -845,17 +844,24 @@ Complete installation steps and run index.js in any preferred IDE (VS Code recom
 
 ### :triangular_flag_on_post: Deployment
 
+The project is deployed on [render](https://dashboard.render.com/).
+
 <!-- Usage -->
 
 ## :eyes: Usage
 
-Online system for managing appointments for a bicycles, motorcycles & scooters service.
+Once a user accesses the website they are met with the homepage. From there they can choose to access the login page where they can enter their account. If they don't have an account the register page can be accessed through the button on the lower side of the login page. The info required of a user is a username, an email and a password.
+
+After entering their account a user can do different things depending on who they are:
+
+- If they are a client they can fill in an appointment to the service to ask for a repair and their appointment will show up in a list at the bottom of their account page if it was added successfully. This appointment will update its status after an admin reviews it so keep an eye out.
+- If they are an admin they can review submitted appointments and approve or reject them, manage orders towards different providers as well as manage the supplies they currently have in stock on the supplies page. Supplies can be imported from a csv or json file and also exported as a json if the user wishes so.
 
 <!-- Roadmap -->
 
 ## :compass: Roadmap
 
-- [ ] Write a comprehensive readme detailing the project (in progress)
+- [x] Write a comprehensive readme detailing the project
 - [x] Define project architecture (C4 diagrams)
 - [x] Decide on a design for the website
 - [x] Implement design using HTML & CSS
@@ -869,7 +875,7 @@ Online system for managing appointments for a bicycles, motorcycles & scooters s
 - [x] Supplies endpoints
 - [x] Orders endpoints
 - [x] Admin grant role endpoint
-- [ ] Integrate backend & frontend functionalities (in progress)
+- [x] Integrate backend & frontend functionalities
 
 <!-- FAQ -->
 
