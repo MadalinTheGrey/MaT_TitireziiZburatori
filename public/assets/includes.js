@@ -77,7 +77,7 @@ function verifyAuth() {
       window.location.pathname === "/Supplies/supplies.html")
   ) {
     window.location.pathname = "/Login/login.html";
-  } else {
+  } else if (token) {
     const decoded = jwt_decode(token);
     if (
       !decoded.roles.includes("admin") &&

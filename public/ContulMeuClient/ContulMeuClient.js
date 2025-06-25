@@ -36,6 +36,11 @@ form.addEventListener("submit", async (eventObject) => {
 
     if (!response.ok) {
       console.error(data.error || "error adding appointment");
+      if (response.status === 409) {
+        alert(
+          "Data si ora aleasa se suprapune cu alte programari. Va rugam sa modificati"
+        );
+      }
       return;
     }
 

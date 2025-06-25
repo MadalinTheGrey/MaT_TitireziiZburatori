@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scholarly HTML - MaT Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholarly/dist/scholarly.min.css">
+</head>
+<body typeof="schema:ScholarlyArticle" class="h-entry">
+  <header>
+    <h1 class="p-name">System Requirements Specification: Maintenance Web Tool (MaT)</h1>
+    <p class="p-author h-card">Author: Focsa Ionut-Madalin & Dutescu Daniela</p>
+    <p class="dt-published">Published: 2025-06-25</p>
+  </header>
+
+  <article class="e-content">
+    <h1>System Requirements Specification for Maintenance Web Tool (MaT)</h1>
+
+<h2>1. Introduction</h2>
+
+<h3>1.1 Purpose</h3>
+
+<p>The purpose of this document is to specify the software requirements for the Maintenance Web Tool (MaT), a full-stack web application for managing maintenance and repair services for motorcycles, bicycles, and scooters. The application provides functionality for both clients and administrators, including user authentication, appointment handling, supply and order management.</p>
+
+<h3>1.2 Scope</h3>
+
+<p>MaT is a web-based platform built with HTML, CSS, JavaScript (frontend), Node.js (backend), and PostgreSQL (database). It enables clients to make appointments and track their service history, while administrators can manage supplies, approve requests, and handle orders. It is structured following the REST architectural style.</p>
+
+<h3>1.3 Definitions, Acronyms, and Abbreviations</h3>
+
+<ul>
+<li>JWT: JSON Web Token</li>
+<li>REST: Representational State Transfer</li>
+<li>API: Application Programming Interface</li>
+<li>UI: User Interface</li>
+</ul>
+
+<h3>1.4 References</h3>
+
+<ul>
+<li>IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications</li>
+<li>Scholarly HTML: https://w3c.github.io/scholarly-html/</li>
+</ul>
+
+<h2>2. Overall Description</h2>
+
+<h3>2.1 Product Perspective</h3>
+
+<p>MaT is a standalone product consisting of a front-end client communicating with a back-end server over HTTP. It is modular in design, enabling role-based access control for different types of users.</p>
+
+<h3>2.2 Product Functions</h3>
+
+<ul>
+<li>User registration and authentication via JWT</li>
+<li>Client-side dashboard for managing appointments and service records</li>
+<li>Admin-side interface for reviewing appointments and managing inventory</li>
+<li>RESTful API endpoints for CRUD operations on appointments, supplies, and orders</li>
+</ul>
+
+<h3>2.3 User Classes and Characteristics</h3>
+
+<ul>
+<li><strong>Client</strong>: Can register, login, make appointments, and view personal account data</li>
+<li><strong>Admin</strong>: Has all client capabilities plus the ability to manage supplies, orders, and user roles</li>
+</ul>
+
+<h3>2.4 Operating Environment</h3>
+
+<ul>
+<li>Front-end: Modern web browsers (Chrome, Firefox, Edge)</li>
+<li>Back-end: Node.js runtime on a server, PostgreSQL as the database engine</li>
+</ul>
+
+<h3>2.5 Design and Implementation Constraints</h3>
+
+<ul>
+<li>Backend uses only the built-in <code>http</code> module in Node.js (no Express)</li>
+<li>Data must be persisted in a PostgreSQL database</li>
+<li>JSON must be used for API communication</li>
+</ul>
+
+<h3>2.6 Assumptions and Dependencies</h3>
+
+<ul>
+<li>Node.js and PostgreSQL are installed and correctly configured</li>
+<li>Environment variables are used for configuration (e.g., JWT_SECRET)</li>
+</ul>
+
+<h2>3. Specific Requirements</h2>
+
+<h3>3.1 Functional Requirements</h3>
+
+<ul>
+<li><strong>FR1</strong>: Users shall be able to register and login securely</li>
+<li><strong>FR2</strong>: Clients shall be able to create and view their appointments</li>
+<li><strong>FR3</strong>: Admins shall be able to approve, reject, or review appointments</li>
+<li><strong>FR4</strong>: Admins shall be able to manage supplies and create orders</li>
+<li><strong>FR5</strong>: JWT shall be used for securing routes</li>
+</ul>
+
+<h3>3.2 Non-Functional Requirements</h3>
+
+<ul>
+<li><strong>NFR1</strong>: The system shall respond to client requests within 2 seconds</li>
+<li><strong>NFR2</strong>: The frontend shall be mobile responsive</li>
+<li><strong>NFR3</strong>: The backend shall validate all user inputs and return appropriate status codes</li>
+</ul>
+
+<h3>About the Project</h3>
+
+<p>For more info please refer to the github <a href = https://github.com/MadalinTheGrey/MaT_TitireziiZburatori/blob/main/README.md>readme </a></p>
+
+  </article>
+
+  <footer>
+    <p>Created using Scholarly HTML format. IEEE SRS template inspired.</p>
+  </footer>
+</body>
+</html>
